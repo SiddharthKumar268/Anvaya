@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Anvaya Dashboard - Track your financial recovery journey. View claims, documents, and benefits progress.">
+  <title>Dashboard - Anvaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <!-- Background illustration overlay -->
+  <div class="bg-illustrations" aria-hidden="true">
+    <!-- Mountain silhouette bottom -->
+    <svg class="bg-mountains" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#B5C9C0" fill-opacity="0.2" d="M0,160L48,170.7C96,181,192,203,288,213.3C384,224,480,224,576,218.7C672,213,768,203,864,197.3C960,192,1056,192,1152,208C1248,224,1344,256,1392,272L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+    <!-- Birds top right -->
+    <svg class="bg-birds" viewBox="0 0 100 100">
+      <path fill="#78A9B4" fill-opacity="0.2" d="M10,50 Q20,40 30,50 Q40,40 50,50 Q40,45 30,55 Q20,45 10,50 Z M60,30 Q65,25 70,30 Q75,25 80,30 Q75,27 70,32 Q65,27 60,30 Z"></path>
+    </svg>
+    <!-- Tree bottom left -->
+    <svg class="bg-tree" viewBox="0 0 100 150">
+      <path fill="#9EB89A" fill-opacity="0.15" d="M45,150 L55,150 L55,100 Q70,95 80,80 Q65,75 55,85 L55,70 Q65,65 75,50 Q60,50 50,60 L50,40 Q60,35 65,20 Q45,30 50,45 L45,45 Q50,30 30,20 Q35,35 45,40 L45,60 Q35,50 20,50 Q30,65 40,70 L40,85 Q30,75 15,80 Q25,95 40,100 L45,100 Z"></path>
+    </svg>
+    <!-- Family silhouette mid right -->
+    <svg class="bg-family" viewBox="0 0 200 150">
+      <path fill="#8BAFA8" fill-opacity="0.15" d="M40,50 A10,10 0 1,1 40,30 A10,10 0 1,1 40,50 M30,150 L35,90 L20,60 L50,60 L55,90 L60,150 L50,150 L47,110 L43,110 L40,150 Z M120,40 A12,12 0 1,1 120,16 A12,12 0 1,1 120,40 M110,150 L115,85 L100,55 L135,55 L125,85 L130,150 L120,150 L117,100 L113,100 L110,150 M80,70 A8,8 0 1,1 80,54 A8,8 0 1,1 80,70 M75,150 L77,105 L65,85 L90,85 L85,105 L87,150 L82,150 L81,115 L79,115 L78,150 Z"></path>
+    </svg>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar injected by shared.js -->
+    <aside id="sidebar" class="sidebar"></aside>
+    
+    <!-- Header injected by shared.js -->
+    <header id="top-header" class="top-header"></header>
+    
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      
+      <!-- Section 1: Progress Summary Header -->
+<section class="progress-header" aria-labelledby="progress-summary-title">
+  <div class="header-titles">
+    <div class="section-title-row fade-in">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <div>
+        <h2 id="progress-summary-title">Progress Summary</h2>
+        <p class="subtitle">Your recovery journey at a glance</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header-right-group fade-in" style="animation-delay: 0.1s">
+    <!-- Family illustration -->
+    <div class="family-illustration" aria-hidden="true">
+      <svg viewBox="0 0 200 120" width="160" height="96">
+        <!-- Tree -->
+        <path d="M30,120 L30,80 Q15,75 10,60 Q25,55 30,65 L30,50 Q18,45 15,30 Q30,35 35,45 L35,30 Q25,20 30,10 Q40,20 38,30 L38,45 Q45,35 55,30 Q50,45 40,50 L40,65 Q50,55 60,60 Q50,75 40,80 L40,120" fill="#9EB89A" fill-opacity="0.6"/>
+        <!-- Parent 1 -->
+        <circle cx="90" cy="45" r="8" fill="#8BAFA8" fill-opacity="0.7"/>
+        <path d="M82,120 L85,70 L78,58 L102,58 L95,70 L98,120" fill="#8BAFA8" fill-opacity="0.5"/>
+        <!-- Parent 2 -->
+        <circle cx="130" cy="48" r="7" fill="#78A9B4" fill-opacity="0.7"/>
+        <path d="M123,120 L125,72 L120,62 L140,62 L135,72 L137,120" fill="#78A9B4" fill-opacity="0.5"/>
+        <!-- Child 1 -->
+        <circle cx="110" cy="58" r="5" fill="#B5C9C0" fill-opacity="0.7"/>
+        <path d="M105,120 L106,80 L103,70 L117,70 L114,80 L115,120" fill="#B5C9C0" fill-opacity="0.5"/>
+        <!-- Child 2 -->
+        <circle cx="155" cy="60" r="4" fill="#9EB89A" fill-opacity="0.6"/>
+        <path d="M151,120 L152,82 L150,74 L160,74 L158,82 L159,120" fill="#9EB89A" fill-opacity="0.5"/>
+        <!-- Ground line -->
+        <path d="M0,120 Q50,115 100,118 Q150,115 200,120" stroke="#B5C9C0" stroke-opacity="0.4" fill="none" stroke-width="1"/>
+      </svg>
+    </div>
+    
+    <div class="estimated-card">
+      <div class="estimated-content">
+        <div class="label">Estimated Receivable Amount</div>
+        <div class="amount" id="estimated-amount-val">₹ 0</div>
+        <a href="assets.html" class="link">Across all assets &gt;</a>
+      </div>
+      <div class="estimated-illustration" aria-hidden="true">
+        <svg viewBox="0 0 80 80" width="64" height="64">
+          <circle cx="40" cy="40" r="35" fill="#E7BE62" fill-opacity="0.2"/>
+          <circle cx="30" cy="35" r="14" fill="#D5A546" fill-opacity="0.3" stroke="#D5A546" stroke-opacity="0.5" stroke-width="1"/>
+          <text x="30" y="40" text-anchor="middle" fill="#0B2854" font-size="14" font-weight="700" font-family="var(--font-primary)">₹</text>
+          <circle cx="50" cy="45" r="14" fill="#D5A546" fill-opacity="0.25" stroke="#D5A546" stroke-opacity="0.4" stroke-width="1"/>
+          <text x="50" y="50" text-anchor="middle" fill="#0B2854" font-size="14" font-weight="700" font-family="var(--font-primary)">₹</text>
+          <rect x="35" y="55" width="20" height="14" rx="3" fill="#638C51" fill-opacity="0.3"/>
+          <path d="M40,60 L45,58 L50,60 L50,66 L45,64 L40,66 Z" fill="#638C51" fill-opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- Section 2: Four Stat Cards Row -->
+<section class="stats-grid" aria-label="Quick statistics">
+  
+  <!-- Card 1: Claims Filed vs Pending -->
+  <div class="card stat-card fade-in" style="animation-delay: 0.05s">
+    <div class="card-title">Claims Filed vs Pending</div>
+    <div class="card-body">
+      <div class="ring-container" id="claims-ring-container"></div>
+      <div class="stat-details">
+        <div class="stat-item">
+          <span class="stat-value" id="claims-filed-val">0</span>
+          <span class="stat-label">Filed</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="claims-pending-val">0</span>
+          <span class="stat-label">Pending</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer" id="claims-total-val">Total: 0 Claims</div>
+  </div>
+
+  <!-- Card 2: Documents Collected -->
+  <div class="card stat-card fade-in" style="animation-delay: 0.1s">
+    <div class="card-title">Documents Collected</div>
+    <div class="card-body">
+      <div class="ring-container" id="docs-ring-container"></div>
+      <div class="stat-details">
+        <div class="stat-item">
+          <span class="stat-value" id="docs-collected-val">0</span>
+          <span class="stat-label">Collected</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="docs-remaining-val">0</span>
+          <span class="stat-label">Remaining</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer" id="docs-total-val">Total: 0 Documents</div>
+  </div>
+
+  <!-- Card 3: Amount Received -->
+  <div class="card stat-card amount-card fade-in" style="animation-delay: 0.15s">
+    <div class="card-title">Amount Received</div>
+    <div class="card-body">
+      <div class="rupee-circle">
+        <span class="rupee-symbol">₹</span>
+      </div>
+      <div class="stat-details">
+        <div class="amount-value" id="amount-received-val">₹ 0</div>
+        <div class="amount-sub">Received so far</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M18 20V10M12 20V4M6 20v-4"/></svg>
+      <span id="amount-percent-val">0% of total estimated</span>
+    </div>
+  </div>
+
+  <!-- Card 4: Next Urgent Action -->
+  <div class="card stat-card action-card fade-in" style="animation-delay: 0.2s">
+    <div class="card-title">Next Urgent Action</div>
+    <div class="card-body action-body">
+      <div class="action-row">
+        <div class="action-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </div>
+        <div>
+          <div class="action-title" id="action-title-val">Action Needed</div>
+          <div class="action-due" id="action-due-val">Due soon</div>
+        </div>
+      </div>
+      <button class="btn btn-primary action-btn">View Action &rarr;</button>
+    </div>
+  </div>
+
+</section>
+
+      <!-- Section 3: Claim Tracker -->
+      <section class="claim-tracker fade-in" style="animation-delay: 0.25s">
+        <div class="section-header tracker-header">
+          <h2 class="tracker-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+            Claim Tracker
+          </h2>
+          <a href="claims.html" class="section-link">View All Claims &rarr;</a>
+        </div>
+
+        <div class="tracker-grid">
+          
+          <!-- Column 1 -->
+          <div class="tracker-column pending">
+            <div class="column-header">
+              <svg class="col-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+              <span class="col-title">Pending</span>
+              <span class="col-count" id="count-pending">(0)</span>
+              <svg class="col-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+            </div>
+            <div id="col-pending-cards"></div>
+            <div class="add-claim-link">+ Add Claim</div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="tracker-column in-progress">
+            <div class="column-header">
+              <svg class="col-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span class="col-title">In Progress</span>
+              <span class="col-count" id="count-inprogress">(0)</span>
+              <svg class="col-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+            </div>
+            <div id="col-inprogress-cards"></div>
+            <div class="add-claim-link">+ Add Claim</div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="tracker-column done">
+            <div class="column-header">
+              <svg class="col-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span class="col-title">Done</span>
+              <span class="col-count" id="count-done">(0)</span>
+              <svg class="col-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+            </div>
+            <div id="col-done-cards"></div>
+            <div class="add-claim-link">+ Add Claim</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section 4: Trust Strip -->
+      <section class="trust-strip fade-in" style="animation-delay: 0.3s">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h4>Secure & Private</h4>
+          <p>Your data is safe and encrypted</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h4>Trusted Guidance</h4>
+          <p>Step-by-step help from experts</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <h4>Financial Clarity</h4>
+          <p>Know what you are entitled to receive</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4a3 3 0 0 1 6 0v4"></path></svg>
+          </div>
+          <h4>Built for India</h4>
+          <p>Designed for every Indian family</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  
+  <script src="../js/shared.js"></script>
+  <script src="../js/api/caseApi.js"></script>
+  <script src="../js/ui/dashboard.js"></script>
+</body>
+</html>

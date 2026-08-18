@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Check RBI's UDGAM portal for unclaimed deposits belonging to the deceased.">
+  <title>UDGAM Unclaimed Deposit Checker - Anvaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/udgam.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar"></aside>
+    <header id="top-header" class="top-header"></header>
+    <main class="main-content">
+      
+      <div class="page-header fade-in delay-1">
+        <h1>UDGAM Unclaimed Deposit Checker <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></h1>
+        <p>Find unclaimed bank deposits via RBI's UDGAM initiative</p>
+      </div>
+
+      <div class="udgam-grid">
+        <!-- Search Section (Left Column) -->
+        <div class="search-column fade-in delay-2">
+          
+          <div class="glass-card search-card">
+            <h2>Search Unclaimed Deposits</h2>
+            <form id="udgam-search-form" class="udgam-form">
+              <div class="form-group">
+                <label for="account-name" class="form-label">Full Name of Account Holder (deceased)</label>
+                <input type="text" id="account-name" class="form-input" placeholder="e.g. Ramesh Kumar" required>
+              </div>
+
+              <div class="form-group">
+                <label for="bank-select" class="form-label">Select Bank</label>
+                <select id="bank-select" class="form-input" required>
+                  <option value="" disabled selected>Select a bank</option>
+                  <option value="sbi">State Bank of India (SBI)</option>
+                  <option value="pnb">Punjab National Bank (PNB)</option>
+                  <option value="bob">Bank of Baroda (BOB)</option>
+                  <option value="hdfc">HDFC Bank</option>
+                  <option value="icici">ICICI Bank</option>
+                  <option value="canara">Canara Bank</option>
+                  <option value="union">Union Bank of India</option>
+                  <option value="boi">Bank of India (BOI)</option>
+                  <option value="indian">Indian Bank</option>
+                  <option value="central">Central Bank of India</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="account-number" class="form-label">Account Number (last 4 digits)</label>
+                  <input type="text" id="account-number" class="form-input" placeholder="e.g. 4521" maxlength="4">
+                </div>
+                
+                <div class="form-group">
+                  <label for="pan-number" class="form-label">PAN (Optional)</label>
+                  <input type="text" id="pan-number" class="form-input" placeholder="e.g. ABCDE1234F">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100" id="search-btn">
+                <span>Search Deposits</span>
+                <span class="spinner" id="search-spinner" style="display: none;"></span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Results Section (Hidden initially) -->
+          <div id="results-section" class="results-section hidden">
+            <div class="results-header">
+              <h3>Search Results</h3>
+              <span class="badge badge-success" id="results-count">3 Deposits Found</span>
+            </div>
+            
+            <div class="results-list" id="results-list">
+              <!-- Results populated by JS -->
+            </div>
+          </div>
+          
+        </div>
+
+        <!-- Info Section (Right Column) -->
+        <div class="info-column fade-in delay-3">
+          
+          <div class="glass-card info-card">
+            <div class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg></div>
+            <h3>What is UDGAM?</h3>
+            <ul class="info-list">
+              <li><strong>UDGAM</strong> = Unclaimed Deposits – Gateway to Access inforMation.</li>
+              <li>An RBI initiative launched in 2023 to help public search unclaimed deposits.</li>
+              <li>Allows searching across multiple banks in one place.</li>
+              <li>Funds from accounts inactive for 10+ years are transferred to RBI's DEAF (Depositor Education and Awareness Fund).</li>
+              <li>These deposits can still be claimed by rightful owners or legal heirs/nominees.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card guide-card">
+            <h3>How to Claim</h3>
+            <div class="steps-timeline">
+              <div class="step">
+                <div class="step-marker">1</div>
+                <div class="step-content">
+                  <h4>Locate Deposit</h4>
+                  <p>Search on UDGAM portal or bank website.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-marker">2</div>
+                <div class="step-content">
+                  <h4>Submit Claim</h4>
+                  <p>Submit claim forms with death certificate & succession proof.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-marker">3</div>
+                <div class="step-content">
+                  <h4>Verification</h4>
+                  <p>Bank verifies documents and releases funds to nominee/heir.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card link-card">
+            <div class="link-content">
+              <h3>Official Portal</h3>
+              <p>For complete access, visit the official RBI portal.</p>
+            </div>
+            <a href="https://udgam.rbi.org.in" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Visit UDGAM ↗</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section fade-in delay-4">
+        <h2>Tips & FAQ</h2>
+        <div class="accordion" id="faq-accordion">
+          
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              What if I don't know the account number?
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>You can search using just the PAN number, Voter ID, Driving License, or Date of Birth of the account holder along with their name and bank selection.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              How long does the claim process take?
+              <button class="accordion-icon">+</button>
+            </button>
+            <div class="accordion-content">
+              <p>Once all required documents (claim form, death certificate, KYC, legal representation if applicable) are submitted, banks generally process the claim within 15 to 30 days.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              Is there a time limit to claim DEAF funds?
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>No, there is no time limit. Rightful claimants can claim their deposits from the respective banks at any time, even after the funds have been transferred to RBI's DEAF.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              What documents do I need?
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Typically, you will need the deceased's Death Certificate, the claimant's KYC documents, a filled claim form, and proof of succession (like a Will, Succession Certificate, or Family Tree) if you are not a registered nominee.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              Can I claim deposits from multiple banks at once?
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>While you can search for deposits across multiple banks on the UDGAM portal, the actual claim process must be initiated separately with each respective bank branch.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+  
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="../js/shared.js"></script>
+  <script src="../js/api/anvayaApi.js"></script>
+  <script src="../js/ui/udgam.js"></script>
+</body>
+</html>

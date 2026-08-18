@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Tracker - Anvaya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/claims.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside id="sidebar" class="sidebar"></aside>
+        <header id="top-header" class="top-header"></header>
+        <main class="main-content">
+            <div class="claims-header">
+                <div class="header-title">
+                    <div class="title-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></div>
+                    <div>
+                        <h1>Claim Tracker</h1>
+                        <p>Track and manage all your financial claims</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="header-stats" id="header-stats">
+                        <div class="mini-stat pending">Pending: 0 Pending</div>
+                        <div class="mini-stat progress">In Progress: 0 In Progress</div>
+                        <div class="mini-stat done">Completed: 0 Completed</div>
+                    </div>
+                    <button class="btn btn-primary" id="btn-generate-claims">Generate Claims</button>
+                </div>
+            </div>
+
+            <div class="controls-bar">
+                <div class="view-toggle" id="view-toggle">
+                    <button class="toggle-btn active" data-view="board">Board View</button>
+                    <button class="toggle-btn" data-view="list">List View</button>
+                </div>
+                <div class="claim-filters" id="claim-filters">
+                    <button class="claim-filter active" data-filter="all">All Types</button>
+                    <button class="claim-filter" data-filter="bank">Bank</button>
+                    <button class="claim-filter" data-filter="insurance">Insurance</button>
+                    <button class="claim-filter" data-filter="epf">EPF</button>
+                    <button class="claim-filter" data-filter="property">Property</button>
+                    <button class="claim-filter" data-filter="postoffice">Post Office</button>
+                </div>
+                <div class="claim-sort">
+                    <select id="sort-dropdown" class="sort-select">
+                        <option value="deadline">Sort by: Deadline</option>
+                        <option value="priority">Sort by: Priority</option>
+                        <option value="type">Sort by: Type</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="board-view" id="board-view">
+                <div class="board-column pending" id="col-pending">
+                    <div class="col-header">
+                        <div class="col-icon">⏳</div>
+                        <h3>Pending</h3>
+                        <span class="count-badge">0</span>
+                    </div>
+                    <div class="column-content"></div>
+                    <a href="javascript:void(0)" class="add-claim" onclick="if(typeof showToast==='function'){showToast('Add Claim feature coming soon','info')}else{alert('Add Claim feature coming soon')}">+ Add Claim</a>
+                </div>
+
+                <div class="board-column in-progress" id="col-in-progress">
+                    <div class="col-header">
+                        <div class="col-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
+                        <h3>In Progress</h3>
+                        <span class="count-badge">0</span>
+                    </div>
+                    <div class="column-content"></div>
+                </div>
+
+                <div class="board-column done" id="col-done">
+                    <div class="col-header">
+                        <div class="col-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                        <h3>Done</h3>
+                        <span class="count-badge">0</span>
+                    </div>
+                    <div class="column-content"></div>
+                </div>
+            </div>
+
+            <div class="list-view" id="list-view">
+                <table class="claims-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Claim Name</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Deadline / Date</th>
+                            <th>Priority</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-table-body">
+                        <!-- Rows populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+    <script src="../js/shared.js"></script>
+    <script src="../js/api/caseApi.js"></script>
+    <script src="../js/ui/claims.js"></script>
+</body>
+</html>

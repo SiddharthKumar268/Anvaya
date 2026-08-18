@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Legal succession guide when nomination is missing">
+  <title>No Nomination Path - Anvaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/nomination.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar"></aside>
+    <header id="top-header" class="top-header"></header>
+    <main class="main-content">
+      <div class="page-header fade-in delay-1">
+        <h1 class="page-title">No Nomination? Here's Your Path</h1>
+        <p class="page-subtitle">Legal succession guide when nomination is missing</p>
+      </div>
+
+      <section class="decision-helper-card glass-panel fade-in delay-2">
+        <div class="card-header">
+          <h2>Which path is right for you?</h2>
+          <button id="help-choose-btn" class="btn btn-primary">Help me choose</button>
+        </div>
+        <div class="options-container">
+          <div class="option-card" id="path-legal-heir">
+            <h3>Legal Heir Certificate</h3>
+            <p>For movable assets &lt; ₹1 lakh, issued by Tehsildar/SDM</p>
+          </div>
+          <div class="option-card" id="path-succession">
+            <h3>Succession Certificate</h3>
+            <p>For all assets, issued by Civil Court</p>
+          </div>
+        </div>
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Legal Heir Certificate</th>
+                <th>Succession Certificate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Authority</td>
+                <td>Tehsildar / SDM</td>
+                <td>Civil Court</td>
+              </tr>
+              <tr>
+                <td>Scope</td>
+                <td>Movable assets &lt; ₹1 Lakh</td>
+                <td>All movable & immovable assets</td>
+              </tr>
+              <tr>
+                <td>Time</td>
+                <td>15 - 30 days</td>
+                <td>3 - 6 months</td>
+              </tr>
+              <tr>
+                <td>Cost</td>
+                <td>Low (₹100 - ₹500)</td>
+                <td>High (Percentage of asset value)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="wizard-section fade-in delay-3">
+        <h2>Step-by-Step Wizard</h2>
+        <div class="timeline">
+          
+          <div class="step-card active" id="step-1">
+            <div class="step-header" onclick="toggleStep(1)">
+              <div class="step-indicator">1</div>
+              <h3>Identify Assets Without Nomination</h3>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="step-content">
+              <p>Identify all assets that don't have a registered nominee. Create a detailed list including account numbers, branch details, and approximate values.</p>
+              <ul class="checklist">
+                <li><label><input type="checkbox"> Bank Accounts</label></li>
+                <li><label><input type="checkbox"> Mutual Funds / Demat Accounts</label></li>
+                <li><label><input type="checkbox"> Insurance Policies</label></li>
+                <li><label><input type="checkbox"> Real Estate Property</label></li>
+              </ul>
+              <button class="btn btn-primary mt-2" onclick="completeStep(1)">Mark as Complete</button>
+            </div>
+          </div>
+
+          <div class="step-card" id="step-2">
+            <div class="step-header" onclick="toggleStep(2)">
+              <div class="step-indicator">2</div>
+              <h3>Obtain Legal Heir Certificate / Succession Certificate</h3>
+              <span class="toggle-icon">▶</span>
+            </div>
+            <div class="step-content" style="display: none;">
+              <p>Apply for a Legal Heir Certificate or Succession Certificate depending on your assets.</p>
+              <div class="info-grid" style="margin: 16px 0; display: grid; gap: 8px;">
+                <div><strong>Where to apply:</strong> Tehsildar Office or Civil Court</div>
+                <div><strong>Timeline:</strong> 1 - 6 months</div>
+                <div><strong>Fees:</strong> Varies depending on certificate type</div>
+              </div>
+              <button class="btn btn-primary mt-2" onclick="completeStep(2)">Mark as Complete</button>
+            </div>
+          </div>
+
+          <div class="step-card" id="step-3">
+            <div class="step-header" onclick="toggleStep(3)">
+              <div class="step-indicator">3</div>
+              <h3>Submit to Institutions</h3>
+              <span class="toggle-icon">▶</span>
+            </div>
+            <div class="step-content" style="display: none;">
+              <p>Submit the certified copies of the certificate along with claim forms to the respective institutions.</p>
+              <div class="info-grid" style="margin: 16px 0; display: grid; gap: 8px;">
+                <div><strong>Where to submit:</strong> Respective banks or asset management companies</div>
+                <div><strong>Expected timeline:</strong> 15 - 45 days post submission</div>
+              </div>
+              <button class="btn btn-secondary mt-2">Download Template Letter</button>
+              <button class="btn btn-primary mt-2" onclick="completeStep(3)">Mark as Complete</button>
+            </div>
+          </div>
+
+          <div class="step-card" id="step-4">
+            <div class="step-header" onclick="toggleStep(4)">
+              <div class="step-indicator">4</div>
+              <h3>Complete Transfer</h3>
+              <span class="toggle-icon">▶</span>
+            </div>
+            <div class="step-content" style="display: none;">
+              <p>Follow up with institutions. Once verified, the assets will be transferred to the legal heirs according to the certificate.</p>
+              <button class="btn btn-primary mt-2" onclick="completeStep(4)">Finish</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="checklist-section glass-panel fade-in delay-4">
+        <h2 onclick="toggleChecklist()" style="cursor: pointer; display: flex; justify-content: space-between;">
+          Required Documents Checklist <span id="checklist-icon">▼</span>
+        </h2>
+        <div id="documents-checklist" class="documents-checklist">
+          <ul>
+            <li><label><input type="checkbox"> Death Certificate (original + copies)</label></li>
+            <li><label><input type="checkbox"> Ration Card / Family ID</label></li>
+            <li><label><input type="checkbox"> Aadhaar of all legal heirs</label></li>
+            <li><label><input type="checkbox"> Affidavit of legal heirship</label></li>
+            <li><label><input type="checkbox"> Indemnity bond</label></li>
+            <li><label><input type="checkbox"> NOC from other heirs</label></li>
+            <li><label><input type="checkbox"> Court fee stamps</label></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="info-cards grid-3 fade-in delay-5">
+        <div class="info-card glass-panel">
+          <h3>⏱️ Typical Timeline</h3>
+          <p>2-6 months</p>
+        </div>
+        <div class="info-card glass-panel">
+          <h3>Approximate Cost</h3>
+          <p>₹2,000 - ₹15,000</p>
+        </div>
+        <div class="info-card glass-panel alert-card">
+          <h3>Common Pitfalls to Avoid</h3>
+          <ul>
+            <li>Missing NOCs</li>
+            <li>Name mismatches</li>
+            <li>Undervalued assets</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="help-cta glass-panel fade-in delay-5 mt-4">
+        <div class="cta-content">
+          <h2>Need legal assistance?</h2>
+          <p>Get connected with verified legal experts to simplify your succession process.</p>
+        </div>
+        <button class="btn btn-gold">Get Support</button>
+      </section>
+      
+    </main>
+  </div>
+  <script src="../js/shared.js"></script>
+  <script src="../js/ui/nomination.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Benefit Calculator for Anvaya platform">
+  <title>Benefit Calculator - Anvaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/calculator.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar"></aside>
+    <header id="top-header" class="top-header"></header>
+    <main class="main-content">
+      <div class="calculator-container">
+        
+        <div class="input-card glass-panel fade-in delay-1">
+          <h2>Enter Details</h2>
+          <form id="calculator-form" class="calc-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="salary">Deceased's Last Monthly Salary (₹)</label>
+                <input type="number" id="salary" class="form-input" required min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="years">Years of Service</label>
+                <input type="number" id="years" class="form-input" required min="0" step="0.1">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="epf">EPF Balance (₹)</label>
+                <input type="number" id="epf" class="form-input" required min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="insurance">Insurance Sum Assured (₹)</label>
+                <input type="number" id="insurance" class="form-input" required min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fd">FD Total Amount (₹)</label>
+                <input type="number" id="fd" class="form-input" required min="0">
+              </div>
+            </div>
+
+            <div class="toggles-grid">
+              <div class="form-group toggle-group">
+                <label class="form-label">Gratuity Applicable?</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="gratuity-check">
+                  <label for="gratuity-check"></label>
+                </div>
+              </div>
+              <div class="form-group toggle-group">
+                <label class="form-label">PMJJBY Enrolled?</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="pmjjby-check">
+                  <label for="pmjjby-check"></label>
+                </div>
+              </div>
+              <div class="form-group toggle-group">
+                <label class="form-label">PMSBY Enrolled?</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="pmsby-check">
+                  <label for="pmsby-check"></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="calculate-btn">Calculate Benefits</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="results-section" class="results-section hidden fade-in delay-2">
+          <h2>Estimated Entitlements</h2>
+          
+          <div class="results-grid">
+            <div class="result-card">
+              <h3>EPF Withdrawal</h3>
+              <div class="amount" id="res-epf">₹0</div>
+            </div>
+            <div class="result-card">
+              <h3>Gratuity</h3>
+              <div class="amount" id="res-gratuity">₹0</div>
+            </div>
+            <div class="result-card">
+              <h3>Insurance Payout</h3>
+              <div class="amount" id="res-insurance">₹0</div>
+            </div>
+            <div class="result-card">
+              <h3>PMJJBY</h3>
+              <div class="amount" id="res-pmjjby">₹0</div>
+            </div>
+            <div class="result-card">
+              <h3>PMSBY</h3>
+              <div class="amount" id="res-pmsby">₹0</div>
+            </div>
+            <div class="result-card">
+              <h3>FD Maturity</h3>
+              <div class="amount" id="res-fd">₹0</div>
+            </div>
+          </div>
+
+          <div class="grand-total-card">
+            <h3>Total Estimated Receivable</h3>
+            <div class="grand-amount" id="res-total">₹0</div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-secondary" id="download-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download as PDF
+            </button>
+            <button class="btn btn-primary" id="save-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              Save to Dashboard
+            </button>
+          </div>
+
+          <div class="info-note">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <p><strong>Disclaimer:</strong> These are approximate estimates based on standard formulas. Actual payouts may vary based on specific institutional policies, taxes, and final verification.</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+  <script src="../js/shared.js"></script>
+  <script src="../js/api/anvayaApi.js"></script>
+  <script src="../js/ui/calculator.js"></script>
+</body>
+</html>

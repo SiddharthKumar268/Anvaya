@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Start your case - Anvaya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css" />
+<link rel="stylesheet" href="../css/onboarding.css" />
+</head>
+<body>
+
+<div class="onboarding-page">
+  <div class="onboarding-wrap">
+
+    <div class="onboarding-brand">
+      <div class="brand-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2L8,10H11V22H13V10H16L12,2M12,5.8L13.7,9H10.3L12,5.8Z" /></svg>
+        <span>ANVAYA</span>
+      </div>
+      <a class="exit-link" href="/">Save and exit</a>
+    </div>
+
+    <h1 class="onboarding-title">Let's set up your case.</h1>
+    <p class="onboarding-subtitle">This takes about four minutes. Answer what you know - you can fill in the rest later, and nothing here is filed anywhere else yet.</p>
+
+    <!-- Progress path -->
+    <nav class="progress-path" aria-label="Onboarding progress">
+      <div class="path-dot current" data-lamp="1"></div>
+      <div class="path-line" data-segment="1"></div>
+      <div class="path-dot" data-lamp="2"></div>
+      <div class="path-line" data-segment="2"></div>
+      <div class="path-dot" data-lamp="3"></div>
+      <div class="path-line" data-segment="3"></div>
+      <div class="path-dot" data-lamp="4"></div>
+    </nav>
+    <div class="progress-labels">
+      <span data-label="1" class="active">You</span>
+      <span data-label="2">Them</span>
+      <span data-label="3">Priorities</span>
+      <span data-label="4">Confirm</span>
+    </div>
+
+    <form id="onboarding-form" novalidate>
+
+      <!-- STEP 1: the nominee -->
+      <section class="step active" data-step="1">
+        <div class="step-card">
+          <p class="step-eyebrow">Step 1 of 4</p>
+          <h2>Tell us who you are.</h2>
+          <p class="step-help">You're the one handling this, so we start with you - not paperwork.</p>
+
+          <div class="ob-field" data-field="fullName">
+            <label for="fullName">Your full name</label>
+            <input type="text" id="fullName" name="fullName" autocomplete="name" />
+            <span class="error-msg">Enter your name as it appears on your ID.</span>
+          </div>
+
+          <div class="ob-field" data-field="relation">
+            <label for="relation">Your relationship to the person who passed</label>
+            <select id="relation" name="relation">
+              <option value="">Select one</option>
+              <option value="spouse">Spouse</option>
+              <option value="child">Son / Daughter</option>
+              <option value="parent">Parent</option>
+              <option value="sibling">Sibling</option>
+              <option value="other">Other family member</option>
+              <option value="legal-heir">Legal heir / court-appointed</option>
+            </select>
+            <span class="error-msg">Let us know how you're related.</span>
+          </div>
+
+          <div class="ob-row-2">
+            <div class="ob-field" data-field="phone">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="10-digit mobile number" />
+              <span class="error-msg">Enter a valid 10-digit number.</span>
+            </div>
+            <div class="ob-field" data-field="email">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" />
+              <span class="error-msg">Enter a valid email address.</span>
+            </div>
+          </div>
+          <span class="hint">We'll send claim deadlines and updates here - never marketing.</span>
+        </div>
+      </section>
+
+      <!-- STEP 2: the person who passed -->
+      <section class="step" data-step="2">
+        <div class="step-card">
+          <p class="step-eyebrow">Step 2 of 4</p>
+          <h2>Tell us about the person you lost.</h2>
+          <p class="step-help">This helps us match the right claims, schemes, and deadlines to their accounts.</p>
+
+          <div class="ob-field" data-field="deceasedName">
+            <label for="deceasedName">Their full name</label>
+            <input type="text" id="deceasedName" name="deceasedName" />
+            <span class="error-msg">This field is required.</span>
+          </div>
+
+          <div class="ob-field" data-field="dateOfPassing">
+            <label for="dateOfPassing">Date of passing</label>
+            <input type="date" id="dateOfPassing" name="dateOfPassing" />
+            <span class="hint">If you're not certain of the exact date, your best estimate is fine for now.</span>
+            <span class="error-msg">Enter a date.</span>
+          </div>
+
+          <div class="ob-field" data-field="hasCertificate">
+            <label>Do you have the death certificate yet?</label>
+            <div class="ob-choice-group grid-2">
+              <label class="ob-choice">
+                <input type="radio" name="hasCertificate" value="yes" />
+                <span>Yes, I have it</span>
+              </label>
+              <label class="ob-choice">
+                <input type="radio" name="hasCertificate" value="no" />
+                <span>Not yet<span class="choice-sub">We'll walk you through getting one</span></span>
+              </label>
+            </div>
+            <span class="error-msg">Let us know if you have the certificate.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: priorities -->
+      <section class="step" data-step="3">
+        <div class="step-card">
+          <p class="step-eyebrow">Step 3 of 4</p>
+          <h2>What's weighing on you most right now?</h2>
+          <p class="step-help">Choose as many as apply. This decides what your dashboard shows you first - you can change it anytime.</p>
+
+          <div class="ob-field" data-field="priorities">
+            <div class="ob-choice-group">
+              <label class="ob-choice">
+                <input type="checkbox" name="priorities" value="bank" />
+                <span>Bank accounts we can't access</span>
+              </label>
+              <label class="ob-choice">
+                <input type="checkbox" name="priorities" value="insurance" />
+                <span>An insurance claim with a deadline<span class="choice-sub">Life, health, or accident cover</span></span>
+              </label>
+              <label class="ob-choice">
+                <input type="checkbox" name="priorities" value="pension" />
+                <span>Pension or employer benefits</span>
+              </label>
+              <label class="ob-choice">
+                <input type="checkbox" name="priorities" value="property" />
+                <span>Property or asset transfer</span>
+              </label>
+              <label class="ob-choice">
+                <input type="checkbox" name="priorities" value="minor" />
+                <span>A minor child is a nominee or heir</span>
+              </label>
+              <label class="ob-choice">
+                <input type="checkbox" name="priorities" value="unsure" />
+                <span>Honestly, I don't know where to start<span class="choice-sub">We'll build your checklist from scratch</span></span>
+              </label>
+            </div>
+            <span class="error-msg">Pick at least one, even "I don't know where to start."</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4: review -->
+      <section class="step" data-step="4">
+        <div class="step-card">
+          <p class="step-eyebrow">Step 4 of 4</p>
+          <h2>Check this over.</h2>
+          <p class="step-help">Once you confirm, we'll create your case and build your document checklist.</p>
+
+          <div class="review-block">
+            <h3>You <button type="button" data-edit="1">Edit</button></h3>
+            <dl>
+              <div class="review-row"><dt>Name</dt><dd data-review="fullName"></dd></div>
+              <div class="review-row"><dt>Relationship</dt><dd data-review="relation"></dd></div>
+              <div class="review-row"><dt>Phone</dt><dd data-review="phone"></dd></div>
+              <div class="review-row"><dt>Email</dt><dd data-review="email"></dd></div>
+            </dl>
+          </div>
+
+          <div class="review-block">
+            <h3>Them <button type="button" data-edit="2">Edit</button></h3>
+            <dl>
+              <div class="review-row"><dt>Name</dt><dd data-review="deceasedName"></dd></div>
+              <div class="review-row"><dt>Date of passing</dt><dd data-review="dateOfPassing"></dd></div>
+              <div class="review-row"><dt>Death certificate</dt><dd data-review="hasCertificate"></dd></div>
+            </dl>
+          </div>
+
+          <div class="review-block">
+            <h3>Priorities <button type="button" data-edit="3">Edit</button></h3>
+            <div class="review-row"><dd data-review="priorities" style="text-align:left; margin-left:0;"></dd></div>
+          </div>
+
+          <label class="ob-consent">
+            <input type="checkbox" id="consent" name="consent" />
+            <span>I confirm the details above are accurate to the best of my knowledge, and I'm the one managing this case.</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- CONFIRMATION -->
+      <section class="step step-confirm" data-step="5">
+        <div class="step-card">
+          <div class="confirm-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <p class="step-eyebrow" style="text-align:center;">Case created</p>
+          <h2>Your case is open.</h2>
+          <p class="step-help">We've built your starting document checklist based on what you told us.</p>
+          <div class="case-id" id="case-id-display">ANV-2026-000000</div>
+          <div>
+            <button type="button" class="btn btn-primary" id="go-to-dashboard">Go to your dashboard</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="step-nav" id="step-nav">
+        <button type="button" class="btn btn-ghost" id="btn-back">Back</button>
+        <button type="button" class="btn btn-primary" id="btn-next">Continue</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script src="../js/shared.js"></script>
+<script src="../js/api/caseApi.js"></script>
+<script src="../js/Onboarding.js"></script>
+</body>
+</html>

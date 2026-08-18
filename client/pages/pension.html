@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track pension claims and employer benefits due to nominee after demise.">
+  <title>Pension & Employer Benefits - Anvaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/pension.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar"></aside>
+    <header id="top-header" class="top-header"></header>
+    <main class="main-content">
+      
+      <!-- Page Header -->
+      <div class="page-header fade-in">
+        <div class="header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+        <div>
+          <h1 id="page-greeting">Pension & Employer Benefits</h1>
+          <p id="page-subtitle" class="text-secondary">Track pension and employer-related benefits</p>
+        </div>
+      </div>
+
+      <!-- Pension Overview Cards -->
+      <section class="overview-section fade-in delay-1">
+        <div class="grid-3">
+          <div class="glass-card">
+            <h3>EPS (Employee Pension Scheme)</h3>
+            <div class="amount">₹4,850<span>/month</span></div>
+            <span class="badge badge-completed">Eligible</span>
+            <p class="text-secondary mt-1">Based on 15 years service</p>
+          </div>
+          <div class="glass-card">
+            <h3>Family Pension</h3>
+            <div class="amount">₹4,850<span>/month</span></div>
+            <span class="badge badge-completed">Spouse Eligible</span>
+            <p class="text-secondary mt-1">Payable for lifetime or till remarriage</p>
+          </div>
+          <div class="glass-card">
+            <h3>Employer Pension</h3>
+            <div class="amount">N/A</div>
+            <span class="badge badge-pending">Not Applicable</span>
+            <p class="text-secondary mt-1">No company-specific pension found</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Eligibility Checker -->
+      <section class="eligibility-section fade-in delay-2 mt-2">
+        <h2 class="section-title">Eligibility Checker</h2>
+        <div class="glass-card">
+          <form id="eligibility-form" class="eligibility-form grid-2">
+            <div class="form-group">
+              <label class="form-label" for="relationship">Relationship to Deceased</label>
+              <select id="relationship" class="form-input">
+                <option value="spouse" selected>Spouse</option>
+                <option value="child">Child</option>
+                <option value="parent">Parent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="age">Deceased's Age at Death</label>
+              <input type="number" id="age" class="form-input" value="52">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contribution">Years of EPF Contribution</label>
+              <input type="number" id="contribution" class="form-input" value="15">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="receiving-pension">Was deceased receiving pension?</label>
+              <select id="receiving-pension" class="form-input">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <button type="submit" class="btn btn-primary" id="check-eligibility-btn">Check Eligibility</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Benefits Breakdown -->
+      <section id="benefits-breakdown" class="benefits-section fade-in delay-3 mt-2 hidden">
+        <h2 class="section-title">Eligible Benefits Breakdown</h2>
+        
+        <div class="benefits-summary glass-card mb-2">
+          <div class="summary-item">
+            <span class="text-secondary">Total One-Time Benefits</span>
+            <div class="total-amount text-gold">₹20,86,538</div>
+          </div>
+          <div class="summary-item">
+            <span class="text-secondary">Recurring Monthly</span>
+            <div class="total-amount text-green">₹4,850</div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="glass-card benefit-card">
+            <div class="benefit-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></div>
+            <h4>PF Accumulation</h4>
+            <div class="amount">₹8,50,000</div>
+            <p class="text-secondary">Provident Fund Balance</p>
+          </div>
+          <div class="glass-card benefit-card">
+            <div class="benefit-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+            <h4>Group Insurance (EDLI)</h4>
+            <div class="amount">₹7,00,000</div>
+            <p class="text-secondary">Max eligible amount</p>
+          </div>
+          <div class="glass-card benefit-card">
+            <div class="benefit-icon">Gift</div>
+            <h4>Gratuity</h4>
+            <div class="amount">₹3,11,538</div>
+            <p class="text-secondary">Calculated amount</p>
+          </div>
+          <div class="glass-card benefit-card">
+            <div class="benefit-icon">Leave</div>
+            <h4>Leave Encashment</h4>
+            <div class="amount">₹1,25,000</div>
+            <p class="text-secondary">Estimated</p>
+          </div>
+          <div class="glass-card benefit-card">
+            <div class="benefit-icon">INR</div>
+            <h4>Monthly Family Pension</h4>
+            <div class="amount">₹4,850<span>/mo</span></div>
+            <p class="text-secondary">EPS Pension</p>
+          </div>
+          <div class="glass-card benefit-card">
+            <div class="benefit-icon">⏱️</div>
+            <h4>Pension Arrears</h4>
+            <div class="amount">Lump Sum</div>
+            <p class="text-secondary">If applicable</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Claim Process Timeline -->
+      <section class="timeline-section fade-in delay-4 mt-2">
+        <h2 class="section-title">Claim Process Timeline</h2>
+        <div class="glass-card">
+          <div class="horizontal-stepper">
+            <div class="step completed" onclick="showStepDetails(1)">
+              <div class="step-indicator">1</div>
+              <div class="step-title">Gather Documents</div>
+              <div class="step-status">Completed</div>
+            </div>
+            <div class="step-line completed"></div>
+            <div class="step current" onclick="showStepDetails(2)">
+              <div class="step-indicator">2</div>
+              <div class="step-title">Submit Form 10D to EPFO</div>
+              <div class="step-status">Current</div>
+            </div>
+            <div class="step-line pending"></div>
+            <div class="step pending" onclick="showStepDetails(3)">
+              <div class="step-indicator">3</div>
+              <div class="step-title">Employer Verification</div>
+              <div class="step-status">Pending</div>
+            </div>
+            <div class="step-line pending"></div>
+            <div class="step pending" onclick="showStepDetails(4)">
+              <div class="step-indicator">4</div>
+              <div class="step-title">EPFO Processing</div>
+              <div class="step-status">Pending</div>
+            </div>
+            <div class="step-line pending"></div>
+            <div class="step pending" onclick="showStepDetails(5)">
+              <div class="step-indicator">5</div>
+              <div class="step-title">First Pension Credit</div>
+              <div class="step-status">Pending</div>
+            </div>
+          </div>
+          <div id="step-details" class="step-details mt-2 p-2" style="background: rgba(255,255,255,0.05); border-radius: var(--radius-md);">
+            <h4>Step 2: Submit Form 10D to EPFO</h4>
+            <p class="text-secondary mt-1">Submit Form 10D along with death certificate, joint photograph, and cancelled cheque to claim EPS family pension.</p>
+            <p class="text-sm mt-1 text-gold" style="font-size: 0.875rem;">Expected duration: 7-10 days</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Important Contacts -->
+      <section class="contacts-section fade-in delay-5 mt-2 mb-2">
+        <h2 class="section-title">Important Contacts</h2>
+        <div class="grid-2">
+          <div class="glass-card contact-card">
+            <h4>EPFO Regional Office</h4>
+            <p class="text-secondary mt-1">Bandra, Mumbai</p>
+            <div class="contact-actions mt-1">
+              <button class="btn btn-ghost btn-sm">Get Directions</button>
+            </div>
+          </div>
+          <div class="glass-card contact-card">
+            <h4>Employer HR Department</h4>
+            <p class="text-secondary mt-1">Tech Corp India Pvt Ltd</p>
+            <div class="contact-actions mt-1">
+              <span class="phone-number">hr@techcorp.in</span>
+            </div>
+          </div>
+          <div class="glass-card contact-card">
+            <h4>Pension Disbursing Bank</h4>
+            <p class="text-secondary mt-1">State Bank of India, Main Branch</p>
+            <div class="contact-actions mt-1">
+              <span class="phone-number">022-21234567</span>
+              <button class="btn btn-ghost btn-sm" onclick="copyToClipboard('022-21234567')">Copy</button>
+            </div>
+          </div>
+          <div class="glass-card contact-card">
+            <h4>EPFO Helpline</h4>
+            <p class="text-secondary mt-1">Toll Free National Helpline</p>
+            <div class="contact-actions mt-1">
+              <span class="phone-number text-gold">1800-118-005</span>
+              <button class="btn btn-ghost btn-sm" onclick="copyToClipboard('1800-118-005')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <script src="../js/shared.js"></script>
+  <script src="../js/api/anvayaApi.js"></script>
+  <script src="../js/ui/pension.js"></script>
+</body>
+</html>
