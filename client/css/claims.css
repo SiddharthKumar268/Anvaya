@@ -136,14 +136,16 @@
 /* Board View (Kanban) */
 .board-view {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
+    align-items: start;
 }
 
 .board-column {
     border-radius: var(--radius-lg);
     padding: 18px;
     min-height: 400px;
+    min-width: 0;
 }
 
 .board-column.pending {
@@ -211,6 +213,9 @@
     cursor: pointer;
     position: relative;
     animation: fadeIn 0.3s ease-out forwards;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .claim-card:hover {
