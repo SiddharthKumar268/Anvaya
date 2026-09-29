@@ -52,5 +52,12 @@ const CaseApi = {
       method: 'PUT',
       body: JSON.stringify({ status })
     });
+  },
+
+  // Generate comprehensive AI Case Summary
+  async generateAISummary(caseId) {
+    return await apiRequest(`/cases/${caseId}/ai-summary`, {
+      method: 'POST'
+    });
   }
 };

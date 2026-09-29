@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign In - ANVAYA</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +29,7 @@
 
     <div class="auth-brand">
       <div class="brand-logo">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2L8,10H11V22H13V10H16L12,2M12,5.8L13.7,9H10.3L12,5.8Z" /></svg>
+        <img src="../assets/favicon.png" alt="ANVAYA Logo" width="44" height="44" style="border-radius: 10px; display: inline-block;" onerror="this.outerHTML='<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><path d=\'M12,2L8,10H11V22H13V10H16L12,2M12,5.8L13.7,9H10.3L12,5.8Z\' /></svg>'">
         <span>ANVAYA</span>
       </div>
       <div class="brand-tagline">Financial Support. Every step, together.</div>
@@ -63,7 +70,7 @@
               <input type="checkbox" id="remember">
               <span>Remember me</span>
             </label>
-            <a href="javascript:void(0)" class="forgot-link" onclick="alert('Please contact support at help@anvaya.in to reset your password.')">Forgot password?</a>
+            <a href="javascript:void(0)" class="forgot-link" id="forgotPasswordLink">Forgot password?</a>
           </div>
 
           <button type="submit" class="btn btn-primary btn-auth" id="loginBtn">
@@ -85,8 +92,101 @@
         </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Anvaya 2026</p>
+    </footer>
   </div>
 
+  <!-- Forgot Password Modal -->
+  <div class="modal-overlay" id="forgotPasswordModal" aria-hidden="true">
+    <div class="auth-modal" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">Reset Password</h3>
+        <button type="button" class="modal-close-btn" id="closeForgotModal" aria-label="Close modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Step 1: Request OTP -->
+      <div class="modal-step active" id="forgotStep1">
+        <div class="modal-subtitle">Enter your registered email address to receive a verification code.</div>
+        <form id="forgotFormStep1" novalidate>
+          <div class="form-group">
+            <label for="forgotEmail" class="form-label">Email Address</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg>
+              <input type="email" id="forgotEmail" class="form-input" placeholder="Enter your email" required>
+            </div>
+            <div class="field-error" id="forgotEmailError">Please enter a valid email address.</div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-auth" id="sendOtpBtn">
+            <span class="btn-text">Send Verification Code</span>
+            <span class="spinner"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 2: Enter OTP & New Password -->
+      <div class="modal-step" id="forgotStep2">
+        <div class="modal-subtitle">Enter the verification code sent to your email and choose a new password.</div>
+        
+        <form id="forgotFormStep2" novalidate>
+          <div class="form-group">
+            <label for="resetOtp" class="form-label">6-Digit Code</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input type="text" id="resetOtp" class="form-input" placeholder="Enter the 6-digit code from your email" maxlength="6" required>
+            </div>
+            <div class="field-error" id="resetOtpError">Please enter the 6-digit verification code.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="newPassword" class="form-label">New Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input type="password" id="newPassword" class="form-input" placeholder="Create new password (min 6 chars)" required minlength="6">
+            </div>
+            <div class="field-error" id="newPasswordError">Password must be at least 6 characters.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input type="password" id="confirmNewPassword" class="form-input" placeholder="Re-enter new password" required minlength="6">
+            </div>
+            <div class="field-error" id="confirmNewPasswordError">Passwords do not match.</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-auth" id="resetPasswordBtn">
+            <span class="btn-text">Update Password</span>
+            <span class="spinner"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 3: Success Screen -->
+      <div class="modal-step" id="forgotStep3">
+        <div class="success-state">
+          <div class="success-icon-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h4>Password Reset Complete!</h4>
+          <p>Your password has been successfully updated. You can now sign in with your new credentials.</p>
+          <button type="button" class="btn btn-primary btn-auth" id="backToLoginBtn">Back to Sign In</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="../js/shared.js"></script>
   <script src="../js/api/authApi.js"></script>
   <script>
@@ -99,6 +199,224 @@
       const loginBtn = document.getElementById('loginBtn');
       const emailError = document.getElementById('emailError');
       const passwordError = document.getElementById('passwordError');
+
+      // Forgot Password Elements
+      const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+      const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+      const closeForgotModal = document.getElementById('closeForgotModal');
+      const forgotFormStep1 = document.getElementById('forgotFormStep1');
+      const forgotFormStep2 = document.getElementById('forgotFormStep2');
+      const forgotEmailInput = document.getElementById('forgotEmail');
+      const forgotEmailError = document.getElementById('forgotEmailError');
+      const sendOtpBtn = document.getElementById('sendOtpBtn');
+      const resetOtpInput = document.getElementById('resetOtp');
+      const resetOtpError = document.getElementById('resetOtpError');
+      const newPasswordInput = document.getElementById('newPassword');
+      const newPasswordError = document.getElementById('newPasswordError');
+      const confirmNewPasswordInput = document.getElementById('confirmNewPassword');
+      const confirmNewPasswordError = document.getElementById('confirmNewPasswordError');
+      const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+      const backToLoginBtn = document.getElementById('backToLoginBtn');
+      const forgotStep1 = document.getElementById('forgotStep1');
+      const forgotStep2 = document.getElementById('forgotStep2');
+      const forgotStep3 = document.getElementById('forgotStep3');
+
+      let currentResetEmail = '';
+      let generatedOtp = '';
+      let otpExpiresAt = 0;
+
+      // ── EmailJS Configuration (loaded from server .env) ──
+      let EMAILJS_SERVICE_ID  = '';
+      let EMAILJS_TEMPLATE_ID = '';
+      let EMAILJS_PUBLIC_KEY  = '';
+
+      // Fetch EmailJS config from server
+      (async () => {
+        try {
+          const res = await apiRequest('/config/emailjs', { method: 'GET' });
+          EMAILJS_SERVICE_ID  = res.serviceId;
+          EMAILJS_TEMPLATE_ID = res.templateId;
+          EMAILJS_PUBLIC_KEY  = res.publicKey;
+        } catch (err) {
+          console.warn('Could not load EmailJS config:', err.message);
+        }
+      })();
+
+      // Open Forgot Password Modal
+      const openModal = () => {
+        forgotPasswordModal.classList.add('active');
+        forgotPasswordModal.setAttribute('aria-hidden', 'false');
+        // Pre-fill email if entered
+        if (emailInput.value.trim()) {
+          forgotEmailInput.value = emailInput.value.trim();
+        }
+        showStep(1);
+      };
+
+      const closeModal = () => {
+        forgotPasswordModal.classList.remove('active');
+        forgotPasswordModal.setAttribute('aria-hidden', 'true');
+      };
+
+      const showStep = (stepNumber) => {
+        forgotStep1.classList.toggle('active', stepNumber === 1);
+        forgotStep2.classList.toggle('active', stepNumber === 2);
+        forgotStep3.classList.toggle('active', stepNumber === 3);
+      };
+
+      if (forgotPasswordLink) forgotPasswordLink.addEventListener('click', openModal);
+      if (closeForgotModal) closeForgotModal.addEventListener('click', closeModal);
+
+      // Close on backdrop click
+      forgotPasswordModal.addEventListener('click', (e) => {
+        if (e.target === forgotPasswordModal) closeModal();
+      });
+
+      // Step 1: Send OTP via EmailJS
+      forgotFormStep1.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = forgotEmailInput.value.trim();
+        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        if (!isValid) {
+          forgotEmailError.textContent = 'Please enter a valid email address.';
+          forgotEmailError.classList.add('visible');
+          forgotEmailInput.classList.add('has-error');
+          return;
+        }
+
+        forgotEmailError.classList.remove('visible');
+        forgotEmailInput.classList.remove('has-error');
+
+        sendOtpBtn.disabled = true;
+        sendOtpBtn.classList.add('loading');
+
+        try {
+          // First check if the email exists in the database
+          currentResetEmail = email;
+          await AuthApi.forgotPassword({ email });
+
+          // Generate a random 6-digit OTP
+          generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+          otpExpiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+          // Send OTP via EmailJS
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_email: email,
+            otp_code: generatedOtp
+          }, EMAILJS_PUBLIC_KEY);
+
+          if (typeof showToast === 'function') {
+            showToast('Verification code sent to your email!', 'info');
+          }
+          showStep(2);
+        } catch (err) {
+          console.error('Forgot password error:', err);
+          const msg = err.message || err.text || 'Failed to send verification code. Please try again.';
+          forgotEmailError.textContent = msg;
+          forgotEmailError.classList.add('visible');
+          forgotEmailInput.classList.add('has-error');
+        } finally {
+          sendOtpBtn.disabled = false;
+          sendOtpBtn.classList.remove('loading');
+        }
+      });
+
+      // Step 2: Verify OTP & Reset Password
+      forgotFormStep2.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const otp = resetOtpInput.value.trim();
+        const newPassword = newPasswordInput.value;
+        const confirmPassword = confirmNewPasswordInput.value;
+
+        let hasError = false;
+
+        // Validate OTP format
+        if (!otp || otp.length !== 6) {
+          resetOtpError.textContent = 'Please enter the 6-digit verification code.';
+          resetOtpError.classList.add('visible');
+          resetOtpInput.classList.add('has-error');
+          hasError = true;
+        } else if (otp !== generatedOtp) {
+          resetOtpError.textContent = 'Invalid verification code. Please check your email.';
+          resetOtpError.classList.add('visible');
+          resetOtpInput.classList.add('has-error');
+          hasError = true;
+        } else if (Date.now() > otpExpiresAt) {
+          resetOtpError.textContent = 'Verification code has expired. Please request a new one.';
+          resetOtpError.classList.add('visible');
+          resetOtpInput.classList.add('has-error');
+          hasError = true;
+        } else {
+          resetOtpError.classList.remove('visible');
+          resetOtpInput.classList.remove('has-error');
+        }
+
+        if (newPassword.length < 6) {
+          newPasswordError.textContent = 'Password must be at least 6 characters.';
+          newPasswordError.classList.add('visible');
+          newPasswordInput.classList.add('has-error');
+          hasError = true;
+        } else {
+          newPasswordError.classList.remove('visible');
+          newPasswordInput.classList.remove('has-error');
+        }
+
+        if (newPassword !== confirmPassword) {
+          confirmNewPasswordError.textContent = 'Passwords do not match.';
+          confirmNewPasswordError.classList.add('visible');
+          confirmNewPasswordInput.classList.add('has-error');
+          hasError = true;
+        } else {
+          confirmNewPasswordError.classList.remove('visible');
+          confirmNewPasswordInput.classList.remove('has-error');
+        }
+
+        if (hasError) return;
+
+        resetPasswordBtn.disabled = true;
+        resetPasswordBtn.classList.add('loading');
+
+        try {
+          // OTP verified client-side, now reset password on server
+          const res = await AuthApi.resetPassword({
+            email: currentResetEmail,
+            newPassword,
+            otp
+          });
+
+          // Clear OTP from memory after successful reset
+          generatedOtp = '';
+          otpExpiresAt = 0;
+
+          if (typeof showToast === 'function') {
+            showToast(res.message || 'Password reset successfully!', 'success');
+          }
+          showStep(3);
+        } catch (err) {
+          console.error('Reset password error:', err);
+          if (typeof showToast === 'function') {
+            showToast(err.message || 'Failed to reset password', 'error');
+          } else {
+            alert(err.message || 'Failed to reset password');
+          }
+        } finally {
+          resetPasswordBtn.disabled = false;
+          resetPasswordBtn.classList.remove('loading');
+        }
+      });
+
+      // Step 3: Back to Login
+      if (backToLoginBtn) {
+        backToLoginBtn.addEventListener('click', () => {
+          closeModal();
+          if (currentResetEmail) {
+            emailInput.value = currentResetEmail;
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
+        });
+      }
 
       // Toggle Password Visibility
       togglePasswordBtn.addEventListener('click', () => {

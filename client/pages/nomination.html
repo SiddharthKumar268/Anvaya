@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Legal succession guide when nomination is missing">
   <title>No Nomination Path - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,77 +24,93 @@
     <header id="top-header" class="top-header"></header>
     <main class="main-content">
       <div class="page-header fade-in delay-1">
-        <h1 class="page-title">No Nomination? Here's Your Path</h1>
-        <p class="page-subtitle">Legal succession guide when nomination is missing</p>
+        <h1 class="page-title">No Nomination? Legal Heir Fast-Track</h1>
+        <p class="page-subtitle">Navigate succession, bypass lengthy civil court procedures under RBI rules, and draft statutory affidavits</p>
       </div>
 
-      <section class="decision-helper-card glass-panel fade-in delay-2">
+      <!-- Auto-Detected Non-Nominated Assets Banner -->
+      <div id="detected-assets-section" class="detected-assets-banner fade-in delay-1" style="display: none;">
+        <div class="detected-banner-header">
+          <div class="detected-banner-icon">⚠️</div>
+          <div class="detected-banner-content">
+            <h3 id="detected-banner-heading">Detected Portfolio Assets Without Nomination</h3>
+            <p id="detected-banner-desc">The following assets in your case do not have a registered nominee on file. Click any asset to run an instant legal fast-track diagnostic:</p>
+          </div>
+        </div>
+        <div id="detected-chips-container" class="detected-chips-container">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Interactive "Bypass Civil Court" Diagnostic Engine -->
+      <section class="diagnostic-container glass-panel fade-in delay-2">
         <div class="card-header">
-          <h2>Which path is right for you?</h2>
-          <button id="help-choose-btn" class="btn btn-primary">Help me choose</button>
-        </div>
-        <div class="options-container">
-          <div class="option-card" id="path-legal-heir">
-            <h3>Legal Heir Certificate</h3>
-            <p>For movable assets &lt; ₹1 lakh, issued by Tehsildar/SDM</p>
-          </div>
-          <div class="option-card" id="path-succession">
-            <h3>Succession Certificate</h3>
-            <p>For all assets, issued by Civil Court</p>
+          <div>
+            <h2 style="margin: 0 0 4px 0;">⚡ Fast-Track Diagnostic: Can You Bypass Court?</h2>
+            <p style="margin: 0; font-size: 13.5px; color: var(--text-secondary);">Answer 3 quick questions to calculate whether your case qualifies for direct institutional claim or requires a civil court succession certificate.</p>
           </div>
         </div>
-        <div class="comparison-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Feature</th>
-                <th>Legal Heir Certificate</th>
-                <th>Succession Certificate</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Authority</td>
-                <td>Tehsildar / SDM</td>
-                <td>Civil Court</td>
-              </tr>
-              <tr>
-                <td>Scope</td>
-                <td>Movable assets &lt; ₹1 Lakh</td>
-                <td>All movable & immovable assets</td>
-              </tr>
-              <tr>
-                <td>Time</td>
-                <td>15 - 30 days</td>
-                <td>3 - 6 months</td>
-              </tr>
-              <tr>
-                <td>Cost</td>
-                <td>Low (₹100 - ₹500)</td>
-                <td>High (Percentage of asset value)</td>
-              </tr>
-            </tbody>
-          </table>
+
+        <div class="diagnostic-questions-grid">
+          <div class="diag-field">
+            <label for="diagAssetValue">Asset Valuation</label>
+            <select id="diagAssetValue">
+              <option value="under5L">Under ₹5 Lakhs (Direct Claim Threshold)</option>
+              <option value="over5L">Above ₹5 Lakhs (High Value)</option>
+            </select>
+          </div>
+          <div class="diag-field">
+            <label for="diagAssetNature">Asset Nature</label>
+            <select id="diagAssetNature">
+              <option value="movable">Movable (Bank, FD, Mutual Funds, PF)</option>
+              <option value="immovable">Immovable (Land, House, Flat, Commercial)</option>
+            </select>
+          </div>
+          <div class="diag-field">
+            <label for="diagDisputeStatus">Family Agreement</label>
+            <select id="diagDisputeStatus">
+              <option value="unanimous">All Legal Heirs Agree (No Dispute / Consenting)</option>
+              <option value="disputed">Disputed / Minor Heir Involved</option>
+            </select>
+          </div>
+          <div class="diag-field">
+            <label for="diagState">Jurisdiction / State</label>
+            <select id="diagState">
+              <option value="Delhi">Delhi NCR</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana / AP</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Other">Other States</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic Verdict Output Box -->
+        <div id="diagnostic-verdict-box" class="verdict-box fast-track">
+          <!-- Populated dynamically by JS -->
         </div>
       </section>
 
+      <!-- Step-by-Step Legal Roadmap -->
       <section class="wizard-section fade-in delay-3">
-        <h2>Step-by-Step Wizard</h2>
+        <h2>Statutory Claim Step-by-Step Roadmap</h2>
         <div class="timeline">
           
           <div class="step-card active" id="step-1">
             <div class="step-header" onclick="toggleStep(1)">
               <div class="step-indicator">1</div>
-              <h3>Identify Assets Without Nomination</h3>
+              <h3>Identify Non-Nominated Assets & Balance Certificates</h3>
               <span class="toggle-icon">▼</span>
             </div>
             <div class="step-content">
-              <p>Identify all assets that don't have a registered nominee. Create a detailed list including account numbers, branch details, and approximate values.</p>
+              <p>Collect latest passbooks, statement of holdings, and obtain written balance certificates from the branch confirming non-nomination status.</p>
               <ul class="checklist">
-                <li><label><input type="checkbox"> Bank Accounts</label></li>
-                <li><label><input type="checkbox"> Mutual Funds / Demat Accounts</label></li>
-                <li><label><input type="checkbox"> Insurance Policies</label></li>
-                <li><label><input type="checkbox"> Real Estate Property</label></li>
+                <li><label><input type="checkbox" checked> Gather municipal Death Certificate (minimum 5 certified copies)</label></li>
+                <li><label><input type="checkbox"> Collect KYC & PAN of all Class-I legal heirs</label></li>
+                <li><label><input type="checkbox"> Verify whether institution allows Form DA-2 settlement under ₹5L</label></li>
               </ul>
               <button class="btn btn-primary mt-2" onclick="completeStep(1)">Mark as Complete</button>
             </div>
@@ -96,15 +119,15 @@
           <div class="step-card" id="step-2">
             <div class="step-header" onclick="toggleStep(2)">
               <div class="step-indicator">2</div>
-              <h3>Obtain Legal Heir Certificate / Succession Certificate</h3>
+              <h3>Obtain Tehsildar Legal Heir Certificate (Varis Dakhila)</h3>
               <span class="toggle-icon">▶</span>
             </div>
             <div class="step-content" style="display: none;">
-              <p>Apply for a Legal Heir Certificate or Succession Certificate depending on your assets.</p>
+              <p>Apply at your local Revenue Office (Tehsildar / SDM) or online via your state e-District portal. This establishes all surviving family members without civil court litigation.</p>
               <div class="info-grid" style="margin: 16px 0; display: grid; gap: 8px;">
-                <div><strong>Where to apply:</strong> Tehsildar Office or Civil Court</div>
-                <div><strong>Timeline:</strong> 1 - 6 months</div>
-                <div><strong>Fees:</strong> Varies depending on certificate type</div>
+                <div><strong>Authority:</strong> Revenue Department / SDM / Tehsildar</div>
+                <div><strong>Statutory Timeline:</strong> 15 – 30 Days</div>
+                <div><strong>Standard Fee:</strong> ₹50 – ₹200 (Government fee stamp)</div>
               </div>
               <button class="btn btn-primary mt-2" onclick="completeStep(2)">Mark as Complete</button>
             </div>
@@ -113,16 +136,16 @@
           <div class="step-card" id="step-3">
             <div class="step-header" onclick="toggleStep(3)">
               <div class="step-indicator">3</div>
-              <h3>Submit to Institutions</h3>
+              <h3>Execute Family NOC & Indemnity Bond on Stamp Paper</h3>
               <span class="toggle-icon">▶</span>
             </div>
             <div class="step-content" style="display: none;">
-              <p>Submit the certified copies of the certificate along with claim forms to the respective institutions.</p>
+              <p>All surviving heirs sign a notarized No-Objection Certificate (NOC) giving consent for one primary heir to collect proceeds, backed by an Indemnity Bond with two guarantors.</p>
               <div class="info-grid" style="margin: 16px 0; display: grid; gap: 8px;">
-                <div><strong>Where to submit:</strong> Respective banks or asset management companies</div>
-                <div><strong>Expected timeline:</strong> 15 - 45 days post submission</div>
+                <div><strong>Stamp Paper Value:</strong> ₹100 or ₹500 non-judicial stamp (state specific)</div>
+                <div><strong>Guarantors:</strong> 2 independent earning individuals with KYC</div>
               </div>
-              <button class="btn btn-secondary mt-2">Download Template Letter</button>
+              <button class="btn btn-secondary mt-2" onclick="scrollToDocStudio()">✨ Generate Legal Documents in Studio Below</button>
               <button class="btn btn-primary mt-2" onclick="completeStep(3)">Mark as Complete</button>
             </div>
           </div>
@@ -130,65 +153,120 @@
           <div class="step-card" id="step-4">
             <div class="step-header" onclick="toggleStep(4)">
               <div class="step-indicator">4</div>
-              <h3>Complete Transfer</h3>
+              <h3>Branch Submission & Disbursal within 15-Day SLA</h3>
               <span class="toggle-icon">▶</span>
             </div>
             <div class="step-content" style="display: none;">
-              <p>Follow up with institutions. Once verified, the assets will be transferred to the legal heirs according to the certificate.</p>
-              <button class="btn btn-primary mt-2" onclick="completeStep(4)">Finish</button>
+              <p>Submit complete dossier to the branch. Under RBI Customer Service Guidelines (Para 19.3), banks must settle deceased claims within <strong>15 days</strong> of receipt of complete documentation.</p>
+              <button class="btn btn-primary mt-2" onclick="completeStep(4)">Finish Process</button>
             </div>
           </div>
 
         </div>
       </section>
 
+      <!-- AI Legal Document Studio (Replaces Dead Download Button) -->
+      <section id="doc-studio-section" class="doc-studio-card fade-in delay-4">
+        <div class="card-header">
+          <div>
+            <h2 style="margin: 0 0 4px 0;">📄 Statutory Document Studio</h2>
+            <p style="margin: 0; font-size: 13.5px; color: var(--text-secondary);">Generate ready-to-sign legal drafts required by banks and revenue authorities. Preview, edit, copy, or print on stamp paper.</p>
+          </div>
+        </div>
+
+        <div class="doc-type-pills">
+          <button type="button" class="doc-pill active" data-doc-type="noc">Family No-Objection Certificate (NOC)</button>
+          <button type="button" class="doc-pill" data-doc-type="affidavit">Legal Heir Affidavit (₹100 Stamp)</button>
+          <button type="button" class="doc-pill" data-doc-type="indemnity">Bank Indemnity Bond with 2 Sureties</button>
+        </div>
+
+        <div class="doc-editor-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span id="doc-title-display" style="font-size: 13px; font-weight: 700; color: var(--navy, #0A192F); text-transform: uppercase;">FAMILY NO-OBJECTION & CONSENT DECLARATION</span>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnCopyDraftDoc" style="padding: 5px 12px; font-size: 12px;">📋 Copy Text</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btnPrintDraftDoc" style="padding: 5px 14px; font-size: 12px; background: var(--green-dark, #276749);">🖨️ Print / PDF</button>
+            </div>
+          </div>
+          <textarea id="draftDocumentTextarea" class="doc-textarea" placeholder="Loading legal draft..."></textarea>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+            💡 <em>Tip: You can edit names, addresses, and relations directly in the text above before printing onto non-judicial stamp paper.</em>
+          </div>
+        </div>
+      </section>
+
+      <!-- State-wise E-District Direct Application Links -->
+      <section class="state-portal-section fade-in delay-4">
+        <div class="card-header">
+          <div>
+            <h2 style="margin: 0 0 4px 0;">🏛️ Official State Revenue Portals (Apply Online)</h2>
+            <p style="margin: 0; font-size: 13.5px; color: var(--text-secondary);">Direct government revenue department links to apply for Legal Heir / Varis certificates without touts or middlemen.</p>
+          </div>
+        </div>
+
+        <div class="state-selector-bar">
+          <label for="statePortalDropdown" style="font-size: 13px; font-weight: 600; color: var(--navy);">Choose State:</label>
+          <select id="statePortalDropdown" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); font-size: 13.5px; min-width: 220px;">
+            <option value="Delhi">Delhi (e-District)</option>
+            <option value="Maharashtra">Maharashtra (Aaple Sarkar)</option>
+            <option value="Uttar Pradesh">Uttar Pradesh (eDistrict UP)</option>
+            <option value="Karnataka">Karnataka (Seva Sindhu / Nadakacheri)</option>
+            <option value="Tamil Nadu">Tamil Nadu (TN e-Sevai)</option>
+            <option value="Telangana">Telangana (MeeSeva)</option>
+            <option value="West Bengal">West Bengal (e-District)</option>
+            <option value="National">National Services Portal (Other States)</option>
+          </select>
+        </div>
+
+        <div id="state-portal-info-box" class="state-portal-detail-card">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </section>
+
+      <!-- Required Documents Checklist -->
       <section class="checklist-section glass-panel fade-in delay-4">
         <h2 onclick="toggleChecklist()" style="cursor: pointer; display: flex; justify-content: space-between;">
-          Required Documents Checklist <span id="checklist-icon">▼</span>
+          Statutory Document Checklist for Non-Nomination Claims <span id="checklist-icon">▼</span>
         </h2>
         <div id="documents-checklist" class="documents-checklist">
           <ul>
-            <li><label><input type="checkbox"> Death Certificate (original + copies)</label></li>
-            <li><label><input type="checkbox"> Ration Card / Family ID</label></li>
-            <li><label><input type="checkbox"> Aadhaar of all legal heirs</label></li>
-            <li><label><input type="checkbox"> Affidavit of legal heirship</label></li>
-            <li><label><input type="checkbox"> Indemnity bond</label></li>
-            <li><label><input type="checkbox"> NOC from other heirs</label></li>
-            <li><label><input type="checkbox"> Court fee stamps</label></li>
+            <li><label><input type="checkbox"> Certified municipal Death Certificate (with QR / registration seal)</label></li>
+            <li><label><input type="checkbox"> Tehsildar / SDM Legal Heir Certificate or Surviving Member Certificate</label></li>
+            <li><label><input type="checkbox"> Notarized Family No-Objection Certificate (NOC) from all other Class-I legal heirs</label></li>
+            <li><label><input type="checkbox"> Indemnity Bond on non-judicial stamp paper signed by claimant & 2 earning sureties</label></li>
+            <li><label><input type="checkbox"> Self-attested Aadhaar & PAN card copies of claimant, heirs, and sureties</label></li>
+            <li><label><input type="checkbox"> Original passbook / fixed deposit receipt / share certificates / policy bond</label></li>
+            <li><label><input type="checkbox"> Canceled cheque or bank account statement of the claiming legal heir</label></li>
           </ul>
         </div>
       </section>
 
+      <!-- Info Cards: Timeline, Cost, Pitfalls -->
       <section class="info-cards grid-3 fade-in delay-5">
         <div class="info-card glass-panel">
-          <h3>⏱️ Typical Timeline</h3>
-          <p>2-6 months</p>
+          <h3><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Fast-Track Timeline</h3>
+          <p style="font-size: 1.25rem; font-weight: 700; color: var(--green-dark,#166534); margin: 6px 0;">15 – 30 Days</p>
+          <span style="font-size: 12px; color: var(--text-muted);">vs 6–18 months in Civil Court</span>
         </div>
         <div class="info-card glass-panel">
-          <h3>Approximate Cost</h3>
-          <p>₹2,000 - ₹15,000</p>
+          <h3>Statutory Cost</h3>
+          <p style="font-size: 1.25rem; font-weight: 700; color: var(--navy,#0A192F); margin: 6px 0;">₹500 – ₹1,500</p>
+          <span style="font-size: 12px; color: var(--text-muted);">Stamp duty & notary (Court fee: 2–3% saved)</span>
         </div>
         <div class="info-card glass-panel alert-card">
           <h3>Common Pitfalls to Avoid</h3>
           <ul>
-            <li>Missing NOCs</li>
-            <li>Name mismatches</li>
-            <li>Undervalued assets</li>
+            <li>Missing NOC from married daughters (they are equal Class-I legal heirs under Hindu Succession Act)</li>
+            <li>Spelling mismatches between Aadhaar and Death Certificate</li>
+            <li>Unregistered notary stamps without advocate bar registration</li>
           </ul>
         </div>
       </section>
 
-      <section class="help-cta glass-panel fade-in delay-5 mt-4">
-        <div class="cta-content">
-          <h2>Need legal assistance?</h2>
-          <p>Get connected with verified legal experts to simplify your succession process.</p>
-        </div>
-        <button class="btn btn-gold">Get Support</button>
-      </section>
-      
     </main>
   </div>
   <script src="../js/shared.js"></script>
+  <script src="../js/api/anvayaApi.js"></script>
   <script src="../js/ui/nomination.js"></script>
 </body>
 </html>

@@ -5,6 +5,38 @@
 const AnvayaApi = {
 
   // ─── Assets ─────────────────────────────────────────────
+  async getAssets(caseId) {
+    const query = caseId ? `?caseId=${encodeURIComponent(caseId)}` : '';
+    return apiRequest(`/assets${query}`);
+  },
+
+  async createAsset(payload) {
+    return apiRequest('/assets', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async updateAsset(assetId, payload) {
+    return apiRequest(`/assets/${assetId}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async deleteAsset(assetId) {
+    return apiRequest(`/assets/${assetId}`, {
+      method: 'DELETE'
+    });
+  },
+
+  async draftAssetLetter(payload) {
+    return apiRequest('/assets/draft-letter', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
   async getTransferSteps(assetType) {
     return apiRequest(`/assets/transfer/${assetType}`);
   },
@@ -47,9 +79,55 @@ const AnvayaApi = {
     return apiRequest(`/calculators/pension/${employerType}`);
   },
 
+  async calculatePensionEntitlements(payload) {
+    return apiRequest('/calculators/pension/calculate', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async getInvestmentRecommendations(payload) {
+    return apiRequest('/calculators/recommendations', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
   // ─── UDGAM ──────────────────────────────────────────────
   async checkUdgam(bankName) {
     return apiRequest(`/calculators/udgam?bankName=${encodeURIComponent(bankName)}`);
+  },
+
+  async getUdgamBanks() {
+    return apiRequest('/calculators/udgam/banks');
+  },
+
+  async searchUdgam(payload) {
+    return apiRequest('/calculators/udgam/search', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async claimUdgamToAsset(payload) {
+    return apiRequest('/calculators/udgam/claim-to-asset', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async generateUdgamClaimLetter(payload) {
+    return apiRequest('/calculators/udgam/ai-letter', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async aiPredictLostAccounts(payload) {
+    return apiRequest('/calculators/udgam/ai-detective', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
   },
 
   // ─── Guides ─────────────────────────────────────────────
@@ -79,7 +157,47 @@ const AnvayaApi = {
     });
   },
 
-  async checkPresumedDeath(yearsMissing) {
-    return apiRequest(`/safety/presumed-death?yearsMissing=${yearsMissing}`);
+  // ─── Reports & Progress ─────────────────────────────────
+  async getReportSummary(caseId) {
+    const endpoint = caseId && caseId !== 'latest' && caseId !== 'demo' ? `/reports/summary/${caseId}` : '/reports/summary';
+    return apiRequest(endpoint);
+  },
+
+  // ─── AI Document Intelligence ──────────────────────────
+  async analyzeDocument(payload) {
+    return apiRequest('/rag/analyze-document', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  // ─── Discovery ──────────────────────────────────────────
+  async analyzeStatement(file) {
+    const formData = new FormData();
+    formData.append('statement', file);
+    const token = typeof getToken === 'function' ? getToken() : localStorage.getItem('anvaya_token');
+    const baseUrl = (typeof ANVAYA !== 'undefined' && ANVAYA.API_BASE) || 'http://localhost:5000/api/v1';
+    const response = await fetch(`${baseUrl}/discovery/analyze`, {
+      method: 'POST',
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+      body: formData
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.message || 'Analysis failed');
+    }
+    return response.json();
+  },
+
+  async confirmDiscoveryLead(payload) {
+    return apiRequest('/discovery/confirm', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async confirmLead(payload) {
+    return this.confirmDiscoveryLead(payload);
   }
 };
+

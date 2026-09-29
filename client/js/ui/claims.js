@@ -13,13 +13,13 @@ const DEMO_CLAIMS = {
 };
 
 const CLAIM_TYPES = {
-  lic: { label: 'Insurance', icon: '🛡️', fullName: 'LIC of India' },
-  epf: { label: 'Provident Fund', icon: '💼', fullName: 'EPFO' },
-  bank: { label: 'Banking', icon: '🏦', fullName: 'Bank' },
-  property: { label: 'Property', icon: '🏠', fullName: 'Property' },
-  postoffice: { label: 'Post Office', icon: '📮', fullName: 'India Post' },
-  pmjjby: { label: 'PMJJBY', icon: '❤️', fullName: 'PMJJBY Insurance' },
-  pmsby: { label: 'PMSBY', icon: '🏥', fullName: 'PMSBY Cover' }
+  lic: { label: 'Insurance', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>', fullName: 'LIC of India' },
+  epf: { label: 'Provident Fund', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>', fullName: 'EPFO' },
+  bank: { label: 'Banking', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>', fullName: 'Bank' },
+  property: { label: 'Property', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>', fullName: 'Property' },
+  postoffice: { label: 'Post Office', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg>', fullName: 'India Post' },
+  pmjjby: { label: 'PMJJBY', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>', fullName: 'PMJJBY Insurance' },
+  pmsby: { label: 'PMSBY', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>', fullName: 'PMSBY Cover' }
 };
 
 let allClaims = [];
@@ -144,9 +144,9 @@ function renderClaims() {
     const statsContainer = document.getElementById('header-stats');
     if (statsContainer) {
         statsContainer.innerHTML = `
-            <div class="mini-stat pending">🟡 ${pending.length} Pending</div>
-            <div class="mini-stat progress">🔵 ${inProgress.length} In Progress</div>
-            <div class="mini-stat done">🟢 ${done.length} Completed</div>
+            <div class="mini-stat pending"><span class="status-dot dot-pending"></span> ${pending.length} Pending</div>
+            <div class="mini-stat progress"><span class="status-dot dot-progress"></span> ${inProgress.length} In Progress</div>
+            <div class="mini-stat done"><span class="status-dot dot-done"></span> ${done.length} Completed</div>
         `;
     }
 
@@ -186,7 +186,7 @@ function formatDt(dt) {
 }
 
 function renderClaimCard(claim) {
-    const typeInfo = CLAIM_TYPES[claim.claimType] || { label: 'Other', icon: '📄', fullName: 'Unknown' };
+    const typeInfo = CLAIM_TYPES[claim.claimType] || { label: 'Other', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>', fullName: 'Unknown' };
     
     let badgeHtml = '';
     let bottomLeftHtml = '';
@@ -246,7 +246,7 @@ function renderListView(claims) {
     if (!tbody) return;
 
     tbody.innerHTML = claims.map(claim => {
-        const typeInfo = CLAIM_TYPES[claim.claimType] || { label: 'Other', icon: '📄', fullName: 'Unknown' };
+        const typeInfo = CLAIM_TYPES[claim.claimType] || { label: 'Other', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>', fullName: 'Unknown' };
         
         let statusBadge = '';
         if (claim.status === 'pending') statusBadge = '<span class="badge badge-pending">Pending</span>';
@@ -318,11 +318,11 @@ async function updateClaimStatus(claimId, newStatus) {
         }
         
         renderClaims();
-        if (typeof showToast === 'function') showToast('Success', 'Claim status updated successfully', 'success');
+        if (typeof showToast === 'function') showToast('Claim status updated successfully', 'success');
         
     } catch (err) {
         console.error('Error updating status', err);
-        if (typeof showToast === 'function') showToast('Error', 'Failed to update status', 'error');
+        if (typeof showToast === 'function') showToast('Failed to update status', 'error');
     }
 }
 
@@ -332,15 +332,15 @@ async function generateClaims() {
         if (typeof apiRequest === 'function' && caseId !== 'demo') {
             const res = await apiRequest(`/cases/${caseId}/claims/generate`, { method: 'POST' });
             if (res && Array.isArray(res)) {
-                if (typeof showToast === 'function') showToast('Success', 'Claims auto-generated', 'success');
+                if (typeof showToast === 'function') showToast('Claims auto-generated', 'success');
                 loadClaims();
             }
         } else {
-            if (typeof showToast === 'function') showToast('Success', 'Demo claims generated', 'success');
+            if (typeof showToast === 'function') showToast('Demo claims generated', 'success');
         }
     } catch (err) {
         console.error('Error generating claims', err);
-        if (typeof showToast === 'function') showToast('Error', 'Failed to generate claims', 'error');
+        if (typeof showToast === 'function') showToast('Failed to generate claims', 'error');
     }
 }
 
@@ -411,4 +411,111 @@ function setupEventListeners() {
             dd.classList.remove('open');
         });
     });
+
+    // Add Claim Modal: close/cancel buttons
+    const closeModalBtn = document.getElementById('closeAddClaimModal');
+    const cancelModalBtn = document.getElementById('cancelAddClaimBtn');
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeAddClaimModal);
+    if (cancelModalBtn) cancelModalBtn.addEventListener('click', closeAddClaimModal);
+
+    // Close modal on overlay click
+    const modalOverlay = document.getElementById('addClaimModal');
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeAddClaimModal();
+        });
+    }
+
+    // Add Claim Form submission
+    const addForm = document.getElementById('addClaimForm');
+    if (addForm) {
+        addForm.addEventListener('submit', handleAddClaimSubmit);
+    }
+}
+
+function openAddClaimModal(defaultStatus) {
+    const modal = document.getElementById('addClaimModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+
+    // Pre-select the status based on which column "+ Add Claim" was clicked
+    const statusSelect = document.getElementById('newClaimStatus');
+    if (statusSelect && defaultStatus) {
+        statusSelect.value = defaultStatus;
+    }
+
+    // Reset form fields (except status)
+    const titleInput = document.getElementById('newClaimTitle');
+    const refInput = document.getElementById('newClaimRef');
+    const amountInput = document.getElementById('newClaimAmount');
+    const deadlineInput = document.getElementById('newClaimDeadline');
+    const typeSelect = document.getElementById('newClaimType');
+
+    if (titleInput) titleInput.value = '';
+    if (refInput) refInput.value = '';
+    if (amountInput) amountInput.value = '';
+    if (deadlineInput) deadlineInput.value = '';
+    if (typeSelect) typeSelect.value = 'bank';
+}
+
+function closeAddClaimModal() {
+    const modal = document.getElementById('addClaimModal');
+    if (modal) modal.style.display = 'none';
+}
+
+async function handleAddClaimSubmit(e) {
+    e.preventDefault();
+
+    const claimType = document.getElementById('newClaimType').value;
+    const title = document.getElementById('newClaimTitle').value.trim();
+    const ref = document.getElementById('newClaimRef').value.trim();
+    const amount = document.getElementById('newClaimAmount').value;
+    const status = document.getElementById('newClaimStatus').value;
+    const deadline = document.getElementById('newClaimDeadline').value;
+
+    if (!title) {
+        if (typeof showToast === 'function') showToast('Please enter a claim title', 'warning');
+        return;
+    }
+
+    // Build the new claim object
+    const newClaim = {
+        _id: 'local_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+        claimType: claimType,
+        status: status,
+        deadline: deadline || null,
+        filedOn: (status === 'in-progress' || status === 'done') ? new Date().toISOString() : null,
+        meta: {
+            title: title,
+            ref: ref || claimType.toUpperCase() + ' Claim',
+            institution: CLAIM_TYPES[claimType]?.fullName || 'Institution',
+            amount: amount ? parseFloat(amount) : null,
+            completedOn: status === 'done' ? new Date().toISOString() : null
+        },
+        priority: null,
+        daysUntilDeadline: Infinity
+    };
+
+    // Compute priority and days
+    newClaim.priority = getPriority(newClaim);
+    newClaim.daysUntilDeadline = newClaim.deadline
+        ? (typeof daysUntil === 'function' ? daysUntil(newClaim.deadline) : calculateDays(newClaim.deadline))
+        : Infinity;
+
+    // Add to local array and re-render
+    allClaims.push(newClaim);
+    renderClaims();
+    closeAddClaimModal();
+
+    if (typeof showToast === 'function') showToast('Claim added successfully!', 'success');
+
+    // Persist to backend if connected
+    try {
+        let caseId = typeof getCaseId === 'function' ? getCaseId() : null;
+        if (caseId && caseId !== 'demo' && typeof apiRequest === 'function') {
+            await apiRequest(`/cases/${caseId}/claims/generate`, { method: 'POST' });
+        }
+    } catch (err) {
+        console.warn('Could not persist claim to server (running in demo mode)', err);
+    }
 }

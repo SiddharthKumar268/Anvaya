@@ -61,5 +61,37 @@ const AuthApi = {
       // Real API error - re-throw so the form shows it
       throw err;
     }
+  },
+
+  async forgotPassword(payload) {
+    try {
+      const data = await apiRequest('/auth/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      return data;
+    } catch (err) {
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        console.warn('Server unavailable - running in demo mode');
+        return { success: true, message: 'Email verified (demo mode). OTP will be sent via EmailJS.' };
+      }
+      throw err;
+    }
+  },
+
+  async resetPassword(payload) {
+    try {
+      const data = await apiRequest('/auth/reset-password', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      return data;
+    } catch (err) {
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        console.warn('Server unavailable - running in demo mode');
+        return { success: true, message: 'Password has been reset successfully (demo mode).' };
+      }
+      throw err;
+    }
   }
 };

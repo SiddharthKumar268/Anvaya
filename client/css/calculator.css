@@ -196,3 +196,213 @@
     font-size: 2.5rem;
   }
 }
+
+/* ─── Smart Reinvestment Recommendations ─────────────── */
+.recommendations-section {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border, rgba(0,0,0,0.08));
+}
+
+.reco-header {
+  margin-bottom: 1.5rem;
+}
+
+.reco-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.reco-title-row h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.reco-subtitle {
+  color: var(--text-secondary, #64748b);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.reco-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.reco-card {
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
+  border-radius: var(--radius-lg, 16px);
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.reco-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+
+.reco-card.ai-card {
+  border-color: var(--blue, #2576A6);
+  border-width: 2px;
+}
+
+.reco-card.ai-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue, #2576A6), #10B981, var(--gold, #F59E0B));
+}
+
+.reco-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.reco-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy, #0a192f);
+  margin: 0;
+}
+
+.reco-badge-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.reco-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.reco-badge.ai {
+  background: linear-gradient(135deg, rgba(37,118,166,0.12), rgba(16,185,129,0.12));
+  color: var(--blue, #2576A6);
+  border: 1px solid rgba(37,118,166,0.25);
+}
+
+.reco-badge.ai svg {
+  width: 12px;
+  height: 12px;
+}
+
+.reco-badge.risk-low {
+  background-color: var(--green-soft, #E6F9EE);
+  color: var(--green-dark, #276749);
+}
+
+.reco-badge.risk-medium {
+  background-color: var(--gold-soft, #FFF5E0);
+  color: #9A6E1B;
+}
+
+.reco-badge.risk-high {
+  background-color: var(--red-soft, #FFE8E8);
+  color: var(--red-dark, #C53030);
+}
+
+.reco-badge.category {
+  background-color: #E8F0FF;
+  color: #4C7DD9;
+}
+
+.reco-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #64748b);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.reco-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.reco-stat {
+  background: var(--bg-cool, #F7F8FA);
+  border-radius: var(--radius-sm, 8px);
+  padding: 10px;
+  text-align: center;
+}
+
+.reco-stat-label {
+  font-size: 11px;
+  color: var(--text-muted, #9ca3af);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.reco-stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy, #0a192f);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.reco-stat-value.highlight {
+  color: var(--green-dark, #276749);
+}
+
+.reco-why {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  background: rgba(37, 118, 166, 0.06);
+  border-radius: var(--radius-sm, 8px);
+  padding: 10px 12px;
+  font-size: 0.8rem;
+  color: var(--text-primary, #1a2e44);
+  line-height: 1.45;
+}
+
+.reco-why svg {
+  flex-shrink: 0;
+  color: var(--blue, #2576A6);
+  margin-top: 1px;
+}
+
+.reco-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted, #9ca3af);
+  padding: 10px 0;
+}
+
+.reco-disclaimer svg {
+  flex-shrink: 0;
+  color: var(--text-muted, #9ca3af);
+}
+
+@media (max-width: 768px) {
+  .reco-grid {
+    grid-template-columns: 1fr;
+  }
+}

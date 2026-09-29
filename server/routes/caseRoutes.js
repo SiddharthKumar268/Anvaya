@@ -2,7 +2,7 @@
 
 const express = require('express')
 const router = express.Router()
-const { protect } = require('../middleware/authMiddleware')
+const { protect, optionalAuth } = require('../middleware/authMiddleware')
 const {
   createCase,
   getCase,
@@ -11,12 +11,14 @@ const {
   generateClaims,
   getClaims,
   updateClaimStatus,
-  getDashboard
+  getDashboard,
+  generateAISummary
 } = require('../controllers/caseController')
 
 router.post('/', protect, createCase)
 router.get('/:id', protect, getCase)
 router.get('/:id/dashboard', protect, getDashboard)
+router.post('/:id/ai-summary', optionalAuth, generateAISummary)
 
 router.post('/:id/documents/generate', protect, generateChecklist)
 router.put('/documents/:docId/toggle', protect, toggleDocument)

@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Track pension claims and employer benefits due to nominee after demise.">
+  <meta name="description" content="Calculate statutory pension, EDLI life insurance, gratuity, and draft ready-to-sign EPFO claim forms.">
   <title>Pension & Employer Benefits - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,202 +26,524 @@
       
       <!-- Page Header -->
       <div class="page-header fade-in">
-        <div class="header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+        <div class="header-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+        </div>
         <div>
-          <h1 id="page-greeting">Pension & Employer Benefits</h1>
-          <p id="page-subtitle" class="text-secondary">Track pension and employer-related benefits</p>
+          <h1 id="page-greeting">Pension & Employer Entitlements</h1>
+          <p id="page-subtitle" class="text-secondary">Statutory calculation for EDLI ₹7L, Gratuity Act 1972, EPS Family Pension & Ready-to-Sign Claim Kits</p>
         </div>
       </div>
 
-      <!-- Pension Overview Cards -->
+      <!-- Quick Summary Cards (Lump-Sum vs Monthly vs SLA) -->
       <section class="overview-section fade-in delay-1">
         <div class="grid-3">
-          <div class="glass-card">
-            <h3>EPS (Employee Pension Scheme)</h3>
-            <div class="amount">₹4,850<span>/month</span></div>
-            <span class="badge badge-completed">Eligible</span>
-            <p class="text-secondary mt-1">Based on 15 years service</p>
+          <div class="glass-card stat-card-gold">
+            <div class="stat-header">
+              <span class="stat-badge badge-gold">Immediate Lump-Sum</span>
+              <span class="stat-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
+                  <path d="M12 18V6"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="amount" id="quick-lump-sum">₹ 21,61,923</div>
+            <p class="text-secondary" id="quick-lump-breakdown">EDLI Life Cover + Gratuity + EPF Corpus + Leave Encashment</p>
           </div>
-          <div class="glass-card">
-            <h3>Family Pension</h3>
-            <div class="amount">₹4,850<span>/month</span></div>
-            <span class="badge badge-completed">Spouse Eligible</span>
-            <p class="text-secondary mt-1">Payable for lifetime or till remarriage</p>
+
+          <div class="glass-card stat-card-green">
+            <div class="stat-header">
+              <span class="stat-badge badge-green">Guaranteed Monthly</span>
+              <span class="stat-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="amount text-green" id="quick-monthly-pension">₹ 4,850<span>/month</span></div>
+            <p class="text-secondary" id="quick-pension-breakdown">Spouse Lifetime Pension + Minor Children Allowance</p>
           </div>
-          <div class="glass-card">
-            <h3>Employer Pension</h3>
-            <div class="amount">N/A</div>
-            <span class="badge badge-pending">Not Applicable</span>
-            <p class="text-secondary mt-1">No company-specific pension found</p>
+
+          <div class="glass-card stat-card-blue">
+            <div class="stat-header">
+              <span class="stat-badge badge-blue">Statutory SLA</span>
+              <span class="stat-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+                  <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path>
+                  <path d="M7 21h10"></path>
+                  <path d="M12 3v18"></path>
+                  <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="amount" style="color: var(--blue);">20 Days</div>
+            <p class="text-secondary">EPFO Citizen Charter limit. Delayed claims incur penal interest.</p>
           </div>
         </div>
       </section>
 
-      <!-- Eligibility Checker -->
-      <section class="eligibility-section fade-in delay-2 mt-2">
-        <h2 class="section-title">Eligibility Checker</h2>
-        <div class="glass-card">
-          <form id="eligibility-form" class="eligibility-form grid-2">
-            <div class="form-group">
-              <label class="form-label" for="relationship">Relationship to Deceased</label>
-              <select id="relationship" class="form-input">
-                <option value="spouse" selected>Spouse</option>
-                <option value="child">Child</option>
-                <option value="parent">Parent</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="age">Deceased's Age at Death</label>
-              <input type="number" id="age" class="form-input" value="52">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="contribution">Years of EPF Contribution</label>
-              <input type="number" id="contribution" class="form-input" value="15">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="receiving-pension">Was deceased receiving pension?</label>
-              <select id="receiving-pension" class="form-input">
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-              </select>
-            </div>
-            <div class="form-group full-width">
-              <button type="submit" class="btn btn-primary" id="check-eligibility-btn">Check Eligibility</button>
-            </div>
-          </form>
+      <!-- Statutory Calculator Section -->
+      <section class="calculator-section glass-card fade-in delay-2 mt-2">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-title-icon">
+                <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+                <line x1="8" y1="6" x2="16" y2="6"></line>
+                <line x1="8" y1="10" x2="16" y2="10"></line>
+                <line x1="8" y1="14" x2="12" y2="14"></line>
+                <line x1="8" y1="18" x2="10" y2="18"></line>
+              </svg>
+              Statutory Benefit & Pension Calculator
+            </h2>
+            <p class="text-secondary" style="font-size: 13.5px; margin: 4px 0 0 0;">Calculate exact legally mandated payouts under EPFO Acts and Payment of Gratuity Act 1972</p>
+          </div>
         </div>
+
+        <form id="pension-calc-form" class="calc-form-grid mt-2">
+          <div class="form-group">
+            <label class="form-label" for="calcEmployerType">Employment Sector</label>
+            <select id="calcEmployerType" class="form-input">
+              <option value="private" selected>Private Sector (EPF / EPS Member)</option>
+              <option value="central_govt">Central Government (CCS Pension Rules)</option>
+              <option value="state_govt">State Government</option>
+              <option value="psu">PSU / Public Sector Enterprise</option>
+              <option value="armed_forces">Armed Forces / Defence</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calcSalary">Last Drawn Monthly Salary (Basic + DA) (₹)</label>
+            <input type="number" id="calcSalary" class="form-input" value="45000" min="0" placeholder="e.g. 45000" required>
+            <span class="field-hint">Used for Gratuity (15/26 formula) and Leave Encashment</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calcYears">Completed Years of Service</label>
+            <input type="number" id="calcYears" class="form-input" value="12" min="0" max="60" step="0.5" required>
+            <span class="field-hint">In death cases, 5-yr rule for gratuity is waived by law</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calcEpfBalance">EPF Balance Corpus (₹) <span style="font-weight: 400; color: var(--text-muted);">(optional)</span></label>
+            <input type="number" id="calcEpfBalance" class="form-input" value="850000" min="0" placeholder="e.g. 850000">
+            <span class="field-hint">Includes employee + employer PF contribution with interest</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calcRelationship">Claimant Relationship to Deceased</label>
+            <select id="calcRelationship" class="form-input">
+              <option value="spouse" selected>Spouse (Widow / Widower)</option>
+              <option value="child">Child (Son / Daughter)</option>
+              <option value="parent">Dependent Parent (Mother / Father)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calcChildrenCount">Minor Children (Under 25 Years)</label>
+            <select id="calcChildrenCount" class="form-input">
+              <option value="0">0 Children</option>
+              <option value="1">1 Child (+25% EPS Allowance)</option>
+              <option value="2" selected>2 or more Children (+50% EPS Allowance)</option>
+            </select>
+            <span class="field-hint">EPS-95 covers up to 2 children until they attain 25 years</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calcLeaves">Accumulated Earned Leaves (Days)</label>
+            <input type="number" id="calcLeaves" class="form-input" value="30" min="0" max="300" placeholder="e.g. 30">
+            <span class="field-hint">Encashable at full basic wage without deductions</span>
+          </div>
+
+          <div class="form-group calc-actions">
+            <button type="submit" class="btn btn-primary btn-calc" id="btn-run-pension-calc">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              Calculate Entitlements
+            </button>
+          </div>
+        </form>
       </section>
 
-      <!-- Benefits Breakdown -->
-      <section id="benefits-breakdown" class="benefits-section fade-in delay-3 mt-2 hidden">
-        <h2 class="section-title">Eligible Benefits Breakdown</h2>
+      <!-- Dynamic Results Breakdown Section -->
+      <section id="pension-results-section" class="benefits-results-container fade-in delay-3 mt-2">
         
-        <div class="benefits-summary glass-card mb-2">
-          <div class="summary-item">
-            <span class="text-secondary">Total One-Time Benefits</span>
-            <div class="total-amount text-gold">₹20,86,538</div>
+        <!-- Immediate Lump-Sum Entitlements Hub -->
+        <div class="results-hub glass-card">
+          <div class="hub-header">
+            <div>
+              <span class="hub-kicker text-gold">LIQUIDITY & CLEARANCE</span>
+              <h3 class="hub-title">One-Time Lump-Sum Entitlements</h3>
+              <p class="text-secondary" style="margin: 0; font-size: 13px;">Full & Final settlement claimable immediately from EPFO and Employer</p>
+            </div>
+            <div class="hub-total-badge">
+              <span class="total-label">Total Claimable:</span>
+              <span class="total-val text-gold" id="res-total-lump">₹ 21,61,923</span>
+            </div>
           </div>
-          <div class="summary-item">
-            <span class="text-secondary">Recurring Monthly</span>
-            <div class="total-amount text-green">₹4,850</div>
+
+          <div class="entitlements-grid mt-2">
+            <!-- EDLI Card -->
+            <div class="entitlement-card highlighted-edli">
+              <div class="ent-header">
+                <span class="ent-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </span>
+                <span class="ent-badge badge-free">FREE EPFO COVER</span>
+              </div>
+              <h4 class="ent-name">EDLI Death Insurance</h4>
+              <div class="ent-amount text-gold" id="res-edli-amount">₹ 7,00,000</div>
+              <p class="ent-desc" id="res-edli-desc">Statutory payout under Section 6C of EPF Act. Zero cost to employee.</p>
+              <div class="ent-action-tag">Claim via: <strong>EPFO Form 5IF</strong></div>
+            </div>
+
+            <!-- Gratuity Card -->
+            <div class="entitlement-card">
+              <div class="ent-header">
+                <span class="ent-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="6"></circle>
+                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                  </svg>
+                </span>
+                <span class="ent-badge">STATUTORY ACT</span>
+              </div>
+              <h4 class="ent-name">Statutory Gratuity</h4>
+              <div class="ent-amount text-navy" id="res-gratuity-amount">₹ 3,11,538</div>
+              <p class="ent-desc" id="res-gratuity-desc">Payment of Gratuity Act 1972 (15/26 formula). Tax-free up to ₹20L.</p>
+              <div class="ent-action-tag">Claim via: <strong>Form 'K' to Employer</strong></div>
+            </div>
+
+            <!-- EPF Corpus Card -->
+            <div class="entitlement-card">
+              <div class="ent-header">
+                <span class="ent-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="21" x2="21" y2="21"></line>
+                    <line x1="4" y1="10" x2="20" y2="10"></line>
+                    <polygon points="12 3 3 10 21 10 12 3"></polygon>
+                    <line x1="6" y1="10" x2="6" y2="21"></line>
+                    <line x1="10" y1="10" x2="10" y2="21"></line>
+                    <line x1="14" y1="10" x2="14" y2="21"></line>
+                    <line x1="18" y1="10" x2="18" y2="21"></line>
+                  </svg>
+                </span>
+                <span class="ent-badge">PF BALANCE</span>
+              </div>
+              <h4 class="ent-name">EPF Member Accumulation</h4>
+              <div class="ent-amount text-navy" id="res-epf-amount">₹ 8,50,000</div>
+              <p class="ent-desc" id="res-epf-desc">Full employee + employer contribution with annual compound interest.</p>
+              <div class="ent-action-tag">Claim via: <strong>EPFO Form 20</strong></div>
+            </div>
+
+            <!-- Leave Encashment Card -->
+            <div class="entitlement-card">
+              <div class="ent-header">
+                <span class="ent-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                </span>
+                <span class="ent-badge">F&F SETTLEMENT</span>
+              </div>
+              <h4 class="ent-name">Leave Encashment</h4>
+              <div class="ent-amount text-navy" id="res-leave-amount">₹ 45,000</div>
+              <p class="ent-desc" id="res-leave-desc">Cash value of accumulated privilege/earned leaves paid by company.</p>
+              <div class="ent-action-tag">Claim via: <strong>Employer Clearance</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly Recurring Pension Hub -->
+        <div class="results-hub glass-card mt-2">
+          <div class="hub-header">
+            <div>
+              <span class="hub-kicker text-green">LIFETIME INCOME SECURITY</span>
+              <h3 class="hub-title">Guaranteed Monthly Family Pension</h3>
+              <p class="text-secondary" style="margin: 0; font-size: 13px;" id="pension-scheme-title">EPS-95 (Employees' Pension Scheme) Statutory Monthly Payout</p>
+            </div>
+            <div class="hub-total-badge green-badge">
+              <span class="total-label">Total Monthly:</span>
+              <span class="total-val text-green" id="res-total-monthly">₹ 4,850 /mo</span>
+            </div>
+          </div>
+
+          <div class="pension-breakdown-grid mt-2">
+            <div class="pension-split-card">
+              <div class="split-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div>
+                <h5 class="split-title">Spouse Lifetime Pension</h5>
+                <div class="split-amount text-green" id="res-spouse-pension">₹ 3,465<span>/month</span></div>
+                <p class="split-sub">Payable for lifetime or until remarriage</p>
+              </div>
+            </div>
+
+            <div class="pension-split-card">
+              <div class="split-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M9 21v-2a4 4 0 0 1 3-3.87"></path>
+                  <circle cx="9" cy="7" r="3"></circle>
+                  <circle cx="15" cy="7" r="3"></circle>
+                  <path d="M6 21v-1a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v1"></path>
+                </svg>
+              </div>
+              <div>
+                <h5 class="split-title">Minor Children Monthly Allowance</h5>
+                <div class="split-amount text-green" id="res-child-pension">₹ 1,385<span>/month</span></div>
+                <p class="split-sub" id="res-child-sub">For 2 minor children (25% each) until age 25</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pension-rules-notice" id="pension-rules-text">
+            Guaranteed widow/widower monthly pension for lifetime under EPS-95. Plus additional 25% allowance per child payable up to 2 minor children until age 25.
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Ready-to-Sign Claim Form Studio -->
+      <section class="form-studio-section glass-card fade-in delay-3 mt-2">
+        <div class="studio-header">
+          <div>
+            <span class="studio-kicker">AUTOMATED LEGAL FILING</span>
+            <h2 class="section-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-title-icon">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              Ready-to-Sign Claim Form Studio
+            </h2>
+            <p class="text-secondary" style="font-size: 13.5px; margin: 4px 0 0 0;">Generate pre-filled, statutory applications for EPFO and Employer clearance</p>
+          </div>
+        </div>
+
+        <!-- Form Selector Pills -->
+        <div class="form-selector-pills">
+          <button type="button" class="form-pill active" data-form="10d" onclick="switchClaimForm('10d')">
+            <span class="pill-badge">EPFO</span> Form 10D (Monthly Pension)
+          </button>
+          <button type="button" class="form-pill" data-form="20" onclick="switchClaimForm('20')">
+            <span class="pill-badge">EPFO</span> Form 20 (EPF Withdrawal)
+          </button>
+          <button type="button" class="form-pill" data-form="5if" onclick="switchClaimForm('5if')">
+            <span class="pill-badge">EPFO</span> Form 5IF (EDLI ₹7L Insurance)
+          </button>
+          <button type="button" class="form-pill" data-form="gratuity" onclick="switchClaimForm('gratuity')">
+            <span class="pill-badge">COMPANY</span> Form K (Gratuity Notice)
+          </button>
+        </div>
+
+        <!-- Selected Form Details Bar -->
+        <div class="selected-form-meta" id="form-meta-box">
+          <div class="meta-item">
+            <span class="meta-label">Authority:</span>
+            <span class="meta-value" id="meta-authority">EPFO Regional / Field Office</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Statutory SLA:</span>
+            <span class="meta-value" id="meta-sla">20 Working Days (EPFO Charter)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Attestation Required:</span>
+            <span class="meta-value" id="meta-attestation">Employer Seal or Bank Manager (if closed)</span>
+          </div>
+        </div>
+
+        <!-- Interactive Document Editor / Preview Area -->
+        <div class="doc-editor-wrapper">
+          <div class="doc-toolbar">
+            <span class="doc-tag" id="doc-title-tag">FORM 10D — EPS FAMILY PENSION APPLICATION</span>
+            <div class="doc-actions">
+              <button class="btn btn-ghost btn-sm" onclick="copyFormContent()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy Application
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="printFormContent()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Print / Save as PDF
+              </button>
+            </div>
+          </div>
+
+          <textarea id="claim-form-editor" class="claim-form-textarea" spellcheck="false"></textarea>
+        </div>
+
+        <!-- Mandatory Enclosures Checklist -->
+        <div class="enclosures-box mt-2">
+          <h4 style="margin: 0 0 8px 0; font-size: 14px; color: var(--navy);">Mandatory Enclosures for this Application:</h4>
+          <ul class="enclosures-list" id="enclosures-list">
+            <li>Original death certificate of the member (with municipal registration seal / QR code)</li>
+            <li>Claimant's Aadhaar card and PAN card copies (self-attested)</li>
+            <li>Original cancelled bank cheque with claimant's name and IFSC code printed</li>
+            <li>3 copies of passport-size joint photograph of claimant & minor children (for Form 10D)</li>
+            <li>Attestation by the last employer on employer's letterhead, or Bank Manager if establishment is closed</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Multi-Track Claim Process Roadmap -->
+      <section class="timeline-section fade-in delay-4 mt-2">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-title-icon">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                <line x1="8" y1="2" x2="8" y2="18"></line>
+                <line x1="16" y1="6" x2="16" y2="22"></line>
+              </svg>
+              Statutory Claim Process Roadmap
+            </h2>
+            <p class="text-secondary" style="font-size: 13.5px; margin: 4px 0 0 0;">Interactive step-by-step submission tracks across EPFO, Company HR, and Pension Bank</p>
+          </div>
+        </div>
+
+        <!-- Roadmap Track Selector -->
+        <div class="roadmap-track-tabs">
+          <button class="track-tab active" onclick="switchRoadmapTrack('epfo')">Track 1: EPFO Online & Composite Claim</button>
+          <button class="track-tab" onclick="switchRoadmapTrack('employer')">Track 2: Employer Clearance (Gratuity & Leave)</button>
+          <button class="track-tab" onclick="switchRoadmapTrack('govt')">Track 3: Central / State Govt PPO Track</button>
+        </div>
+
+        <div class="glass-card mt-1">
+          <div id="roadmap-steps-container" class="roadmap-steps-grid">
+            <!-- Dynamic steps populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Official Government & EPFO Gateway & SLA Escalator -->
+      <section class="gateway-section fade-in delay-5 mt-2 mb-2">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-title-icon">
+                <line x1="3" y1="22" x2="21" y2="22"></line>
+                <line x1="6" y1="18" x2="6" y2="11"></line>
+                <line x1="10" y1="18" x2="10" y2="11"></line>
+                <line x1="14" y1="18" x2="14" y2="11"></line>
+                <line x1="18" y1="18" x2="18" y2="11"></line>
+                <polygon points="12 2 20 7 4 7"></polygon>
+              </svg>
+              Official EPFO & Government Portals
+            </h2>
+            <p class="text-secondary" style="font-size: 13.5px; margin: 4px 0 0 0;">Verified direct government links, statutory 20-day SLA escalator, and nationwide helplines</p>
           </div>
         </div>
 
         <div class="grid-3">
-          <div class="glass-card benefit-card">
-            <div class="benefit-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></div>
-            <h4>PF Accumulation</h4>
-            <div class="amount">₹8,50,000</div>
-            <p class="text-secondary">Provident Fund Balance</p>
+          <div class="glass-card gateway-card">
+            <div class="gw-badge">EPFO ONLINE</div>
+            <h4>EPFO Member Services Portal</h4>
+            <p class="text-secondary mt-1">Track UAN status, death claim submissions, and check employer contribution records.</p>
+            <div class="gw-actions mt-2">
+              <a href="https://unifiedportal-mem.epfindia.gov.in" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+                Open EPFO Portal
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
           </div>
-          <div class="glass-card benefit-card">
-            <div class="benefit-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-            <h4>Group Insurance (EDLI)</h4>
-            <div class="amount">₹7,00,000</div>
-            <p class="text-secondary">Max eligible amount</p>
+
+          <div class="glass-card gateway-card highlight-escalator">
+            <div class="gw-badge badge-warning">20-DAY SLA ESCALATOR</div>
+            <h4>EPFiGMS Grievance Portal</h4>
+            <p class="text-secondary mt-1">If EPFO takes &gt;20 days to settle Form 10D/20/5IF, file a direct complaint to the Central Commissioner.</p>
+            <div class="gw-actions mt-2">
+              <a href="https://epfigms.gov.in" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+                File 20-Day Escalation
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
           </div>
-          <div class="glass-card benefit-card">
-            <div class="benefit-icon">Gift</div>
-            <h4>Gratuity</h4>
-            <div class="amount">₹3,11,538</div>
-            <p class="text-secondary">Calculated amount</p>
-          </div>
-          <div class="glass-card benefit-card">
-            <div class="benefit-icon">Leave</div>
-            <h4>Leave Encashment</h4>
-            <div class="amount">₹1,25,000</div>
-            <p class="text-secondary">Estimated</p>
-          </div>
-          <div class="glass-card benefit-card">
-            <div class="benefit-icon">INR</div>
-            <h4>Monthly Family Pension</h4>
-            <div class="amount">₹4,850<span>/mo</span></div>
-            <p class="text-secondary">EPS Pension</p>
-          </div>
-          <div class="glass-card benefit-card">
-            <div class="benefit-icon">⏱️</div>
-            <h4>Pension Arrears</h4>
-            <div class="amount">Lump Sum</div>
-            <p class="text-secondary">If applicable</p>
+
+          <div class="glass-card gateway-card">
+            <div class="gw-badge">GOVT PENSION</div>
+            <h4>Bhavishya / CPAO Portal</h4>
+            <p class="text-secondary mt-1">Central Pension Accounting Office tracker for civil pensioners, PPO issuance, and CPPC updates.</p>
+            <div class="gw-actions mt-2">
+              <a href="https://bhavishya.nic.in" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+                Open Bhavishya
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
-      </section>
 
-      <!-- Claim Process Timeline -->
-      <section class="timeline-section fade-in delay-4 mt-2">
-        <h2 class="section-title">Claim Process Timeline</h2>
-        <div class="glass-card">
-          <div class="horizontal-stepper">
-            <div class="step completed" onclick="showStepDetails(1)">
-              <div class="step-indicator">1</div>
-              <div class="step-title">Gather Documents</div>
-              <div class="step-status">Completed</div>
-            </div>
-            <div class="step-line completed"></div>
-            <div class="step current" onclick="showStepDetails(2)">
-              <div class="step-indicator">2</div>
-              <div class="step-title">Submit Form 10D to EPFO</div>
-              <div class="step-status">Current</div>
-            </div>
-            <div class="step-line pending"></div>
-            <div class="step pending" onclick="showStepDetails(3)">
-              <div class="step-indicator">3</div>
-              <div class="step-title">Employer Verification</div>
-              <div class="step-status">Pending</div>
-            </div>
-            <div class="step-line pending"></div>
-            <div class="step pending" onclick="showStepDetails(4)">
-              <div class="step-indicator">4</div>
-              <div class="step-title">EPFO Processing</div>
-              <div class="step-status">Pending</div>
-            </div>
-            <div class="step-line pending"></div>
-            <div class="step pending" onclick="showStepDetails(5)">
-              <div class="step-indicator">5</div>
-              <div class="step-title">First Pension Credit</div>
-              <div class="step-status">Pending</div>
+        <!-- Verified National Helplines Bar -->
+        <div class="helpline-bar glass-card mt-2">
+          <div class="helpline-item">
+            <span class="helpline-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </span>
+            <div>
+              <div class="helpline-title">EPFO National Toll-Free</div>
+              <div class="helpline-val">1800-118-005 <button class="btn-copy-chip" onclick="copyToClipboard('1800-118-005')">Copy</button></div>
             </div>
           </div>
-          <div id="step-details" class="step-details mt-2 p-2" style="background: rgba(255,255,255,0.05); border-radius: var(--radius-md);">
-            <h4>Step 2: Submit Form 10D to EPFO</h4>
-            <p class="text-secondary mt-1">Submit Form 10D along with death certificate, joint photograph, and cancelled cheque to claim EPS family pension.</p>
-            <p class="text-sm mt-1 text-gold" style="font-size: 0.875rem;">Expected duration: 7-10 days</p>
-          </div>
-        </div>
-      </section>
 
-      <!-- Important Contacts -->
-      <section class="contacts-section fade-in delay-5 mt-2 mb-2">
-        <h2 class="section-title">Important Contacts</h2>
-        <div class="grid-2">
-          <div class="glass-card contact-card">
-            <h4>EPFO Regional Office</h4>
-            <p class="text-secondary mt-1">Bandra, Mumbai</p>
-            <div class="contact-actions mt-1">
-              <button class="btn btn-ghost btn-sm">Get Directions</button>
+          <div class="helpline-item">
+            <span class="helpline-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+            <div>
+              <div class="helpline-title">SMS Balance & Status</div>
+              <div class="helpline-val">SMS "EPFOHO UAN" to 7738299899 <button class="btn-copy-chip" onclick="copyToClipboard('7738299899')">Copy</button></div>
             </div>
           </div>
-          <div class="glass-card contact-card">
-            <h4>Employer HR Department</h4>
-            <p class="text-secondary mt-1">Tech Corp India Pvt Ltd</p>
-            <div class="contact-actions mt-1">
-              <span class="phone-number">hr@techcorp.in</span>
-            </div>
-          </div>
-          <div class="glass-card contact-card">
-            <h4>Pension Disbursing Bank</h4>
-            <p class="text-secondary mt-1">State Bank of India, Main Branch</p>
-            <div class="contact-actions mt-1">
-              <span class="phone-number">022-21234567</span>
-              <button class="btn btn-ghost btn-sm" onclick="copyToClipboard('022-21234567')">Copy</button>
-            </div>
-          </div>
-          <div class="glass-card contact-card">
-            <h4>EPFO Helpline</h4>
-            <p class="text-secondary mt-1">Toll Free National Helpline</p>
-            <div class="contact-actions mt-1">
-              <span class="phone-number text-gold">1800-118-005</span>
-              <button class="btn btn-ghost btn-sm" onclick="copyToClipboard('1800-118-005')">Copy</button>
+
+          <div class="helpline-item">
+            <span class="helpline-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </span>
+            <div>
+              <div class="helpline-title">Statutory Delay Penalty</div>
+              <div class="helpline-val">10% p.a. penal interest under Gratuity Act</div>
             </div>
           </div>
         </div>
@@ -227,3 +556,5 @@
   <script src="../js/ui/pension.js"></script>
 </body>
 </html>
+
+

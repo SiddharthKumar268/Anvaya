@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Upload bank statements to discover hidden assets, insurance policies, and liabilities.">
+  <title>Statement Discovery - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/discovery.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar"></aside>
+    <header id="top-header" class="top-header"></header>
+    <main class="main-content">
+      <div class="page-container">
+
+        <!-- Upload Zone -->
+        <div class="upload-zone fade-in delay-1" id="uploadZone">
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <h3>Upload Bank Statement</h3>
+          <p>Drag & drop a CSV file here, or click to browse</p>
+          <input type="file" id="csvFileInput" accept=".csv">
+          <div class="file-info" id="fileInfo"></div>
+        </div>
+
+        <!-- Stats Row (hidden until results) -->
+        <div class="stats-row fade-in delay-2" id="statsRow" style="display: none;">
+          <div class="stat-card">
+            <div class="stat-icon primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Leads Found</span>
+              <h3 class="stat-value" id="leadsCount">0</h3>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">High Confidence</span>
+              <h3 class="stat-value" id="highConfCount">0</h3>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon warning">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Liabilities</span>
+              <h3 class="stat-value" id="liabilityCount">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="discovery-disclaimer fade-in delay-2" id="disclaimer" style="display: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>These are <strong>likely leads, not confirmed facts</strong>. Always verify with the respective financial institution before filing a claim.</span>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsSection" style="display: none;">
+          <div class="results-header">
+            <h3>Discovered Leads</h3>
+            <span class="results-count" id="resultsCount"></span>
+          </div>
+          <div class="leads-grid" id="leadsGrid"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="discovery-empty" id="emptyState">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <h3>No statement uploaded yet</h3>
+          <p>Upload a bank statement CSV to discover hidden financial assets and liabilities</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/shared.js"></script>
+  <script src="../js/api/anvayaApi.js"></script>
+  <script src="../js/ui/discovery.js"></script>
+</body>
+</html>

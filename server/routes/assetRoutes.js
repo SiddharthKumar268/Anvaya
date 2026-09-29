@@ -2,14 +2,26 @@
 
 const express = require('express')
 const router = express.Router()
-const { protect } = require('../middleware/authMiddleware')
+const { protect, optionalAuth } = require('../middleware/authMiddleware')
 const {
   getTransferSteps,
   getNoNominationPath,
   getMinorProtection,
   checkLiability,
-  getLockerAlert
+  getLockerAlert,
+  createAsset,
+  getAssets,
+  updateAsset,
+  deleteAsset,
+  draftAssetLetter
 } = require('../controllers/assetController')
+
+router.get('/', protect, getAssets)
+router.get('/case/:caseId', protect, getAssets)
+router.post('/', protect, createAsset)
+router.put('/:id', protect, updateAsset)
+router.delete('/:id', protect, deleteAsset)
+router.post('/draft-letter', optionalAuth, draftAssetLetter)
 
 router.get('/transfer/:assetType', protect, getTransferSteps)
 router.get('/no-nomination', protect, getNoNominationPath)

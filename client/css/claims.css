@@ -490,3 +490,25 @@
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
+
+/* Status dot indicators */
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.status-dot.dot-pending {
+    background-color: #F59E0B;
+}
+
+.status-dot.dot-progress {
+    background-color: var(--blue, #2576A6);
+}
+
+.status-dot.dot-done {
+    background-color: var(--green, #38a169);
+}
+

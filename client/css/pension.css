@@ -1,18 +1,26 @@
-/* pension.css */
+/* pension.css — Anvaya Theme-Consistent Statutory Pension & Benefits */
 
 .page-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .header-icon {
-  font-size: 2.5rem;
-  background: var(--glass-bg);
-  padding: 1rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--glass-border);
+  width: 48px;
+  height: 48px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
 }
 
 .grid-3 {
@@ -23,183 +31,748 @@
 
 .grid-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
 .mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 2rem; }
-.mb-2 { margin-bottom: 2rem; }
-.p-2 { padding: 1.5rem; }
+.mt-2 { margin-top: 1.5rem; }
+.mb-2 { margin-bottom: 1.5rem; }
 .text-sm { font-size: 0.875rem; }
+.text-gold { color: var(--gold) !important; }
+.text-green { color: var(--green-dark) !important; }
+.text-navy { color: var(--navy) !important; }
+
+.inline-title-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  color: var(--blue);
+}
+
+/* ─── Quick Stat Cards ─────────────────────────────────────── */
+.overview-section {
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  clear: both;
+}
+
+.stat-card-gold,
+.stat-card-green,
+.stat-card-blue {
+  padding: 20px 22px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.stat-card-gold {
+  border-left: 4px solid var(--gold) !important;
+}
+.stat-card-green {
+  border-left: 4px solid var(--green) !important;
+}
+.stat-card-blue {
+  border-left: 4px solid var(--blue) !important;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.stat-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs, 4px);
+}
+
+.badge-gold {
+  background: var(--gold-soft);
+  color: var(--gold-hover);
+  border: 1px solid var(--border-gold);
+}
+
+.badge-green {
+  background: var(--green-soft);
+  color: var(--green-dark);
+  border: 1px solid var(--border-green);
+}
+
+.badge-blue {
+  background: var(--bg-cool);
+  color: var(--blue);
+  border: 1px solid var(--border-blue);
+}
+
+.stat-icon {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card-gold .stat-icon { color: var(--gold); }
+.stat-card-green .stat-icon { color: var(--green); }
+.stat-card-blue .stat-icon { color: var(--blue); }
 
 .amount {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.75rem;
+  font-family: var(--font-primary, 'Space Grotesk', sans-serif);
+  font-size: 1.85rem;
   font-weight: 700;
-  margin: 1rem 0;
-  color: var(--gold);
+  margin: 0.35rem 0;
+  color: var(--navy);
 }
 
 .amount span {
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text-secondary);
 }
 
-.full-width {
-  grid-column: 1 / -1;
+/* ─── Calculator Glass Panel ───────────────────────────────── */
+.calculator-section {
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
 }
 
-.eligibility-form .form-group {
-  margin-bottom: 1rem;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.benefits-summary {
+.section-header-row {
   display: flex;
-  justify-content: space-around;
-  padding: 1.5rem;
-  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.summary-item .total-amount {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
+.calc-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.field-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.calc-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
   margin-top: 0.5rem;
 }
 
-.benefit-card {
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.btn-calc {
+  padding: 11px 26px;
+  font-size: 14.5px;
+  font-weight: 600;
+  background: var(--blue);
+  color: var(--text-white);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
-.benefit-card:hover {
-  transform: translateY(-5px);
+.btn-calc:hover {
+  background: var(--blue-hover);
+  transform: translateY(-1px);
+}
+
+/* ─── Results Hub ──────────────────────────────────────────── */
+.results-hub {
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+}
+
+.hub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.hub-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.hub-title {
+  margin: 0 0 4px 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.hub-total-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: var(--gold-soft);
+  border: 1px solid var(--border-gold);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+}
+
+.hub-total-badge.green-badge {
+  background: var(--green-soft);
+  border: 1px solid var(--border-green);
+}
+
+.total-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.total-val {
+  font-family: var(--font-primary, 'Space Grotesk', sans-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+/* ─── Entitlements Grid ────────────────────────────────────── */
+.entitlements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.25rem;
+}
+
+.entitlement-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.entitlement-card:hover {
+  transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
 
-.benefit-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+.entitlement-card.highlighted-edli {
+  border: 1.5px solid var(--gold);
+  background: linear-gradient(135deg, var(--gold-soft) 0%, var(--surface) 100%);
 }
 
-.benefit-card .amount {
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-/* Horizontal Stepper */
-.horizontal-stepper {
+.ent-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-}
-
-.step {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  min-width: 120px;
+  margin-bottom: 0.6rem;
 }
 
-.step-indicator {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--glass-bg);
-  border: 2px solid var(--text-secondary);
+.ent-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs, 6px);
+  background: var(--surface-white);
+  border: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--navy);
+}
+
+.entitlement-card.highlighted-edli .ent-icon {
+  color: var(--gold-hover);
+  border-color: var(--border-gold);
+}
+
+.ent-badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs, 4px);
+  border: 1px solid var(--border);
+}
+
+.ent-badge.badge-free {
+  background: var(--gold);
+  color: var(--navy-dark);
+  border-color: var(--gold);
+}
+
+.ent-name {
+  margin: 0;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  transition: all 0.3s ease;
+  color: var(--navy);
 }
 
-.step.completed .step-indicator {
-  background: var(--green);
-  border-color: var(--green);
-  color: var(--bg-primary);
+.ent-amount {
+  font-family: var(--font-primary, 'Space Grotesk', sans-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0.4rem 0;
 }
 
-.step.current .step-indicator {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: var(--bg-primary);
-  box-shadow: 0 0 10px var(--blue);
+.ent-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0 0 1rem 0;
+  flex-grow: 1;
+  line-height: 1.45;
 }
 
-.step-title {
-  font-size: 0.875rem;
+.ent-action-tag {
+  font-size: 11px;
+  color: var(--navy);
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border);
+}
+
+/* ─── Pension Split Cards ──────────────────────────────────── */
+.pension-breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.pension-split-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.split-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--surface-white);
+  border: 1px solid var(--border-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-dark);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.split-title {
+  margin: 0 0 2px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.split-amount {
+  font-family: var(--font-primary, 'Space Grotesk', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.split-amount span {
+  font-size: 0.9rem;
   font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-.step-status {
-  font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
-.step-line {
-  flex: 1;
-  height: 2px;
-  background: var(--text-secondary);
-  opacity: 0.3;
-  margin: 0 10px;
-  position: relative;
-  top: -15px;
+.split-sub {
+  margin: 2px 0 0 0;
+  font-size: 11.5px;
+  color: var(--text-secondary);
 }
 
-.step-line.completed {
-  background: var(--green);
-  opacity: 1;
+.pension-rules-notice {
+  margin-top: 1.25rem;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--green-soft);
+  border: 1px solid var(--border-green);
+  font-size: 12.5px;
+  color: var(--green-dark);
+  line-height: 1.5;
 }
 
-.contact-card .contact-actions {
+/* ─── Claim Form Studio ────────────────────────────────────── */
+.form-studio-section {
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+}
+
+.studio-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.form-selector-pills {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0 1rem 0;
+}
+
+.form-pill {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill, 9999px);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.form-pill:hover {
+  background: var(--surface-white);
+  border-color: var(--blue);
+  color: var(--navy);
+}
+
+.form-pill.active {
+  background: var(--navy);
+  color: var(--text-white);
+  border-color: var(--navy);
+}
+
+.pill-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.06);
+}
+
+.form-pill.active .pill-badge {
+  background: rgba(255,255,255,0.25);
+  color: var(--text-white);
+}
+
+.selected-form-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  background: var(--bg-cool);
+  border: 1px solid var(--border-blue);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+}
+
+.meta-item {
+  font-size: 12.5px;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: var(--navy);
+  margin-right: 4px;
+}
+
+.meta-value {
+  color: var(--text-secondary);
+}
+
+.doc-editor-wrapper {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.doc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-secondary);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.doc-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.4px;
+}
+
+.doc-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.doc-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.claim-form-textarea {
+  width: 100%;
+  height: 340px;
+  padding: 1.25rem;
+  border: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--navy);
+  background: var(--surface-white);
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.enclosures-box {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.enclosures-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ─── Roadmap Tabs & Steps ─────────────────────────────────── */
+.roadmap-track-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.track-tab {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.track-tab:hover {
+  border-color: var(--blue);
+  color: var(--navy);
+}
+
+.track-tab.active {
+  background: var(--blue);
+  color: var(--text-white);
+  border-color: var(--blue);
+}
+
+.roadmap-steps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1rem;
+}
+
+.roadmap-step-card {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  transition: transform 0.2s;
+}
+
+.roadmap-step-card:hover {
+  border-color: var(--border-blue);
+  transform: translateX(2px);
+}
+
+.step-num-badge {
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--text-white);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
 }
 
-.phone-number {
-  font-family: 'Space Grotesk', sans-serif;
+.step-content h5 {
+  margin: 0 0 3px 0;
+  font-size: 13.5px;
+  color: var(--navy);
+}
+
+.step-content p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.step-timing {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11.5px;
   font-weight: 600;
+  color: var(--gold-hover);
+  margin-top: 6px;
 }
 
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+/* ─── Gateway Cards & Helplines ────────────────────────────── */
+.gateway-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.gw-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs, 4px);
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.gw-badge.badge-warning {
+  background: var(--red-soft);
+  color: var(--red-dark);
+  border-color: var(--red);
+}
+
+.gateway-card.highlight-escalator {
+  border: 1.5px solid var(--red);
+  background: linear-gradient(135deg, var(--red-soft) 0%, var(--glass-bg) 100%);
+}
+
+.helpline-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  padding: 1.25rem 1.75rem;
+}
+
+.helpline-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.helpline-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.helpline-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.helpline-val {
+  font-family: var(--font-primary, 'Space Grotesk', sans-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-copy-chip {
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: var(--radius-xs, 4px);
+  border: 1px solid var(--border);
+  background: var(--surface-white);
+  color: var(--navy);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-copy-chip:hover {
+  background: var(--bg-cool);
+  border-color: var(--blue);
 }
 
 @media (max-width: 768px) {
-  .horizontal-stepper {
+  .page-header {
     flex-direction: column;
     align-items: flex-start;
   }
-  .step {
-    flex-direction: row;
-    margin-bottom: 1rem;
-    text-align: left;
-  }
-  .step-indicator {
-    margin-bottom: 0;
-    margin-right: 1rem;
-  }
-  .step-line {
-    display: none;
-  }
-  .benefits-summary {
+  .hub-header {
     flex-direction: column;
-    gap: 1rem;
+    align-items: flex-start;
+  }
+  .hub-total-badge {
+    align-items: flex-start;
   }
 }
+
+

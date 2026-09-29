@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Benefit Calculator for Anvaya platform">
   <title>Benefit Calculator - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -41,6 +48,22 @@
               <div class="form-group">
                 <label class="form-label" for="fd">FD Total Amount (₹)</label>
                 <input type="number" id="fd" class="form-input" required min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="nominee-age">Nominee's Age</label>
+                <input type="number" id="nominee-age" class="form-input" required min="1" max="100" placeholder="e.g. 45">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="risk-tolerance">Risk Appetite</label>
+                <select id="risk-tolerance" class="form-input">
+                  <option value="conservative">Conservative (Safe & Steady)</option>
+                  <option value="moderate" selected>Moderate (Balanced)</option>
+                  <option value="aggressive">Aggressive (Growth-focused)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="monthly-expenses">Monthly Expenses (₹) <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+                <input type="number" id="monthly-expenses" class="form-input" min="0" placeholder="e.g. 25000">
               </div>
             </div>
 
@@ -124,9 +147,32 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
             <p><strong>Disclaimer:</strong> These are approximate estimates based on standard formulas. Actual payouts may vary based on specific institutional policies, taxes, and final verification.</p>
           </div>
+
+          <!-- Smart Investment Recommendations -->
+          <div id="recommendations-section" class="recommendations-section hidden">
+            <div class="reco-header">
+              <div class="reco-title-row">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue, #2576A6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                <h2>Smart Reinvestment Recommendations</h2>
+              </div>
+              <p class="reco-subtitle">Maximize your received benefits — here's where to invest for the best returns</p>
+            </div>
+            <div class="reco-grid" id="reco-grid">
+              <!-- Cards rendered by JS -->
+            </div>
+            <div class="reco-disclaimer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>Returns are indicative and based on current rates. Consult a SEBI-registered financial advisor before investing.</span>
+            </div>
+          </div>
         </div>
 
       </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Anvaya 2026</p>
+      </footer>
     </main>
   </div>
   <script src="../js/shared.js"></script>

@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claim Tracker - Anvaya</title>
+    <!-- Favicon / Brand Icon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+    <meta name="theme-color" content="#0B2854">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -58,12 +65,12 @@
             <div class="board-view" id="board-view">
                 <div class="board-column pending" id="col-pending">
                     <div class="col-header">
-                        <div class="col-icon">⏳</div>
+                        <div class="col-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                         <h3>Pending</h3>
                         <span class="count-badge">0</span>
                     </div>
                     <div class="column-content"></div>
-                    <a href="javascript:void(0)" class="add-claim" onclick="if(typeof showToast==='function'){showToast('Add Claim feature coming soon','info')}else{alert('Add Claim feature coming soon')}">+ Add Claim</a>
+                    <a href="javascript:void(0)" class="add-claim" onclick="openAddClaimModal('pending')">+ Add Claim</a>
                 </div>
 
                 <div class="board-column in-progress" id="col-in-progress">
@@ -73,6 +80,7 @@
                         <span class="count-badge">0</span>
                     </div>
                     <div class="column-content"></div>
+                    <a href="javascript:void(0)" class="add-claim" onclick="openAddClaimModal('in-progress')">+ Add Claim</a>
                 </div>
 
                 <div class="board-column done" id="col-done">
@@ -82,6 +90,7 @@
                         <span class="count-badge">0</span>
                     </div>
                     <div class="column-content"></div>
+                    <a href="javascript:void(0)" class="add-claim" onclick="openAddClaimModal('done')">+ Add Claim</a>
                 </div>
             </div>
 
@@ -104,6 +113,67 @@
                 </table>
             </div>
 
+            <!-- Add New Claim Modal -->
+            <div class="modal-overlay" id="addClaimModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:1000; align-items:center; justify-content:center;">
+                <div class="modal-box" style="background:#fff; border-radius:16px; max-width:520px; width:92%; margin:auto; box-shadow:0 20px 60px rgba(0,0,0,0.2); animation:fadeIn 0.25s ease-out;">
+                    <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; padding:20px 24px; border-bottom:1px solid var(--border,#e5e7eb);">
+                        <h3 style="margin:0; font-size:18px; font-weight:700; color:var(--navy,#1a2e44);">Add New Recovery Claim</h3>
+                        <button type="button" id="closeAddClaimModal" style="background:none; border:none; cursor:pointer; padding:4px; color:var(--text-muted,#9ca3af);" aria-label="Close modal">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                    <form id="addClaimForm" novalidate>
+                        <div style="padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
+                            <div>
+                                <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newClaimType">Asset / Claim Type</label>
+                                <select id="newClaimType" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px;" required>
+                                    <option value="bank">Bank Savings / FD Account</option>
+                                    <option value="lic">Life Insurance / LIC Policy</option>
+                                    <option value="epf">EPFO / Pension & EDLI</option>
+                                    <option value="postoffice">Post Office Scheme (PPF/NSC)</option>
+                                    <option value="pmjjby">PMJJBY / PMSBY Cover</option>
+                                    <option value="property">Property Mutation / Immovable Asset</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newClaimTitle">Claim Title / Institution Name</label>
+                                <input type="text" id="newClaimTitle" placeholder="e.g. ICICI Bank Savings Settlement" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;" required>
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newClaimRef">Account / Policy Number</label>
+                                <input type="text" id="newClaimRef" placeholder="e.g. A/c No. 9876543210" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;" required>
+                            </div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                                <div>
+                                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newClaimAmount">Estimated Amount (₹)</label>
+                                    <input type="number" id="newClaimAmount" placeholder="e.g. 250000" min="0" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                                </div>
+                                <div>
+                                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newClaimStatus">Initial Status</label>
+                                    <select id="newClaimStatus" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px;">
+                                        <option value="pending">Pending Action</option>
+                                        <option value="in-progress">In Progress</option>
+                                        <option value="done">Settled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newClaimDeadline">Target Due Date</label>
+                                <input type="date" id="newClaimDeadline" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                            </div>
+                        </div>
+                        <div style="display:flex; justify-content:flex-end; gap:10px; padding:16px 24px; border-top:1px solid var(--border,#e5e7eb);">
+                            <button type="button" class="btn btn-secondary" id="cancelAddClaimBtn" style="padding:10px 20px; border-radius:8px; border:1px solid var(--border,#e5e7eb); background:#fff; cursor:pointer; font-weight:600;">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="saveNewClaimBtn" style="padding:10px 20px; border-radius:8px; border:none; background:var(--blue,#2576A6); color:#fff; cursor:pointer; font-weight:600;">Save & Add to Board</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+              <p>Anvaya 2026</p>
+            </footer>
         </main>
     </div>
     <script src="../js/shared.js"></script>

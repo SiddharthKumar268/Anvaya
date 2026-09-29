@@ -148,6 +148,17 @@
 
 .doc-group-header .group-icon {
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.doc-group-header .group-icon svg {
+  width: 18px;
+  height: 18px;
+  color: var(--navy, #0B2854);
 }
 
 .doc-group-header .group-name {
@@ -320,5 +331,68 @@
   .summary-stats {
     flex-direction: column;
     gap: 12px;
+  }
+}
+
+/* --- AI Document Scanner Card --- */
+.doc-ai-scanner-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(135deg, rgba(37, 118, 166, 0.08) 0%, rgba(16, 185, 129, 0.06) 100%);
+  border: 1.5px dashed var(--border-blue);
+  border-radius: var(--radius-lg);
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  transition: all 0.25s ease;
+}
+
+.doc-ai-scanner-card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 4px 16px rgba(37, 118, 166, 0.08);
+}
+
+.scanner-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.scanner-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.scanner-text h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0 0 4px;
+}
+
+.scanner-text p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.scanner-actions {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .doc-ai-scanner-card {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Track and manage transfer of discovered assets from deceased to nominee.">
   <title>Asset Transfer - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -89,7 +96,195 @@
           </button>
         </div>
 
+        <!-- Add New Asset Modal -->
+        <div class="modal-overlay" id="addAssetModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:1000; align-items:center; justify-content:center;">
+          <div class="modal-box" style="background:#fff; border-radius:16px; max-width:540px; width:92%; margin:auto; box-shadow:0 20px 60px rgba(0,0,0,0.2); max-height:90vh; overflow-y:auto;">
+            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; padding:20px 24px; border-bottom:1px solid var(--border,#e5e7eb);">
+              <h3 style="margin:0; font-size:18px; font-weight:700; color:var(--navy,#1a2e44);">Add New Discovered Asset</h3>
+              <button type="button" id="closeAddAssetModal" style="background:none; border:none; cursor:pointer; padding:4px; color:var(--text-muted,#9ca3af);" aria-label="Close modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+            <form id="addAssetForm" novalidate>
+              <div style="padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
+                <div>
+                  <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetName">Asset Name / Title *</label>
+                  <input type="text" id="newAssetName" placeholder="e.g. HDFC Salary Account XXXX4521" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;" required>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetType">Asset Category *</label>
+                    <select id="newAssetType" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;" required>
+                      <option value="Bank Accounts">Bank Accounts</option>
+                      <option value="Property">Property</option>
+                      <option value="Stocks/MF">Stocks/MF (Demat)</option>
+                      <option value="Fixed Deposits">Fixed Deposits</option>
+                      <option value="Gold">Gold / Precious Metals</option>
+                      <option value="Vehicles">Vehicles</option>
+                      <option value="Others">Others (PPF/Insurance)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetInst">Institution / Holder</label>
+                    <input type="text" id="newAssetInst" placeholder="e.g. HDFC Bank, Zerodha" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetValue">Estimated Value (₹) *</label>
+                    <input type="number" id="newAssetValue" placeholder="e.g. 500000" min="0" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;" required>
+                  </div>
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetAcc">Account / Folio / Reg No</label>
+                    <input type="text" id="newAssetAcc" placeholder="e.g. A/c No. 50100..." style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetStatus">Transfer Status</label>
+                    <select id="newAssetStatus" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                      <option value="Not Started">Not Started</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Documents Submitted">Documents Submitted</option>
+                      <option value="Under Review">Under Review</option>
+                      <option value="Transferred">Transferred</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetNomination">Nomination Registered?</label>
+                    <select id="newAssetNomination" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                      <option value="true">Yes, Nominee Registered</option>
+                      <option value="false">No Nomination (Legal Heir Path)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetDocsReq">Total Documents Required</label>
+                    <input type="number" id="newAssetDocsReq" value="4" min="1" max="15" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                  </div>
+                  <div>
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:6px;" for="newAssetDocsSubmitted">Documents Submitted So Far</label>
+                    <input type="number" id="newAssetDocsSubmitted" value="0" min="0" max="15" style="width:100%; padding:10px 12px; border:1px solid var(--border,#e5e7eb); border-radius:8px; font-size:14px; box-sizing:border-box;">
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:flex-end; gap:10px; padding:16px 24px; border-top:1px solid var(--border,#e5e7eb);">
+                <button type="button" class="btn btn-secondary" id="cancelAddAssetBtn" style="padding:10px 20px; border-radius:8px; border:1px solid var(--border,#e5e7eb); background:#fff; cursor:pointer; font-weight:600;">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveNewAssetBtn" style="padding:10px 20px; border-radius:8px; border:none; background:var(--blue,#2576A6); color:#fff; cursor:pointer; font-weight:600;">Save Asset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Asset Details / Manage Modal -->
+        <div class="modal-overlay" id="assetDetailModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:1000; align-items:center; justify-content:center;">
+          <div class="modal-box" style="background:#fff; border-radius:16px; max-width:500px; width:92%; margin:auto; box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; padding:20px 24px; border-bottom:1px solid var(--border,#e5e7eb);">
+              <h3 id="detailModalTitle" style="margin:0; font-size:18px; font-weight:700; color:var(--navy,#1a2e44);">Asset Overview</h3>
+              <button type="button" id="closeAssetDetailModal" style="background:none; border:none; cursor:pointer; padding:4px; color:var(--text-muted,#9ca3af);" aria-label="Close modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+            <div id="detailModalBody" style="padding:20px 24px; display:flex; flex-direction:column; gap:12px;">
+              <!-- Populated dynamically by JS -->
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-top:1px solid var(--border,#e5e7eb);">
+              <button type="button" class="btn btn-secondary" id="btnDeleteAsset" style="color:var(--red,#e53e3e); border:1px solid rgba(229,62,62,0.3); background:#fff; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600;">Delete</button>
+              <div style="display:flex; gap:10px;">
+                <button type="button" class="btn btn-secondary" id="btnDraftLetterFromDetails" style="padding:8px 14px; border-radius:8px; border:1px solid var(--blue,#2576A6); color:var(--blue,#2576A6); background:#fff; cursor:pointer; font-weight:600;">✨ Draft Letter</button>
+                <button type="button" class="btn btn-secondary" id="closeDetailModalBtn" style="padding:8px 16px; border-radius:8px; border:1px solid var(--border,#e5e7eb); background:#fff; cursor:pointer; font-weight:600;">Close</button>
+                <button type="button" class="btn btn-primary" id="btnUpdateStatusModal" style="padding:8px 16px; border-radius:8px; border:none; background:var(--blue,#2576A6); color:#fff; cursor:pointer; font-weight:600;">Update Status</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Legal Letter Drafter Modal -->
+        <div class="modal-overlay" id="aiLetterModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center; backdrop-filter:blur(3px);">
+          <div class="modal-box" style="background:#fff; border-radius:16px; max-width:680px; width:94%; margin:auto; box-shadow:0 24px 64px rgba(0,0,0,0.25); max-height:92vh; display:flex; flex-direction:column; overflow:hidden;">
+            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; padding:18px 24px; border-bottom:1px solid var(--border,#e5e7eb); background:linear-gradient(135deg, rgba(37,118,166,0.06), rgba(16,185,129,0.06));">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="background:linear-gradient(135deg, var(--blue,#2576A6), #10B981); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px;">✨</div>
+                <div>
+                  <h3 id="aiLetterModalTitle" style="margin:0; font-size:17px; font-weight:700; color:var(--navy,#1a2e44);">Anvaya AI — Legal Letter Drafter</h3>
+                  <div style="font-size:12px; color:var(--text-muted,#666);">Statutory format compliant with RBI, IRDAI & Indian Succession Act</div>
+                </div>
+              </div>
+              <button type="button" id="closeAiLetterModal" style="background:none; border:none; cursor:pointer; padding:4px; color:var(--text-muted,#9ca3af);" aria-label="Close modal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+
+            <div style="padding:18px 24px; overflow-y:auto; display:flex; flex-direction:column; gap:14px;">
+              <!-- Target Asset summary bar -->
+              <div id="aiLetterAssetSummary" style="background:var(--bg-cool,#f0f4f8); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <!-- Populated dynamically -->
+              </div>
+
+              <!-- Options -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; font-size:12px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:4px;" for="letterTypeSelect">Document / Letter Type</label>
+                  <select id="letterTypeSelect" style="width:100%; padding:8px 12px; border:1px solid var(--border,#e2e8f0); border-radius:8px; font-size:13px;">
+                    <option value="claim">Deceased Claim Settlement Letter (Form DA-2)</option>
+                    <option value="transmission">Transmission of Securities / Shares</option>
+                    <option value="noc">Legal Heir No-Objection & Consent Declaration</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block; font-size:12px; font-weight:600; color:var(--navy,#1a2e44); margin-bottom:4px;" for="letterNomineeRelation">Your Relation to Deceased</label>
+                  <input type="text" id="letterNomineeRelation" placeholder="e.g. Son, Daughter, Spouse, Legal Heir" value="Legal Heir / Nominee" style="width:100%; padding:8px 12px; border:1px solid var(--border,#e2e8f0); border-radius:8px; font-size:13px; box-sizing:border-box;">
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end;">
+                <button type="button" class="btn btn-primary" id="btnGenerateLetter" style="display:inline-flex; align-items:center; gap:6px; padding:8px 18px; font-size:13px; font-weight:600; border-radius:8px;">
+                  <span>✨</span> Generate Letter with AI
+                </button>
+              </div>
+
+              <!-- Loading Indicator -->
+              <div id="aiLetterLoading" style="display:none; text-align:center; padding:2rem 1rem; color:var(--text-muted,#666);">
+                <div style="font-size:24px; margin-bottom:8px;">⚙️</div>
+                <div style="font-weight:600; color:var(--navy,#1a2e44); font-size:14px;">Synthesizing legal document with Anvaya AI...</div>
+                <div style="font-size:12px; margin-top:4px;">Applying statutory provisions under Indian banking & succession rules</div>
+              </div>
+
+              <!-- Output Box -->
+              <div id="aiLetterOutputSection" style="display:none; flex-direction:column; gap:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:12px; font-weight:600; color:var(--text-secondary,#64748b); text-transform:uppercase; letter-spacing:0.5px;">Ready-to-Print Letter Draft (Editable)</span>
+                  <div style="display:flex; gap:8px;">
+                    <button type="button" class="btn btn-secondary" id="btnCopyLetter" style="padding:4px 10px; font-size:12px; border-radius:6px;">📋 Copy Text</button>
+                    <button type="button" class="btn btn-primary" id="btnPrintLetter" style="padding:4px 12px; font-size:12px; border-radius:6px; background:var(--green-dark,#276749);">🖨️ Print / PDF</button>
+                  </div>
+                </div>
+
+                <textarea id="aiLetterContentText" style="width:100%; min-height:260px; max-height:360px; font-family:'Courier New', monospace; font-size:12.5px; line-height:1.6; padding:14px; border:1px solid var(--border,#e2e8f0); border-radius:8px; background:#fafafa; resize:vertical; box-sizing:border-box;"></textarea>
+
+                <div id="aiLetterStatutoryNote" style="background:rgba(245,158,11,0.1); border-left:3px solid var(--gold,#f59e0b); padding:10px 12px; border-radius:0 6px 6px 0; font-size:12px; color:var(--text-primary,#1a2e44); line-height:1.45;">
+                  <!-- Statutory note -->
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; padding:12px 24px; border-top:1px solid var(--border,#e5e7eb); background:#fdfdfd;">
+              <button type="button" class="btn btn-secondary" id="closeAiLetterModalBtn" style="padding:8px 18px; border-radius:8px; font-size:13px; font-weight:600;">Close</button>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Anvaya 2026</p>
+      </footer>
     </main>
   </div>
   <script src="../js/shared.js"></script>

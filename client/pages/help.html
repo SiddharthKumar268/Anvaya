@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Anvaya Help & Knowledge Hub - Guides, FAQs, and support for nominee families">
   <title>Help & Knowledge Hub - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -28,6 +35,16 @@
         <div class="search-container">
           <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input type="text" id="help-search" class="form-input search-input" placeholder="Search for guides, FAQs, or topics..." aria-label="Search help topics">
+        </div>
+      </section>
+
+      <section class="ai-assistant-card fade-in delay-2" style="margin-bottom: 24px;">
+        <div style="background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%); border-radius: var(--radius-md); padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 200px;">
+            <h2 style="color: var(--text-white); font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 6px;">🤖 Ask Anvaya AI</h2>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Can't find what you need? Ask our AI assistant any question about financial recovery — in plain language.</p>
+          </div>
+          <a href="chat.html" style="background: var(--text-white); color: var(--navy); padding: 10px 24px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.9rem; text-decoration: none; white-space: nowrap; transition: transform 0.2s;">Ask a Question →</a>
         </div>
       </section>
 
@@ -58,7 +75,7 @@
             <h3>Still need help?</h3>
             <p>Our team is here for you.</p>
             <p class="working-hours">Mon-Sat, 9 AM - 7 PM</p>
-            <button class="btn btn-primary" onclick="alert('Support chat opening...')">Contact Support</button>
+            <a href="mailto:kumarsiddharth166@gmail.com" class="btn btn-primary" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;">Contact Support</a>
           </section>
         </aside>
       </div>
@@ -70,6 +87,39 @@
         </div>
       </section>
       
+      <!-- Help Reader / Detail Modal -->
+      <div class="help-modal-overlay" id="helpModal" aria-hidden="true">
+        <div class="help-modal-content" role="dialog" aria-labelledby="modalTitle">
+          <div class="help-modal-header">
+            <div>
+              <div class="modal-badge-wrapper" id="modalBadgeWrapper"></div>
+              <h2 id="modalTitle" class="modal-heading">Guide Title</h2>
+              <div class="modal-meta" id="modalMeta"></div>
+            </div>
+            <button type="button" class="modal-close-btn" id="closeHelpModal" aria-label="Close modal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <div class="help-modal-body" id="modalBody">
+            <!-- Dynamic content injected by help.js -->
+          </div>
+          <div class="help-modal-footer">
+            <a href="chat.html" class="btn btn-secondary" style="display:inline-flex;align-items:center;gap:6px;font-size:0.875rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Ask AI about this
+            </a>
+            <button type="button" class="btn btn-primary" id="modalDoneBtn" style="padding:8px 20px;">Got it</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Anvaya 2026</p>
+      </footer>
     </main>
   </div>
   

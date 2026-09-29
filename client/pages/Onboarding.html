@@ -1,234 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Start your case - Anvaya</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/global.css" />
-<link rel="stylesheet" href="../css/onboarding.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Anvaya Onboarding - Set up your case and start your financial recovery roadmap.">
+  <title>Start Your Case - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/onboarding.css">
 </head>
 <body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar"></aside>
 
-<div class="onboarding-page">
-  <div class="onboarding-wrap">
+    <!-- Header -->
+    <header id="top-header" class="top-header"></header>
 
-    <div class="onboarding-brand">
-      <div class="brand-logo">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2L8,10H11V22H13V10H16L12,2M12,5.8L13.7,9H10.3L12,5.8Z" /></svg>
-        <span>ANVAYA</span>
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      <div class="onboarding-page-container">
+        
+        <!-- Header & Back Navigation Toolbar -->
+        <div class="onboarding-toolbar fade-in">
+          <a href="dashboard.html" class="toolbar-back-btn" id="top-back-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span>Back to Dashboard</span>
+          </a>
+          <div class="onboarding-header-title">
+            <h1>Start Your Case Setup</h1>
+            <p class="subtitle">Complete 4 quick steps to generate your personalized claims & documents roadmap</p>
+          </div>
+          <div class="stepper-badge" id="step-badge-indicator">
+            <span class="badge-dot"></span>
+            <span class="badge-text" id="badge-step-text">Step 1 of 4</span>
+          </div>
+        </div>
+
+        <!-- Wizard Progress Bar & Stepper -->
+        <div class="wizard-stepper fade-in" style="animation-delay: 0.1s;">
+          <div class="stepper-track-bg">
+            <div class="stepper-track-fill" id="stepper-fill" style="width: 25%;"></div>
+          </div>
+          <div class="stepper-items">
+            <div class="stepper-item active" data-step-indicator="1">
+              <div class="stepper-icon">
+                <span class="step-num">1</span>
+                <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="stepper-label">
+                <span class="label-title">Nominee Details</span>
+                <span class="label-sub">Your Info</span>
+              </div>
+            </div>
+
+            <div class="stepper-item" data-step-indicator="2">
+              <div class="stepper-icon">
+                <span class="step-num">2</span>
+                <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="stepper-label">
+                <span class="label-title">Deceased Person</span>
+                <span class="label-sub">Identity & Dates</span>
+              </div>
+            </div>
+
+            <div class="stepper-item" data-step-indicator="3">
+              <div class="stepper-icon">
+                <span class="step-num">3</span>
+                <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="stepper-label">
+                <span class="label-title">Priority Claims</span>
+                <span class="label-sub">Select Assets</span>
+              </div>
+            </div>
+
+            <div class="stepper-item" data-step-indicator="4">
+              <div class="stepper-icon">
+                <span class="step-num">4</span>
+                <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="stepper-label">
+                <span class="label-title">Review & Open</span>
+                <span class="label-sub">Confirm Case</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wizard Card / Form -->
+        <div class="wizard-card-wrapper fade-in" style="animation-delay: 0.15s;">
+          <form id="onboarding-form" novalidate>
+
+            <!-- STEP 1: Nominee Information -->
+            <section class="step-panel active" data-step="1">
+              <div class="step-header">
+                <div class="step-tag">Step 1 • Nominee / Claimant Profile</div>
+                <h2>Tell us about yourself</h2>
+                <p class="step-desc">You are the person initiating this recovery. We start with you so documents and correspondence are addressed accurately.</p>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-field" data-field="fullName">
+                  <label for="fullName">Your Full Legal Name <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <input type="text" id="fullName" name="fullName" placeholder="e.g. Siddharth Kumar" autocomplete="name" required>
+                  </div>
+                  <span class="field-error">Please enter your name as printed on official IDs (Aadhaar/PAN).</span>
+                </div>
+
+                <div class="form-field" data-field="relation">
+                  <label for="relation">Relationship to the Deceased <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <select id="relation" name="relation" required>
+                      <option value="">Select your relationship</option>
+                      <option value="spouse">Spouse (Husband / Wife)</option>
+                      <option value="child">Son / Daughter</option>
+                      <option value="parent">Parent (Mother / Father)</option>
+                      <option value="sibling">Brother / Sister</option>
+                      <option value="legal-heir">Legal Heir / Succession Certificate Holder</option>
+                      <option value="other">Other Family Member / Nominee</option>
+                    </select>
+                  </div>
+                  <span class="field-error">Please select your relationship.</span>
+                </div>
+
+                <div class="form-field" data-field="phone">
+                  <label for="phone">Mobile Phone Number <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" maxlength="10" autocomplete="tel" required>
+                  </div>
+                  <span class="field-error">Please enter a valid 10-digit Indian mobile number.</span>
+                </div>
+
+                <div class="form-field" data-field="email">
+                  <label for="email">Email Address <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <input type="email" id="email" name="email" placeholder="e.g. name@example.com" autocomplete="email" required>
+                  </div>
+                  <span class="field-error">Please enter a valid email address for claim status updates.</span>
+                </div>
+              </div>
+              <div class="form-help-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>We use this info solely to prepare institution forms and send statutory deadline notifications.</span>
+              </div>
+            </section>
+
+            <!-- STEP 2: Deceased Details -->
+            <section class="step-panel" data-step="2">
+              <div class="step-header">
+                <div class="step-tag">Step 2 • Deceased Family Member</div>
+                <h2>Details of the Deceased</h2>
+                <p class="step-desc">This information matches account records with financial institutions and validates limitation periods.</p>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-field" data-field="deceasedName">
+                  <label for="deceasedName">Full Name of the Deceased <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <input type="text" id="deceasedName" name="deceasedName" placeholder="e.g. Ramesh Chandra Kumar" required>
+                  </div>
+                  <span class="field-error">Please enter the deceased person's name as registered in banks/policies.</span>
+                </div>
+
+                <div class="form-field" data-field="dateOfPassing">
+                  <label for="dateOfPassing">Date of Passing <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <input type="date" id="dateOfPassing" name="dateOfPassing" required>
+                  </div>
+                  <span class="field-error">Please provide the date of passing.</span>
+                </div>
+
+                <div class="form-field full-width" data-field="hasCertificate">
+                  <label>Do you have the Official Death Certificate? <span class="req">*</span></label>
+                  <div class="option-cards-grid">
+                    <label class="option-radio-card">
+                      <input type="radio" name="hasCertificate" value="yes">
+                      <div class="option-card-content">
+                        <div class="option-icon green">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <div>
+                          <div class="option-title">Yes, I have it ready</div>
+                          <div class="option-sub">Issued by Municipal Corporation / Registrar of Deaths (Form 6)</div>
+                        </div>
+                      </div>
+                    </label>
+
+                    <label class="option-radio-card">
+                      <input type="radio" name="hasCertificate" value="no">
+                      <div class="option-card-content">
+                        <div class="option-icon orange">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div>
+                          <div class="option-title">Not yet obtained</div>
+                          <div class="option-sub">Anvaya will provide step-by-step guidance to apply for it immediately</div>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+                  <span class="field-error">Please select whether you possess the death certificate.</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- STEP 3: Priority Assets & Claims -->
+            <section class="step-panel" data-step="3">
+              <div class="step-header">
+                <div class="step-tag">Step 3 • Recovery Priorities</div>
+                <h2>What claims or assets require urgent action?</h2>
+                <p class="step-desc">Select all that apply. This customizes your initial dashboard, checklist, and deadlines.</p>
+              </div>
+
+              <div class="form-field full-width" data-field="priorities">
+                <div class="priority-cards-grid">
+                  <label class="priority-check-card">
+                    <input type="checkbox" name="priorities" value="bank">
+                    <div class="priority-card-inner">
+                      <div class="priority-icon blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path></svg>
+                      </div>
+                      <div class="priority-content">
+                        <div class="priority-name">Bank Accounts & FDs</div>
+                        <div class="priority-desc">Savings, Fixed Deposits, Lockers, or Inoperative Accounts</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="priority-check-card">
+                    <input type="checkbox" name="priorities" value="insurance">
+                    <div class="priority-card-inner">
+                      <div class="priority-icon gold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                      </div>
+                      <div class="priority-content">
+                        <div class="priority-name">Life & Health Insurance</div>
+                        <div class="priority-desc">LIC, Term Insurance, PMJJBY, or Accidental Cover</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="priority-check-card">
+                    <input type="checkbox" name="priorities" value="pension">
+                    <div class="priority-card-inner">
+                      <div class="priority-icon green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                      </div>
+                      <div class="priority-content">
+                        <div class="priority-name">EPFO & Pension Benefits</div>
+                        <div class="priority-desc">EPF withdrawal, Monthly Widow/Child Pension (10D), EDLI Insurance</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="priority-check-card">
+                    <input type="checkbox" name="priorities" value="property">
+                    <div class="priority-card-inner">
+                      <div class="priority-icon blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                      </div>
+                      <div class="priority-content">
+                        <div class="priority-name">Property & Real Estate</div>
+                        <div class="priority-desc">Land, House mutation, Electricity/Water bill transfers</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="priority-check-card">
+                    <input type="checkbox" name="priorities" value="minor">
+                    <div class="priority-card-inner">
+                      <div class="priority-icon purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                      </div>
+                      <div class="priority-content">
+                        <div class="priority-name">Minor Nominee / Child Heir</div>
+                        <div class="priority-desc">Guardianship procedures, minor trust accounts, Sukanya Samriddhi</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="priority-check-card">
+                    <input type="checkbox" name="priorities" value="unsure">
+                    <div class="priority-card-inner">
+                      <div class="priority-icon gray">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                      </div>
+                      <div class="priority-content">
+                        <div class="priority-name">I'm Not Sure / Need Guidance</div>
+                        <div class="priority-desc">Anvaya AI will audit and build a comprehensive master checklist</div>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <span class="field-error">Please select at least one priority category.</span>
+              </div>
+            </section>
+
+            <!-- STEP 4: Review & Confirm -->
+            <section class="step-panel" data-step="4">
+              <div class="step-header">
+                <div class="step-tag">Step 4 • Case Summary & Verification</div>
+                <h2>Review your case details</h2>
+                <p class="step-desc">Please ensure the information below is accurate. You can edit any section before opening the case.</p>
+              </div>
+
+              <div class="review-grid">
+                <div class="review-card">
+                  <div class="review-card-header">
+                    <div class="review-title-group">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                      <span>Nominee / Claimant</span>
+                    </div>
+                    <button type="button" class="btn-edit-step" data-edit="1">Edit</button>
+                  </div>
+                  <div class="review-rows">
+                    <div class="review-item"><span class="r-label">Name:</span> <strong id="rev-fullName">-</strong></div>
+                    <div class="review-item"><span class="r-label">Relationship:</span> <strong id="rev-relation">-</strong></div>
+                    <div class="review-item"><span class="r-label">Mobile:</span> <strong id="rev-phone">-</strong></div>
+                    <div class="review-item"><span class="r-label">Email:</span> <strong id="rev-email">-</strong></div>
+                  </div>
+                </div>
+
+                <div class="review-card">
+                  <div class="review-card-header">
+                    <div class="review-title-group">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      <span>Deceased Person</span>
+                    </div>
+                    <button type="button" class="btn-edit-step" data-edit="2">Edit</button>
+                  </div>
+                  <div class="review-rows">
+                    <div class="review-item"><span class="r-label">Name:</span> <strong id="rev-deceasedName">-</strong></div>
+                    <div class="review-item"><span class="r-label">Date of Passing:</span> <strong id="rev-dateOfPassing">-</strong></div>
+                    <div class="review-item"><span class="r-label">Death Certificate:</span> <strong id="rev-hasCertificate">-</strong></div>
+                  </div>
+                </div>
+
+                <div class="review-card full-width">
+                  <div class="review-card-header">
+                    <div class="review-title-group">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                      <span>Selected Priority Claims</span>
+                    </div>
+                    <button type="button" class="btn-edit-step" data-edit="3">Edit</button>
+                  </div>
+                  <div class="review-badges" id="rev-priorities-container">
+                    <!-- Badges populated dynamically -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="consent-box" id="consent-box">
+                <label class="consent-label">
+                  <input type="checkbox" id="consent" name="consent" required>
+                  <span>I confirm that the details provided are accurate to the best of my knowledge and I am authorized to initiate settlement claims for this case.</span>
+                </label>
+              </div>
+            </section>
+
+            <!-- STEP 5: Success / Confirmation -->
+            <section class="step-panel step-success" data-step="5">
+              <div class="success-card">
+                <div class="success-icon-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="success-tag">🎉 Case Successfully Initialized</div>
+                <h2>Your Recovery Case is Now Open</h2>
+                <p class="success-desc">We have created your case profile and generated your customized master document checklist and statutory claim timelines.</p>
+
+                <div class="case-badge-box">
+                  <span class="case-label">Official Case Reference ID</span>
+                  <div class="case-number-row">
+                    <strong id="case-id-display">ANV-2026-000000</strong>
+                    <button type="button" class="copy-case-btn" id="copyCaseIdBtn" title="Copy Case ID">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="success-action-buttons">
+                  <button type="button" class="btn btn-secondary" onclick="window.location.href='documents.html'">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span>View Document Checklist</span>
+                  </button>
+                  <button type="button" class="btn btn-primary" id="go-to-dashboard">
+                    <span>Go to Live Dashboard</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Bottom Navigation Bar on Every Step -->
+            <div class="wizard-nav-footer" id="step-nav">
+              <button type="button" class="btn btn-ghost wizard-btn-back" id="btn-back">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span id="btn-back-text">Back to Dashboard</span>
+              </button>
+              
+              <div class="nav-right-group">
+                <button type="button" class="btn-save-draft" id="btn-save-draft" title="Save entered values to browser">Save Progress</button>
+                <button type="button" class="btn btn-primary wizard-btn-next" id="btn-next">
+                  <span id="btn-next-text">Continue to Step 2</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
       </div>
-      <a class="exit-link" href="/">Save and exit</a>
-    </div>
 
-    <h1 class="onboarding-title">Let's set up your case.</h1>
-    <p class="onboarding-subtitle">This takes about four minutes. Answer what you know - you can fill in the rest later, and nothing here is filed anywhere else yet.</p>
-
-    <!-- Progress path -->
-    <nav class="progress-path" aria-label="Onboarding progress">
-      <div class="path-dot current" data-lamp="1"></div>
-      <div class="path-line" data-segment="1"></div>
-      <div class="path-dot" data-lamp="2"></div>
-      <div class="path-line" data-segment="2"></div>
-      <div class="path-dot" data-lamp="3"></div>
-      <div class="path-line" data-segment="3"></div>
-      <div class="path-dot" data-lamp="4"></div>
-    </nav>
-    <div class="progress-labels">
-      <span data-label="1" class="active">You</span>
-      <span data-label="2">Them</span>
-      <span data-label="3">Priorities</span>
-      <span data-label="4">Confirm</span>
-    </div>
-
-    <form id="onboarding-form" novalidate>
-
-      <!-- STEP 1: the nominee -->
-      <section class="step active" data-step="1">
-        <div class="step-card">
-          <p class="step-eyebrow">Step 1 of 4</p>
-          <h2>Tell us who you are.</h2>
-          <p class="step-help">You're the one handling this, so we start with you - not paperwork.</p>
-
-          <div class="ob-field" data-field="fullName">
-            <label for="fullName">Your full name</label>
-            <input type="text" id="fullName" name="fullName" autocomplete="name" />
-            <span class="error-msg">Enter your name as it appears on your ID.</span>
-          </div>
-
-          <div class="ob-field" data-field="relation">
-            <label for="relation">Your relationship to the person who passed</label>
-            <select id="relation" name="relation">
-              <option value="">Select one</option>
-              <option value="spouse">Spouse</option>
-              <option value="child">Son / Daughter</option>
-              <option value="parent">Parent</option>
-              <option value="sibling">Sibling</option>
-              <option value="other">Other family member</option>
-              <option value="legal-heir">Legal heir / court-appointed</option>
-            </select>
-            <span class="error-msg">Let us know how you're related.</span>
-          </div>
-
-          <div class="ob-row-2">
-            <div class="ob-field" data-field="phone">
-              <label for="phone">Phone number</label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="10-digit mobile number" />
-              <span class="error-msg">Enter a valid 10-digit number.</span>
-            </div>
-            <div class="ob-field" data-field="email">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" autocomplete="email" />
-              <span class="error-msg">Enter a valid email address.</span>
-            </div>
-          </div>
-          <span class="hint">We'll send claim deadlines and updates here - never marketing.</span>
-        </div>
-      </section>
-
-      <!-- STEP 2: the person who passed -->
-      <section class="step" data-step="2">
-        <div class="step-card">
-          <p class="step-eyebrow">Step 2 of 4</p>
-          <h2>Tell us about the person you lost.</h2>
-          <p class="step-help">This helps us match the right claims, schemes, and deadlines to their accounts.</p>
-
-          <div class="ob-field" data-field="deceasedName">
-            <label for="deceasedName">Their full name</label>
-            <input type="text" id="deceasedName" name="deceasedName" />
-            <span class="error-msg">This field is required.</span>
-          </div>
-
-          <div class="ob-field" data-field="dateOfPassing">
-            <label for="dateOfPassing">Date of passing</label>
-            <input type="date" id="dateOfPassing" name="dateOfPassing" />
-            <span class="hint">If you're not certain of the exact date, your best estimate is fine for now.</span>
-            <span class="error-msg">Enter a date.</span>
-          </div>
-
-          <div class="ob-field" data-field="hasCertificate">
-            <label>Do you have the death certificate yet?</label>
-            <div class="ob-choice-group grid-2">
-              <label class="ob-choice">
-                <input type="radio" name="hasCertificate" value="yes" />
-                <span>Yes, I have it</span>
-              </label>
-              <label class="ob-choice">
-                <input type="radio" name="hasCertificate" value="no" />
-                <span>Not yet<span class="choice-sub">We'll walk you through getting one</span></span>
-              </label>
-            </div>
-            <span class="error-msg">Let us know if you have the certificate.</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 3: priorities -->
-      <section class="step" data-step="3">
-        <div class="step-card">
-          <p class="step-eyebrow">Step 3 of 4</p>
-          <h2>What's weighing on you most right now?</h2>
-          <p class="step-help">Choose as many as apply. This decides what your dashboard shows you first - you can change it anytime.</p>
-
-          <div class="ob-field" data-field="priorities">
-            <div class="ob-choice-group">
-              <label class="ob-choice">
-                <input type="checkbox" name="priorities" value="bank" />
-                <span>Bank accounts we can't access</span>
-              </label>
-              <label class="ob-choice">
-                <input type="checkbox" name="priorities" value="insurance" />
-                <span>An insurance claim with a deadline<span class="choice-sub">Life, health, or accident cover</span></span>
-              </label>
-              <label class="ob-choice">
-                <input type="checkbox" name="priorities" value="pension" />
-                <span>Pension or employer benefits</span>
-              </label>
-              <label class="ob-choice">
-                <input type="checkbox" name="priorities" value="property" />
-                <span>Property or asset transfer</span>
-              </label>
-              <label class="ob-choice">
-                <input type="checkbox" name="priorities" value="minor" />
-                <span>A minor child is a nominee or heir</span>
-              </label>
-              <label class="ob-choice">
-                <input type="checkbox" name="priorities" value="unsure" />
-                <span>Honestly, I don't know where to start<span class="choice-sub">We'll build your checklist from scratch</span></span>
-              </label>
-            </div>
-            <span class="error-msg">Pick at least one, even "I don't know where to start."</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 4: review -->
-      <section class="step" data-step="4">
-        <div class="step-card">
-          <p class="step-eyebrow">Step 4 of 4</p>
-          <h2>Check this over.</h2>
-          <p class="step-help">Once you confirm, we'll create your case and build your document checklist.</p>
-
-          <div class="review-block">
-            <h3>You <button type="button" data-edit="1">Edit</button></h3>
-            <dl>
-              <div class="review-row"><dt>Name</dt><dd data-review="fullName"></dd></div>
-              <div class="review-row"><dt>Relationship</dt><dd data-review="relation"></dd></div>
-              <div class="review-row"><dt>Phone</dt><dd data-review="phone"></dd></div>
-              <div class="review-row"><dt>Email</dt><dd data-review="email"></dd></div>
-            </dl>
-          </div>
-
-          <div class="review-block">
-            <h3>Them <button type="button" data-edit="2">Edit</button></h3>
-            <dl>
-              <div class="review-row"><dt>Name</dt><dd data-review="deceasedName"></dd></div>
-              <div class="review-row"><dt>Date of passing</dt><dd data-review="dateOfPassing"></dd></div>
-              <div class="review-row"><dt>Death certificate</dt><dd data-review="hasCertificate"></dd></div>
-            </dl>
-          </div>
-
-          <div class="review-block">
-            <h3>Priorities <button type="button" data-edit="3">Edit</button></h3>
-            <div class="review-row"><dd data-review="priorities" style="text-align:left; margin-left:0;"></dd></div>
-          </div>
-
-          <label class="ob-consent">
-            <input type="checkbox" id="consent" name="consent" />
-            <span>I confirm the details above are accurate to the best of my knowledge, and I'm the one managing this case.</span>
-          </label>
-        </div>
-      </section>
-
-      <!-- CONFIRMATION -->
-      <section class="step step-confirm" data-step="5">
-        <div class="step-card">
-          <div class="confirm-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <p class="step-eyebrow" style="text-align:center;">Case created</p>
-          <h2>Your case is open.</h2>
-          <p class="step-help">We've built your starting document checklist based on what you told us.</p>
-          <div class="case-id" id="case-id-display">ANV-2026-000000</div>
-          <div>
-            <button type="button" class="btn btn-primary" id="go-to-dashboard">Go to your dashboard</button>
-          </div>
-        </div>
-      </section>
-
-      <div class="step-nav" id="step-nav">
-        <button type="button" class="btn btn-ghost" id="btn-back">Back</button>
-        <button type="button" class="btn btn-primary" id="btn-next">Continue</button>
-      </div>
-
-    </form>
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Anvaya 2026</p>
+      </footer>
+    </main>
   </div>
-</div>
 
-<script src="../js/shared.js"></script>
-<script src="../js/api/caseApi.js"></script>
-<script src="../js/Onboarding.js"></script>
+  <script src="../js/shared.js"></script>
+  <script src="../js/api/caseApi.js"></script>
+  <script src="../js/Onboarding.js"></script>
 </body>
 </html>

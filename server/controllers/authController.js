@@ -65,4 +65,50 @@ const login = async (req, res, next) => {
   }
 }
 
-module.exports = { register, login }
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body
+    if (!email) return res.status(400).json({ message: 'Email is required' })
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() })
+    if (!user) return res.status(404).json({ message: 'No account found with this email address' })
+
+    res.json({
+      success: true,
+      message: 'Email verified. A verification code will be sent to your email.'
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+const resetPassword = async (req, res, next) => {
+  try {
+    const { email, newPassword } = req.body
+    if (!email || !newPassword) {
+      return res.status(400).json({ message: 'Email and new password are required' })
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters' })
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() })
+    if (!user) return res.status(404).json({ message: 'No account found with this email address' })
+
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt.hash(newPassword, salt)
+    user.failedLoginAttempts = 0
+    user.lockUntil = undefined
+    await user.save()
+
+    res.json({
+      success: true,
+      message: 'Password reset successfully. You can now sign in.'
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+module.exports = { register, login, forgotPassword, resetPassword }

@@ -2,11 +2,11 @@
 
 const express = require('express')
 const router = express.Router()
-const { protect } = require('../middleware/authMiddleware')
+const { optionalAuth } = require('../middleware/authMiddleware')
 const { getReportSummary } = require('../controllers/reportController')
 
-router.use(protect)
-
-router.get('/summary/:caseId', getReportSummary)
+router.get('/summary/:caseId', optionalAuth, getReportSummary)
+router.get('/summary', optionalAuth, getReportSummary)
 
 module.exports = router
+

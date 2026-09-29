@@ -1,5 +1,4 @@
-// server/server.js
-
+const path = require('path')
 const express = require('express')
 const dotenv = require('dotenv')
 const cors = require('cors')
@@ -17,6 +16,8 @@ const safetyRoutes = require('./routes/safetyRoutes')
 const guideRoutes = require('./routes/guideRoutes')
 const settingsRoutes = require('./routes/settingsRoutes')
 const reportRoutes = require('./routes/reportRoutes')
+const ragRoutes = require('./routes/ragRoutes')
+const { initializeVectorStore } = require('./services/ragService')
 
 dotenv.config()
 connectDB()
@@ -27,28 +28,31 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'https://cdn.jsdelivr.net'],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", 'data:'],
-      connectSrc: ["'self'", 'https://api.emailjs.com'],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+      imgSrc: ["'self'", 'data:', 'blob:'],
+      connectSrc: ["'self'", 'https://api.emailjs.com', 'https://generativelanguage.googleapis.com'],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"]
     }
   },
-  crossOriginResourcePolicy: { policy: 'same-site' }
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
 }))
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5500',
+  'http://localhost:5501',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5500',
+  'http://127.0.0.1:5501',
+  process.env.CLIENT_URL
+].filter(Boolean)
 
 app.use(cors({
   origin: function (origin, callback) {
-    const allowed = [
-      'http://localhost:3000',
-      'http://localhost:5500',
-      'http://localhost:5501',
-      'http://127.0.0.1:3000',
-      'http://127.0.0.1:5500',
-      'http://127.0.0.1:5501'
-    ]
-    if (!origin || allowed.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -58,7 +62,8 @@ app.use(cors({
 }))
 
 app.use(logger)
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use(sanitize)
 app.use(generalLimiter)
 
@@ -70,8 +75,35 @@ app.use('/api/v1/safety', safetyRoutes)
 app.use('/api/v1/guides', guideRoutes)
 app.use('/api/v1/settings', settingsRoutes)
 app.use('/api/v1/reports', reportRoutes)
+app.use('/api/v1/rag', ragRoutes)
+app.use('/api/v1/discovery', require('./routes/discoveryRoutes'))
+
+// EmailJS config endpoint — serves public keys from .env
+app.get('/api/v1/config/emailjs', (req, res) => {
+  res.json({
+    serviceId: process.env.EMAILJS_SERVICE_ID,
+    templateId: process.env.EMAILJS_TEMPLATE_ID,
+    publicKey: process.env.EMAILJS_PUBLIC_KEY
+  })
+})
+
+// Serve static frontend files from client directory
+app.use(express.static(path.join(__dirname, '..', 'client')))
+
+// Non-API route fallback to client/index.html
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next()
+  res.sendFile(path.join(__dirname, '..', 'client', 'index.html'))
+})
 
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+
+  // Initialize RAG vector store asynchronously (non-blocking)
+  initializeVectorStore().catch(err => {
+    console.error('[RAG] Failed to initialize vector store:', err.message)
+  })
+})

@@ -2,7 +2,11 @@
 // Loaded on every page before page-specific scripts
 
 const ANVAYA = {
-  API_BASE: window.ANVAYA_API_BASE || 'http://localhost:5000/api/v1',
+  API_BASE: window.ANVAYA_API_BASE || (
+    typeof window !== 'undefined' && (window.location.port === '5500' || window.location.port === '5501' || window.location.port === '3000')
+      ? 'http://localhost:5000/api/v1'
+      : '/api/v1'
+  ),
   TOKEN_KEY: 'anvaya_token',
   CASE_KEY: 'anvaya_case_id',
   USER_KEY: 'anvaya_user',
@@ -43,6 +47,16 @@ function requireAuth() {
     window.location.href = 'login.html';
   }
 }
+
+// --- Favicon Guard ---
+(function ensureFavicon() {
+  if (typeof document !== 'undefined' && !document.querySelector("link[rel*='icon']")) {
+    const link = document.createElement('link');
+    link.rel = 'shortcut icon';
+    link.href = '../assets/favicon.ico';
+    document.head.appendChild(link);
+  }
+})();
 
 // --- API Helper ---
 async function apiRequest(endpoint, options = {}) {
@@ -150,10 +164,12 @@ function renderSidebar(activePage) {
     { id: 'claims', label: 'Claim Tracker', icon: `<path d='M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2'/><rect x='8' y='2' width='8' height='4' rx='1'/><line x1='8' y1='12' x2='16' y2='12'/><line x1='8' y1='16' x2='12' y2='16'/>`, href: 'claims.html' },
     { id: 'calculator', label: 'Benefit Calculator', icon: `<rect x='4' y='2' width='16' height='20' rx='2'/><line x1='8' y1='6' x2='16' y2='6'/><line x1='8' y1='10' x2='16' y2='10'/><line x1='8' y1='14' x2='12' y2='14'/><line x1='8' y1='18' x2='10' y2='18'/>`, href: 'calculator.html' },
     { id: 'assets', label: 'Asset Transfer', icon: `<polyline points='17 1 21 5 17 9'/><line x1='3' y1='5' x2='21' y2='5'/><polyline points='7 23 3 19 7 15'/><line x1='21' y1='19' x2='3' y2='19'/>`, href: 'assets.html' },
+    { id: 'discovery', label: 'Statement Discovery', icon: `<circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/><path d='M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z'/><polyline points='14 2 14 8 20 8'/>`, href: 'discovery.html' },
     { id: 'nomination', label: 'No Nomination Path', icon: `<circle cx='12' cy='10' r='3'/><path d='M12 21.7C17.3 17 20 13 20 10a8 8 0 10-16 0c0 3 2.7 7 8 11.7z'/>`, href: 'nomination.html' },
     { id: 'pension', label: 'Pension & Benefits', icon: `<rect x='2' y='7' width='20' height='14' rx='2'/><path d='M16 7V5a4 4 0 00-8 0v2'/>`, href: 'pension.html' },
     { id: 'udgam', label: 'UDGAM Checker', icon: `<circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/><line x1='8' y1='11' x2='14' y2='11'/><line x1='11' y1='8' x2='11' y2='14'/>`, href: 'udgam.html' },
     { id: 'reports', label: 'Reports', icon: `<line x1='18' y1='20' x2='18' y2='10'/><line x1='12' y1='20' x2='12' y2='4'/><line x1='6' y1='20' x2='6' y2='14'/>`, href: 'reports.html' },
+    { id: 'chat', label: 'Ask Anvaya AI', icon: `<path d='M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z'/>`, href: 'chat.html' },
     { id: 'help', label: 'Help & Guides', icon: `<circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3'/><line x1='12' y1='17' x2='12.01' y2='17'/>`, href: 'help.html' },
     { id: 'settings', label: 'Settings', icon: `<circle cx='12' cy='12' r='3'/><path d='M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z'/>`, href: 'settings.html' },
   ];
@@ -176,10 +192,7 @@ function renderSidebar(activePage) {
   sidebarEl.innerHTML = `
     <div class="sidebar-brand">
       <div class="brand-icon">
-        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="42" height="42" rx="10" fill="#2576A6"/>
-          <path d="M21 10C21 10 14 16 14 22C14 26 17.5 29 21 29C24.5 29 28 26 28 22C28 16 21 10 21 10Z" fill="white"/>
-        </svg>
+        <img src="../assets/favicon-32x32.png" alt="ANVAYA" width="32" height="32" style="border-radius: 8px; object-fit: cover; display: block;" onerror="this.outerHTML='<svg viewBox=\'0 0 42 42\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect width=\'42\' height=\'42\' rx=\'10\' fill=\'#2576A6\'/><path d=\'M21 10C21 10 14 16 14 22C14 26 17.5 29 21 29C24.5 29 28 26 28 22C28 16 21 10 21 10Z\' fill=\'white\'/></svg>'">
       </div>
       <div>
         <div class="brand-text">ANVAYA</div>
@@ -192,6 +205,13 @@ function renderSidebar(activePage) {
     <div class="sidebar-support">
       <h4>We're here to help</h4>
       <p>Compassionate support whenever you need.</p>
+      <a href="mailto:kumarsiddharth166@gmail.com" class="support-email" title="Email Support">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+        <span>kumarsiddharth166@gmail.com</span>
+      </a>
       <button class="support-btn" onclick="window.location.href='help.html'">Contact Support</button>
       <div class="sidebar-hours">Mon - Sat | 9 AM - 7 PM</div>
     </div>
@@ -213,13 +233,16 @@ function renderHeader(options = {}) {
   const headerEl = document.getElementById('top-header');
   if (!headerEl) return;
 
-  const greeting = options.greeting || 'Namaste!';
+  const user = getUser();
+  const firstName = user && user.name ? user.name.split(' ')[0] : 'Siddharth';
+  const defaultGreeting = `Namaste, ${firstName}!`;
+
+  const greeting = options.greeting || defaultGreeting;
   const subtitle = options.subtitle || "We're with you in every step of this journey.";
   const caseId = options.caseId || getCaseId() || 'ANV-000';
   const notificationCount = options.notificationCount !== undefined ? options.notificationCount : 3;
   
-  const user = getUser();
-  const avatarLetter = user && user.name ? user.name.charAt(0).toUpperCase() : 'U';
+  const avatarLetter = user && user.name ? user.name.charAt(0).toUpperCase() : (firstName ? firstName.charAt(0).toUpperCase() : 'S');
 
   headerEl.innerHTML = `
     <div class="island-left">
@@ -236,7 +259,13 @@ function renderHeader(options = {}) {
         </svg>
       </button>
       <div class="island-greeting">
-        <span class="island-title">${greeting}</span>
+        <div class="island-title">
+          <span class="greeting-lead">${greeting}</span>
+          <span class="island-auto-wrap">
+            <span class="island-auto-text" id="island-auto-text"></span>
+            <span class="island-cursor"></span>
+          </span>
+        </div>
         <span class="island-subtitle">${subtitle}</span>
       </div>
     </div>
@@ -246,7 +275,7 @@ function renderHeader(options = {}) {
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="text" placeholder="Search...">
+        <input type="text" placeholder="Search claims, documents, schemes...">
       </div>
     </div>
     <div class="island-cluster">
@@ -257,11 +286,65 @@ function renderHeader(options = {}) {
         </svg>
         ${notificationCount > 0 ? `<span class="notification-badge">${notificationCount}</span>` : ''}
       </button>
-      <div class="avatar-btn" onclick="window.location.href='settings.html'">
+      <div class="avatar-btn" onclick="window.location.href='settings.html'" title="My Profile">
         <div class="avatar">${avatarLetter}</div>
       </div>
     </div>
   `;
+
+  // Start smooth inline typewriter text directly after greeting
+  startIslandTypewriter();
+}
+
+function startIslandTypewriter() {
+  const phrases = [
+    "Hum aapke saath hain.",
+    "Har kadam par aapka sahara.",
+    "Fikr mat kijiye, hum sambhal lenge.",
+    "Himmat rakhiye, sab theek hoga.",
+    "Aapka parivaar, hamari zimmedari.",
+    "Har mushkil ka aasaan samadhaan.",
+    "9 claims surakshit track ho rahe hain.",
+    "36 zaroori dastavez verified."
+  ];
+
+  if (window._islandTypewriterTimeout) {
+    clearTimeout(window._islandTypewriterTimeout);
+  }
+
+  let phraseIdx = 0;
+  let charIdx = 0;
+  let isDeleting = false;
+
+  function typeTick() {
+    const el = document.getElementById("island-auto-text");
+    if (!el) return;
+
+    const currentPhrase = phrases[phraseIdx];
+
+    if (isDeleting) {
+      el.textContent = currentPhrase.substring(0, charIdx - 1);
+      charIdx--;
+    } else {
+      el.textContent = currentPhrase.substring(0, charIdx + 1);
+      charIdx++;
+    }
+
+    let typeSpeed = isDeleting ? 20 : 50;
+
+    if (!isDeleting && charIdx === currentPhrase.length) {
+      typeSpeed = 2800; // Gentle pause when phrase is fully typed
+      isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+      isDeleting = false;
+      phraseIdx = (phraseIdx + 1) % phrases.length;
+      typeSpeed = 450; // Brief pause before typing next phrase
+    }
+
+    window._islandTypewriterTimeout = setTimeout(typeTick, typeSpeed);
+  }
+
+  typeTick();
 }
 
 // --- Mobile Sidebar Toggle ---

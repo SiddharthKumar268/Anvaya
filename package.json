@@ -1,0 +1,9 @@
+{
+  "name": "anvaya-root",
+  "version": "1.0.0",
+  "description": "Anvaya - Autonomous Financial Recovery, Asset Succession & Legal Roadmap Platform",
+  "scripts": {
+    "build": "cd server && npm install",
+    "start": "cd server && node server.js"
+  }
+}

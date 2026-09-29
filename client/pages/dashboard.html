@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Anvaya Dashboard - Track your financial recovery journey. View claims, documents, and benefits progress.">
   <title>Dashboard - Anvaya</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -52,6 +59,14 @@
         <p class="subtitle">Your recovery journey at a glance</p>
       </div>
     </div>
+    <div style="margin-top: 12px;" class="fade-in">
+      <button type="button" class="ai-summary-btn" id="generateAISummaryBtn" onclick="triggerAISummaryGeneration()" title="Generate AI-powered comprehensive case analysis">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+        <span>✨ Anvaya AI Case Summary</span>
+      </button>
+    </div>
   </div>
   
   <div class="header-right-group fade-in" style="animation-delay: 0.1s">
@@ -98,171 +113,453 @@
   </div>
 </section>
 
+      <!-- Section 1.5: Dynamic Anvaya AI Case Executive Summary Widget -->
+      <section class="ai-summary-dashboard-widget fade-in" id="dashboardAISummaryWidget" style="display:none; margin-bottom: 24px;">
+        <div class="card ai-summary-card">
+          <div class="ai-summary-card-header">
+            <div class="ai-summary-badge-group">
+              <div class="ai-header-icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+              </div>
+              <div>
+                <div class="ai-card-title">Anvaya AI Case Executive Summary</div>
+                <div class="ai-card-subtitle">Synthesized from live claims, documents & statutory deadlines</div>
+              </div>
+              <span class="badge" id="dashSummaryStatusPill">✅ On Track</span>
+            </div>
+            <div class="ai-summary-meta">
+              <span id="dashSummaryTimestamp" class="ai-meta-time">Just now</span>
+              <button type="button" class="btn voice-briefing-play-btn" id="dashWidgetVoiceBtn" style="padding: 6px 14px; font-size: 12px; margin-right: 6px;" title="Listen to AI Voice Briefing">
+                <span class="dash-briefing-icon">🎙️</span>
+                <span class="dash-briefing-label">Listen</span>
+                <span class="audio-wave-visualizer" style="display:none;">
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                </span>
+              </button>
+              <button type="button" class="btn btn-primary ai-view-modal-btn" onclick="openAISummaryModalFn()">
+                View Full Brief &rarr;
+              </button>
+            </div>
+          </div>
+          
+          <div class="ai-summary-card-body">
+            <div class="ai-narrative-box">
+              <p id="dashSummaryNarrative" style="margin: 0;"></p>
+            </div>
+
+            <div class="ai-quick-insights-grid">
+              <div class="ai-insight-box positive">
+                <div class="ai-insight-title">
+                  <span>✓</span>
+                  <span>Verified Case Strengths</span>
+                </div>
+                <div class="ai-insight-text" id="dashSummaryStrengths"></div>
+              </div>
+              <div class="ai-insight-box risk">
+                <div class="ai-insight-title">
+                  <span>!</span>
+                  <span>Limitation Risks & Focus</span>
+                </div>
+                <div class="ai-insight-text" id="dashSummaryRisks"></div>
+              </div>
+              <div class="ai-insight-box action">
+                <div class="ai-insight-title">
+                  <span>→</span>
+                  <span>Immediate Next Action</span>
+                </div>
+                <div class="ai-insight-text" id="dashSummaryNextAction"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Section 2: Four Stat Cards Row -->
-<section class="stats-grid" aria-label="Quick statistics">
-  
-  <!-- Card 1: Claims Filed vs Pending -->
-  <div class="card stat-card fade-in" style="animation-delay: 0.05s">
-    <div class="card-title">Claims Filed vs Pending</div>
-    <div class="card-body">
-      <div class="ring-container" id="claims-ring-container"></div>
-      <div class="stat-details">
-        <div class="stat-item">
-          <span class="stat-value" id="claims-filed-val">0</span>
-          <span class="stat-label">Filed</span>
+      <section class="stats-grid" aria-label="Quick statistics">
+        
+        <!-- Card 1: Claims Filed vs Pending -->
+        <div class="card stat-card fade-in" style="animation-delay: 0.15s">
+          <div class="card-title">Claims Filed vs Pending</div>
+          <div class="card-body">
+            <div class="ring-container" id="claims-ring-container"></div>
+            <div class="stat-details">
+              <div class="stat-item">
+                <span class="stat-value" id="claims-filed-val">0</span>
+                <span class="stat-label">Settled / Filed</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" id="claims-pending-val">0</span>
+                <span class="stat-label">Pending</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer" id="claims-total-val">Total: 0 Claims</div>
         </div>
-        <div class="stat-item">
-          <span class="stat-value" id="claims-pending-val">0</span>
-          <span class="stat-label">Pending</span>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer" id="claims-total-val">Total: 0 Claims</div>
-  </div>
 
-  <!-- Card 2: Documents Collected -->
-  <div class="card stat-card fade-in" style="animation-delay: 0.1s">
-    <div class="card-title">Documents Collected</div>
-    <div class="card-body">
-      <div class="ring-container" id="docs-ring-container"></div>
-      <div class="stat-details">
-        <div class="stat-item">
-          <span class="stat-value" id="docs-collected-val">0</span>
-          <span class="stat-label">Collected</span>
+        <!-- Card 2: Documents Collected -->
+        <div class="card stat-card fade-in" style="animation-delay: 0.2s">
+          <div class="card-title">Documents Verified</div>
+          <div class="card-body">
+            <div class="ring-container" id="docs-ring-container"></div>
+            <div class="stat-details">
+              <div class="stat-item">
+                <span class="stat-value" id="docs-collected-val">0</span>
+                <span class="stat-label">Verified</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" id="docs-remaining-val">0</span>
+                <span class="stat-label">Pending</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer" id="docs-total-val">Total: 0 Documents</div>
         </div>
-        <div class="stat-item">
-          <span class="stat-value" id="docs-remaining-val">0</span>
-          <span class="stat-label">Remaining</span>
+
+        <!-- Card 3: Amount Received -->
+        <div class="card stat-card amount-card fade-in" style="animation-delay: 0.25s">
+          <div class="card-title">Amount Received</div>
+          <div class="card-body">
+            <div class="rupee-circle">
+              <span class="rupee-symbol">₹</span>
+            </div>
+            <div class="stat-details">
+              <div class="amount-value" id="amount-received-val">₹ 0</div>
+              <div class="amount-sub">Credited to Bank Account</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M18 20V10M12 20V4M6 20v-4"/></svg>
+            <span id="amount-percent-val">0% of total estimated</span>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="card-footer" id="docs-total-val">Total: 0 Documents</div>
-  </div>
 
-  <!-- Card 3: Amount Received -->
-  <div class="card stat-card amount-card fade-in" style="animation-delay: 0.15s">
-    <div class="card-title">Amount Received</div>
-    <div class="card-body">
-      <div class="rupee-circle">
-        <span class="rupee-symbol">₹</span>
-      </div>
-      <div class="stat-details">
-        <div class="amount-value" id="amount-received-val">₹ 0</div>
-        <div class="amount-sub">Received so far</div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M18 20V10M12 20V4M6 20v-4"/></svg>
-      <span id="amount-percent-val">0% of total estimated</span>
-    </div>
-  </div>
-
-  <!-- Card 4: Next Urgent Action -->
-  <div class="card stat-card action-card fade-in" style="animation-delay: 0.2s">
-    <div class="card-title">Next Urgent Action</div>
-    <div class="card-body action-body">
-      <div class="action-row">
-        <div class="action-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <!-- Card 4: Next Urgent Action -->
+        <div class="card stat-card action-card fade-in" style="animation-delay: 0.3s">
+          <div class="card-title">Next Urgent Action</div>
+          <div class="card-body action-body">
+            <div class="action-row">
+              <div class="action-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              </div>
+              <div>
+                <div class="action-title" id="action-title-val">Submit LIC Claim Form</div>
+                <div class="action-due" id="action-due-val">⏱️ Due in 5 days</div>
+              </div>
+            </div>
+            <button class="btn btn-primary action-btn" id="urgentActionBtn">Execute Action &rarr;</button>
+          </div>
         </div>
-        <div>
-          <div class="action-title" id="action-title-val">Action Needed</div>
-          <div class="action-due" id="action-due-val">Due soon</div>
-        </div>
-      </div>
-      <button class="btn btn-primary action-btn">View Action &rarr;</button>
-    </div>
-  </div>
 
-</section>
+      </section>
 
-      <!-- Section 3: Claim Tracker -->
-      <section class="claim-tracker fade-in" style="animation-delay: 0.25s">
+      <!-- Section 3: Dynamic Claim Tracker Kanban Board -->
+      <section class="claim-tracker fade-in" style="animation-delay: 0.35s">
         <div class="section-header tracker-header">
           <h2 class="tracker-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-            Claim Tracker
+            Live Claim Tracker Board
           </h2>
-          <a href="claims.html" class="section-link">View All Claims &rarr;</a>
+          <button class="btn btn-primary" id="openAddClaimModalBtn" style="padding: 8px 18px; font-size: 0.85rem; display:inline-flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            + Add New Claim
+          </button>
+        </div>
+
+        <!-- Category Filters & Search -->
+        <div class="tracker-controls">
+          <div class="filter-chips" id="filter-chips">
+            <button class="filter-chip active" data-filter="all">All Claims (<span id="count-all-chip">9</span>)</button>
+            <button class="filter-chip" data-filter="bank">Banking</button>
+            <button class="filter-chip" data-filter="insurance">Insurance</button>
+            <button class="filter-chip" data-filter="epf">EPF / Pension</button>
+            <button class="filter-chip" data-filter="postoffice">Small Savings / Post</button>
+            <button class="filter-chip" data-filter="property">Property & Assets</button>
+          </div>
+          <div class="tracker-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="tracker-search-input" placeholder="Search claims by name or ID..." aria-label="Search claims">
+          </div>
         </div>
 
         <div class="tracker-grid">
           
-          <!-- Column 1 -->
+          <!-- Column 1: Pending -->
           <div class="tracker-column pending">
             <div class="column-header">
               <svg class="col-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
-              <span class="col-title">Pending</span>
+              <span class="col-title">Pending Action</span>
               <span class="col-count" id="count-pending">(0)</span>
-              <svg class="col-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
             </div>
             <div id="col-pending-cards"></div>
-            <div class="add-claim-link">+ Add Claim</div>
+            <div class="add-claim-link" onclick="openAddClaimModal('pending')">+ Add Pending Claim</div>
           </div>
 
-          <!-- Column 2 -->
+          <!-- Column 2: In Progress -->
           <div class="tracker-column in-progress">
             <div class="column-header">
               <svg class="col-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span class="col-title">In Progress</span>
+              <span class="col-title">In Verification</span>
               <span class="col-count" id="count-inprogress">(0)</span>
-              <svg class="col-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
             </div>
             <div id="col-inprogress-cards"></div>
-            <div class="add-claim-link">+ Add Claim</div>
+            <div class="add-claim-link" onclick="openAddClaimModal('inProgress')">+ Add In-Progress Claim</div>
           </div>
 
-          <!-- Column 3 -->
+          <!-- Column 3: Done -->
           <div class="tracker-column done">
             <div class="column-header">
               <svg class="col-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              <span class="col-title">Done</span>
+              <span class="col-title">Settled & Completed</span>
               <span class="col-count" id="count-done">(0)</span>
-              <svg class="col-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
             </div>
             <div id="col-done-cards"></div>
-            <div class="add-claim-link">+ Add Claim</div>
+            <div class="add-claim-link" onclick="openAddClaimModal('done')">+ Add Settled Claim</div>
           </div>
 
         </div>
       </section>
 
-      <!-- Section 4: Trust Strip -->
-      <section class="trust-strip fade-in" style="animation-delay: 0.3s">
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      <!-- Section 4: Dynamic 2-Column Section (Recovery Roadmap & Live Activity Stream) -->
+      <section class="dynamic-dashboard-grid fade-in" style="animation-delay: 0.4s">
+        
+        <!-- Panel 1: Recovery Roadmap Milestones -->
+        <div class="dashboard-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>Recovery Milestones Roadmap</span>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted);">Stage 2 of 4</span>
           </div>
-          <h4>Secure & Private</h4>
-          <p>Your data is safe and encrypted</p>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <div class="milestones-list">
+            <div class="milestone-item complete">
+              <div class="milestone-icon">✓</div>
+              <div class="milestone-details">
+                <div class="milestone-title-row">
+                  <span class="milestone-title">1. Essential Documentation</span>
+                  <span class="milestone-badge badge-done">100% Completed</span>
+                </div>
+                <div class="milestone-desc">Death certificate, legal heir ID proofs, and nominee bank KYC uploaded & verified.</div>
+              </div>
+            </div>
+
+            <div class="milestone-item active">
+              <div class="milestone-icon">2</div>
+              <div class="milestone-details">
+                <div class="milestone-title-row">
+                  <span class="milestone-title">2. Primary Claim Submissions</span>
+                  <span class="milestone-badge badge-active">68% In Progress</span>
+                </div>
+                <div class="milestone-desc">LIC, EPF Form 10D, and 2 bank accounts submitted to authorities.</div>
+              </div>
+            </div>
+
+            <div class="milestone-item pending">
+              <div class="milestone-icon">3</div>
+              <div class="milestone-details">
+                <div class="milestone-title-row">
+                  <span class="milestone-title">3. Institutional Verification</span>
+                  <span class="milestone-badge badge-pending">Active Processing</span>
+                </div>
+                <div class="milestone-desc">Branch verification & employer endorsement in progress with 15-day statutory SLA.</div>
+              </div>
+            </div>
+
+            <div class="milestone-item pending">
+              <div class="milestone-icon">4</div>
+              <div class="milestone-details">
+                <div class="milestone-title-row">
+                  <span class="milestone-title">4. Final Payout & Asset Transfer</span>
+                  <span class="milestone-badge badge-pending">Pending Settlements</span>
+                </div>
+                <div class="milestone-desc">Direct NEFT/RTGS disbursal to nominee bank account and property mutation clearance.</div>
+              </div>
+            </div>
           </div>
-          <h4>Trusted Guidance</h4>
-          <p>Step-by-step help from experts</p>
         </div>
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+
+        <!-- Panel 2: Live Activity Stream -->
+        <div class="dashboard-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              <span>Live Updates & Activity Stream</span>
+            </div>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#2E7D32; font-weight:600;">
+              <span style="width:8px; height:8px; background:#2E7D32; border-radius:50%; display:inline-block; animation: pulse 1.5s infinite;"></span> Live Sync
+            </span>
           </div>
-          <h4>Financial Clarity</h4>
-          <p>Know what you are entitled to receive</p>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4a3 3 0 0 1 6 0v4"></path></svg>
+          <div class="activity-stream" id="activity-stream-list">
+            <div class="activity-item">
+              <div class="activity-icon icon-green">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <div class="activity-content">
+                <div class="activity-text"><strong>₹2,00,000 PMJJBY Claim</strong> settled directly to nominee HDFC account.</div>
+                <div class="activity-time">Today, 2:15 PM • Bank Disbursal</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon icon-blue">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              </div>
+              <div class="activity-content">
+                <div class="activity-text"><strong>EPFO Form 10D (Monthly Pension)</strong> verified by regional field officer.</div>
+                <div class="activity-time">Yesterday, 4:40 PM • EPFO Bandra</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon icon-gold">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div class="activity-content">
+                <div class="activity-text"><strong>SBI Form DA-2</strong> in physical verification at Connaught Place branch.</div>
+                <div class="activity-time">May 14 • State Bank of India</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon icon-blue">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+              <div class="activity-content">
+                <div class="activity-text"><strong>36th Document</strong> verified in Document Checklist (Income Tax Form 16).</div>
+                <div class="activity-time">May 12 • Anvaya Document Hub</div>
+              </div>
+            </div>
           </div>
-          <h4>Built for India</h4>
-          <p>Designed for every Indian family</p>
         </div>
+
       </section>
+
+      <!-- Claim Details Modal -->
+      <div class="dash-modal-overlay" id="claimDetailModal" aria-hidden="true">
+        <div class="dash-modal" role="dialog" aria-labelledby="claimModalTitle">
+          <div class="dash-modal-header">
+            <h3 id="claimModalTitle">Claim Overview</h3>
+            <button type="button" class="modal-close-btn" id="closeClaimDetailModal" aria-label="Close modal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+          <div class="dash-modal-body" id="claimModalBody">
+            <!-- Populated dynamically -->
+          </div>
+          <div class="dash-modal-footer">
+            <button type="button" class="btn btn-secondary" id="claimActionSecondary">Close</button>
+            <button type="button" class="btn btn-primary" id="claimActionPrimary">Update Status</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add New Claim Modal -->
+      <div class="dash-modal-overlay" id="addClaimModal" aria-hidden="true">
+        <div class="dash-modal" role="dialog" aria-labelledby="addClaimModalTitle">
+          <div class="dash-modal-header">
+            <h3 id="addClaimModalTitle">Add New Recovery Claim</h3>
+            <button type="button" class="modal-close-btn" id="closeAddClaimModal" aria-label="Close modal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+          <form id="addClaimForm" novalidate>
+            <div class="dash-modal-body">
+              <div class="form-group" style="margin-bottom:14px;">
+                <label class="form-label" for="newClaimType">Asset / Claim Type</label>
+                <select id="newClaimType" class="form-input" style="width:100%; padding:8px 12px;" required>
+                  <option value="bank">Bank Savings / FD Account</option>
+                  <option value="lic">Life Insurance / LIC Policy</option>
+                  <option value="epf">EPFO / Pension & EDLI</option>
+                  <option value="postoffice">Post Office Scheme (PPF/NSC)</option>
+                  <option value="pmjjby">PMJJBY / PMSBY Cover</option>
+                  <option value="property">Property Mutation / Immovable Asset</option>
+                  <option value="demat">Demat / Shares Transmission</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom:14px;">
+                <label class="form-label" for="newClaimTitle">Claim Title / Institution Name</label>
+                <input type="text" id="newClaimTitle" class="form-input" placeholder="e.g. ICICI Bank Savings Settlement" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom:14px;">
+                <label class="form-label" for="newClaimMeta">Account / Policy Number</label>
+                <input type="text" id="newClaimMeta" class="form-input" placeholder="e.g. A/c No. 9876543210" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom:14px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label class="form-label" for="newClaimAmount">Estimated Amount (₹)</label>
+                  <input type="number" id="newClaimAmount" class="form-input" placeholder="e.g. 250000" min="0" required>
+                </div>
+                <div>
+                  <label class="form-label" for="newClaimStatus">Initial Status</label>
+                  <select id="newClaimStatus" class="form-input" style="width:100%; padding:8px 12px;">
+                    <option value="pending">Pending Action</option>
+                    <option value="inProgress">In Verification</option>
+                    <option value="done">Settled</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="newClaimDeadline">Target Due Date</label>
+                <input type="date" id="newClaimDeadline" class="form-input">
+              </div>
+            </div>
+            <div class="dash-modal-footer">
+              <button type="button" class="btn btn-secondary" id="cancelAddClaimBtn">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="saveNewClaimBtn">Save & Add to Board</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- AI Case Summary Modal -->
+      <div class="dash-modal-overlay" id="aiSummaryModal" aria-hidden="true">
+        <div class="dash-modal" role="dialog" aria-labelledby="aiSummaryTitle" style="max-width: 680px; width: 92%;">
+          <div class="dash-modal-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(16,185,129,0.08)); border-bottom: 1px solid rgba(59,130,246,0.15);">
+            <h3 id="aiSummaryTitle" style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 20px;">✨</span>
+              <span>Anvaya AI Case Executive Summary</span>
+            </h3>
+            <button type="button" class="modal-close-btn" id="closeAISummaryModal" onclick="closeAISummaryModalFn()" aria-label="Close modal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+          <div class="dash-modal-body" id="aiSummaryBody" style="max-height: 70vh; overflow-y: auto; padding: 20px 24px;">
+            <div id="aiSummaryLoading" style="text-align:center; padding: 40px 20px;">
+              <div class="ai-summary-spinner" style="font-size: 36px; margin-bottom: 14px; animation: pulse 1.5s infinite;">🔍</div>
+              <div style="font-size: 15px; font-weight: 700; color: var(--navy);">Generating Anvaya AI Case Summary...</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Synthesizing recovery milestones, claim statutory deadlines & document verifications</div>
+            </div>
+            <div id="aiSummaryContent" style="display:none;"></div>
+          </div>
+          <div class="dash-modal-footer">
+            <button type="button" class="btn btn-secondary" id="closeAISummaryBtn" onclick="closeAISummaryModalFn()">Close</button>
+            <button type="button" class="btn btn-primary" id="refreshAISummaryBtn" onclick="triggerAISummaryGeneration()" style="display:none;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px; margin-right:4px;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+              Regenerate Analysis
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Anvaya 2026</p>
+      </footer>
 
     </main>
   </div>
   
   <script src="../js/shared.js"></script>
+  <script src="../js/voiceAssistant.js"></script>
   <script src="../js/api/caseApi.js"></script>
   <script src="../js/ui/dashboard.js"></script>
 </body>

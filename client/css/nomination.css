@@ -223,3 +223,285 @@
   .comparison-table th, .comparison-table td { padding: 8px; font-size: 0.9rem; }
   .card-header { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
+
+/* ─── Detected Assets Banner ─────────────────────────────── */
+.detected-assets-banner {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.08), rgba(245, 158, 11, 0.04));
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  border-left: 5px solid var(--gold, #f59e0b);
+  border-radius: var(--radius-lg, 16px);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detected-banner-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detected-banner-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.detected-banner-content h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy, #0A192F);
+}
+
+.detected-banner-content p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-secondary, #475569);
+  line-height: 1.4;
+}
+
+.detected-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.detected-asset-chip {
+  background: #ffffff;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--navy, #0A192F);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.detected-asset-chip:hover, .detected-asset-chip.active {
+  background: var(--gold-soft, #fef3c7);
+  border-color: var(--gold, #f59e0b);
+  transform: translateY(-1px);
+}
+
+/* ─── Interactive Court-Bypass Diagnostic ─────────────────── */
+.diagnostic-container {
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: var(--radius-lg, 16px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+}
+
+.diagnostic-questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.diag-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy, #0A192F);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.diag-field select, .diag-field input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--border, #cbd5e1);
+  background: #fff;
+  font-size: 13.5px;
+  color: var(--text-primary, #1e293b);
+  box-sizing: border-box;
+}
+
+.verdict-box {
+  border-radius: var(--radius-md, 12px);
+  padding: 20px 24px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+}
+
+.verdict-box.fast-track {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.07), rgba(16, 185, 129, 0.03));
+  border-color: rgba(34, 197, 94, 0.35);
+  border-left: 6px solid var(--green, #22c55e);
+}
+
+.verdict-box.court-required {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(99, 102, 241, 0.03));
+  border-color: rgba(59, 130, 246, 0.35);
+  border-left: 6px solid var(--blue, #2576A6);
+}
+
+.verdict-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.verdict-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.verdict-badge.badge-green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.verdict-badge.badge-blue {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.verdict-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy, #0A192F);
+}
+
+.verdict-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.verdict-metric {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.verdict-metric .metric-label {
+  font-size: 11px;
+  color: var(--text-muted, #64748b);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.verdict-metric .metric-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy, #0A192F);
+  margin-top: 2px;
+}
+
+/* ─── Legal Document Studio ───────────────────────────────── */
+.doc-studio-card {
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: var(--radius-lg, 16px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+}
+
+.doc-type-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.doc-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill, 9999px);
+  border: 1px solid var(--border, #cbd5e1);
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary, #475569);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-pill:hover, .doc-pill.active {
+  background: var(--blue, #2576A6);
+  color: #fff;
+  border-color: var(--blue, #2576A6);
+}
+
+.doc-editor-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.doc-textarea {
+  width: 100%;
+  min-height: 240px;
+  padding: 16px;
+  border-radius: var(--radius-md, 10px);
+  border: 1px solid var(--border, #cbd5e1);
+  background: #fdfdfd;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+/* ─── State Portal Hub ────────────────────────────────────── */
+.state-portal-section {
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: var(--radius-lg, 16px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+}
+
+.state-selector-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.state-portal-detail-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-md, 12px);
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}

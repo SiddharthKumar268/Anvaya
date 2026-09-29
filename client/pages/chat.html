@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ask Anvaya AI - Get instant answers about financial recovery, claims, and government schemes.">
+  <title>Ask Anvaya - AI Assistant</title>
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#0B2854">
+  <!-- Google Fonts: Inter + Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar injected by shared.js -->
+    <aside id="sidebar" class="sidebar"></aside>
+
+    <!-- Header injected by shared.js -->
+    <header id="top-header" class="top-header"></header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Page Header -->
+      <div class="chat-page-header fade-in">
+        <div class="header-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1>Ask Anvaya</h1>
+          <p>Your AI-powered guide for financial recovery</p>
+        </div>
+        <div class="chat-header-actions" style="display:flex; align-items:center; gap:10px; margin-left:auto;">
+          <button id="voice-assistant-toggle" class="voice-toggle-btn" title="Toggle Auto-Speak Voice Assistant (AI talks back)" aria-label="Toggle Voice Assistant">
+            <span class="voice-btn-icon">🎙️</span>
+            <span class="voice-btn-text">Voice Assistant: <strong id="voice-toggle-status">OFF</strong></span>
+            <span class="voice-pulse-dot"></span>
+          </button>
+          <div id="rag-status" class="rag-status status-loading">
+            <span class="status-dot"></span>
+            <span class="status-text">Checking...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Container -->
+      <div class="chat-wrapper fade-in delay-1">
+        <div id="chat-container">
+
+          <!-- Chat Messages -->
+          <div id="chat-messages" class="chat-messages">
+
+            <!-- Suggested Questions (shown when empty) -->
+            <div id="suggested-questions" class="suggested-questions">
+              <div class="section-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                </svg>
+              </div>
+              <h3>How can I help you today?</h3>
+              <p>Ask anything about financial recovery, claims, or government schemes</p>
+
+              <div class="questions-grid">
+                <button class="question-card" data-question="What documents do I need for EPF claim?">
+                  <span class="q-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                  </span>
+                  What documents do I need for EPF claim?
+                </button>
+
+                <button class="question-card" data-question="How to claim LIC policy after death?">
+                  <span class="q-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                  </span>
+                  How to claim LIC policy after death?
+                </button>
+
+                <button class="question-card" data-question="What if there is no will?">
+                  <span class="q-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+                      <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                  </span>
+                  What if there is no will?
+                </button>
+
+                <button class="question-card" data-question="How to get a Death Certificate?">
+                  <span class="q-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                  </span>
+                  How to get a Death Certificate?
+                </button>
+
+                <button class="question-card" data-question="What is the UDGAM portal?">
+                  <span class="q-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="11" cy="11" r="8"/>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                  </span>
+                  What is the UDGAM portal?
+                </button>
+
+                <button class="question-card" data-question="How to prevent bank locker seizure?">
+                  <span class="q-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                      <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                  </span>
+                  How to prevent bank locker seizure?
+                </button>
+                <button class="question-card question-card-special" id="analyze-doc-card">
+                  <span class="q-icon" style="color: var(--blue, #3b82f6); background: rgba(59, 130, 246, 0.12);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                      <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                  </span>
+                  📄 <strong>AI Document Analyzer:</strong> Upload PDF / Death Cert / Policy
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Attached File Preview Bar -->
+        <div id="attached-file-bar" class="attached-file-bar" style="display: none;">
+          <div class="attached-file-pill">
+            <span class="attached-file-icon">📄</span>
+            <span id="attached-file-name" class="attached-file-name">document.pdf</span>
+            <span id="attached-file-size" class="attached-file-size">1.2 MB</span>
+            <button id="remove-file-btn" class="remove-file-btn" title="Remove attachment" aria-label="Remove attachment">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <span class="attached-file-hint">AI will extract entities, detect risks & generate a step-by-step solution</span>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+          <div class="chat-input-wrapper">
+            <!-- Hidden File Input -->
+            <input type="file" id="doc-file-input" accept=".pdf,image/png,image/jpeg,image/webp,.txt" style="display: none;">
+            
+            <!-- Document Attachment Button -->
+            <button id="attach-doc-btn" class="attach-doc-btn" title="Attach Document / PDF for AI Analysis" aria-label="Attach Document">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+              </svg>
+            </button>
+
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Ask a question, or attach a PDF/Document to analyze..."
+              autocomplete="off"
+              aria-label="Type your question"
+            >
+            <button id="mic-btn" class="mic-btn" aria-label="Voice input">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </button>
+            <button id="send-btn" class="send-btn" aria-label="Send message">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Anvaya 2026</p>
+      </footer>
+    </main>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="../js/shared.js"></script>
+  <script src="../js/voiceAssistant.js"></script>
+  <script src="../js/api/anvayaApi.js"></script>
+  <script src="../js/api/caseApi.js"></script>
+  <script src="../js/ui/chat.js"></script>
+</body>
+</html>
