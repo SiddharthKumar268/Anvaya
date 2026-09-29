@@ -32,7 +32,7 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
       imgSrc: ["'self'", 'data:', 'blob:'],
-      connectSrc: ["'self'", 'https://api.emailjs.com', 'https://generativelanguage.googleapis.com'],
+      connectSrc: ["'self'", 'https://api.emailjs.com', 'https://generativelanguage.googleapis.com', '*'],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"]
     }
@@ -40,24 +40,8 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' }
 }))
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5500',
-  'http://localhost:5501',
-  'http://127.0.0.1:3000',
-  'http://127.0.0.1:5500',
-  'http://127.0.0.1:5501',
-  process.env.CLIENT_URL
-].filter(Boolean)
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
+  origin: true,
   credentials: true
 }))
 
